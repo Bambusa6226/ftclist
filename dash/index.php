@@ -31,6 +31,7 @@
 	
 		<div class="row">
 			<div class="col-md-12">
+
 				<p>Info about how the robot is doing here..</p>
 				<hr/>
 			</div>
@@ -41,38 +42,33 @@
 				<div class="panel panel-default">
   					<div class="panel-heading">
 	    				<h3 class="panel-title">
-	    					Robot Info
+	    					<span>Robot Info</span>
+	    					<button class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_data">Change Info</button>
 	    				</h3>
 	  				</div>
 	  				<div class="panel-body">
-						<form method="POST" action="../teamdata.php">
-
-							<div class="form-group">
-								<label for="des">Robot Description</label>
-								<textarea class="form-control" name="des" id="des"></textarea>
-							</div>
-							<div class="form-group">
-								<label for="auto">Autonomous Abilities</label>
-								<textarea class="form-control" name="auto" id="auto"></textarea>
-							</div>
-							<div class="form-group">
-								<label for="teleop">TeleOp Abilities</label>
-								<textarea class="form-control" name="teleop" id="teleop"></textarea>
-							</div>
-							<div class="form-group">
-								<label for="endgame">Endgame Abilities</label>
-								<textarea class="form-control" name="endgame" id="endgame"></textarea>
-							</div>
-							<button class="btn btn-primary">Change Data</button>
-						</form>
+	  					<dl>
+	  						<dt>Robot Description</dt>
+	  						<dd class="des"></dd>
+	  							<br/>
+	  						<dt>Autonomous Abilities</dt>
+	  						<dd class="auto"></dd>
+	  							<br/>
+	  						<dt>TeleOp Abilities</dt>
+	  						<dd class="teleop"></dd>
+	  							<br/>
+	  						<dt>Endgame Abilities</dt>
+	  						<dd class="endgame"></dd>
+	  					</dl>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-default">
 	  				<div class="panel-heading">
-	    				<h3 class="panel-title" id="competition">
-	    					Competitions
+	    				<h3 class="panel-title">
+	    					<span id="competition">Competitions</span>
+	    					<button class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_comp">Competition Not Listed?</button>
 	    				</h3>
 	  				</div>
 	  				<div class="panel-body">
@@ -87,55 +83,114 @@
 							<tbody>
 
 							</tbody>
-						</table><br/>
-						<form method="POST" action="../addcomp.php">
-							<div class="form-group">
-								<label for="name">Competition Name</label>
-								<input class="form-control" type="text" name="name">
-							</div>
-							
-							<div class="form-group">
-								<label for="place">Compitition Location</label>
-								<input class="form-control" type="text" name="place">
-							</div>
-
-							<div class="form-group">
-								<label for="date">Date</label>
-								<input class="form-control" type="date" name="date">
-							</div>
-
-							<div class="radio">
-								<label>
-									<input type="radio" name="type" value="qual">
-									Qualifier
-								</label>
-							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="type" value="league">
-									League Meet
-								</label>
-							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="type" value="region">
-									Regional
-								</label>
-							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="type" value="noncomp">
-									Non-competitive/practice
-								</label>
-							</div>
-							<button class="btn btn-primary">Add Competition</button>
-						</form>
+						</table>
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</body>
+
+
+
+	<div class="modal fade" id="modal_comp">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">Add Competition</h4>
+      			</div>
+      			<div class="modal-body">
+      				<form method="POST" action="../addcomp.php">
+						<div class="form-group">
+							<label for="name">Competition Name</label>
+							<input class="form-control" type="text" name="name">
+						</div>
+						
+						<div class="form-group">
+							<label for="place">Compitition Location</label>
+							<input class="form-control" type="text" name="place">
+						</div>
+
+						<div class="form-group">
+							<label for="date">Date</label>
+							<input class="form-control" type="date" name="date">
+						</div>
+
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="qual">
+								Qualifier
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="league">
+								League Meet
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="region">
+								Regional
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="noncomp">
+								Non-competitive/practice
+							</label>
+						</div>
+        		</div>
+      			<div class="modal-footer">
+        			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-primary">Add Competition</button>
+					</form>
+      			</div>
+    		</div><!-- /.modal-content -->
+  		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+	<div class="modal fade" id="modal_data">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">Add Competition</h4>
+      			</div>
+      			<div class="modal-body">
+      				<form method="POST" action="../teamdata.php">
+						<div class="form-group">
+							<label for="des">Robot Description</label>
+							<textarea class="form-control" name="des" id="des"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="auto">Autonomous Abilities</label>
+							<textarea class="form-control" name="auto" id="auto"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="teleop">TeleOp Abilities</label>
+							<textarea class="form-control" name="teleop" id="teleop"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="endgame">Endgame Abilities</label>
+							<textarea class="form-control" name="endgame" id="endgame"></textarea>
+						</div>
+        		</div>
+      			<div class="modal-footer">
+        			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-primary">Change Data</button>
+					</form>
+      			</div>
+    		</div><!-- /.modal-content -->
+  		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+							
+
+
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -149,10 +204,18 @@ $("document").ready(function() {
 	if(getcookie("team") != null)
 	{
 		$.getJSON("../data/teams/"+getcookie("team")+".json", function(team) {
+			$(".des").text(team.description);
+			$(".auto").text(team.autonomous);
+			$(".teleop").text(team.teleop);
+			$(".endgame").text(team.endgame);
+
 			$("#des").val(team.description);
 			$("#auto").val(team.autonomous);
 			$("#teleop").val(team.teleop);
 			$("#endgame").val(team.endgame);
+
+			// ok now lets render some data or something
+
 		});
 		var region = getcookie("region").toLowerCase().replace("+", "").replace(" ", "");
 		$.getJSON("../data/regions/"+region+".json", function(reg) {
@@ -180,4 +243,5 @@ $("document").ready(function() {
 })
 
 	</script>
+</body>
 </html>

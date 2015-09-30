@@ -19,6 +19,14 @@
 
 </head>
 <body>
+	<div class="container">
+		<h1 class="page-header">Team</h1>
+		<!--
+			what do I need here?     
+			lets see, list comps...
+			
+		 -->
+	</div>
 	<h1></h1>
 	<div id="description"></div>
 	<div id="autonomous"></div>
