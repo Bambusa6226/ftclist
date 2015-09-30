@@ -29,9 +29,11 @@ if(!$digest == $pwd->hash)
 setcookie("hash", hash("sha256", $_POST['pass']));
 setcookie("team", $_POST['team']);
 setcookie("time", time());
+setcookie("region", $pwd->region);
 
 // ok, thats easy enough...
 
 echo "sucessfully logged in";
+echo "<script>window.location='./dash';</script>";
 
 ?>

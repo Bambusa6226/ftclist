@@ -88,6 +88,7 @@ $pwd = new STDclass();
 $pwd->hash = hash("sha256", hash("sha256", $_POST['pass']));
 $pwd->team = $_POST['team'];
 $pwd->email = $_POST['email'];
+$pwd->region = $_POST['region'];
 
 file_put_contents("./data/passwd/".$_POST['team'].".json", json_encode($pwd));
 
@@ -109,5 +110,17 @@ file_put_contents("./data/search.json", json_encode($search));
 file_put_contents("./data/teams/".$_POST['team'].".json", json_encode($team));
 
 echo "ok, we have all of the data saved to the schema";
+
+
+setcookie("hash", hash("sha256", $_POST['pass']));
+setcookie("team", $_POST['team']);
+setcookie("time", time());
+setcookie("region", $_POST['region']);
+
+// ok, thats easy enough...
+
+echo "sucessfully logged in";
+echo "<script>window.location='./dash';</script>";
+
 
 ?>
