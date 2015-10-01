@@ -25,7 +25,7 @@ function getcookie(name) {
 }
 
 
-var base = "http://127.0.0.1/";
+var base = "http://127.0.0.1/ftclist/";
 if(getcookie("team") != null)
 {
 	$(".navbar-brand").attr("href", base+"dash");

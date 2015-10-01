@@ -82,6 +82,7 @@ foreach($unconf->confed as $conf)
 
 $obj = new STDClass();
 	$obj->comp = $_POST['comp'];
+	$obj->compname = $_POST['name'];
 	$obj->match = $_POST['match'];
 	$obj->red1 = $_POST['red1'];
 	$obj->red2 = $_POST['red2'];
