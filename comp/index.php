@@ -65,6 +65,8 @@
 								<th>Team</th>
 								<th>QP</th>
 								<th>RP</th>
+								<th>Matches</th>
+								<th>Reliability</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -304,12 +306,12 @@ jQuery.fn.highlight = function (words, options) {
 				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 				teams[rows[a].blue2].scores.push(rows[a].bluescore);
 
-				if(rows[a].bluescore > rows[a].redscore)
+				if(parseInt(rows[a].bluescore) > parseInt(rows[a].redscore))
 				{
 					teams[rows[a].blue1].qp += 2;
 					teams[rows[a].blue2].qp += 2;
 				}
-				else if(rows[a].bluescore < rows[a].redscore)
+				else if(parseInt(rows[a].bluescore) < parseInt(rows[a].redscore))
 				{
 					teams[rows[a].red1].qp += 2;
 					teams[rows[a].red2].qp += 2;
@@ -327,51 +329,53 @@ jQuery.fn.highlight = function (words, options) {
 
 			var min = 999999999;
 			var max = 0;
+			var favg = 0;
+			var cnt = 0;
 			for(var key in teams)
 			{
 				teams[key].avg = teams[key].score / teams[key].alliance.length;
 				if(teams[key].avg < min) min = teams[key].avg;
 				if(teams[key].avg > max) max = teams[key].avg;
+				favg += teams[key].avg;
+				cnt++;
 			}
+			favg /= cnt;
 
 			var spread = (max - min);
 			var midzone = spread/2;
 
-
 			for(var key in teams)
 			{
+				var sd = 0;
+				var weights = 0;
 				for(var a=0;a<teams[key].alliance.length;a++)
 				{
-					var alscore = (teams[teams[key].alliance[a]].score - teams[key].scores[a])/(teams[teams[key].alliance[a]].alliance.length-1);
-					var myscore = (teams[key].score - teams[key].scores[a])/(teams[key].alliance.length);
+					if(teams[teams[key].alliance[a]].scores.length == 1)
+					{
+						var alscore = teams[teams[key].alliance[a]].score;
+					}
+					else
+					{
+						var alscore = (teams[teams[key].alliance[a]].score - teams[key].scores[a])/(teams[teams[key].alliance[a]].alliance.length-1);
+					}
+					if(teams[key].scores.length == 1)
+					{
+						var myscore = teams[key].score;
+					}
+					else
+					{
+						var myscore = (teams[key].score - teams[key].scores[a])/(teams[key].alliance.length);
+					}
 
-					console.log(alscore + " "+myscore + " "+ key);
+					sd += Math.pow((teams[key].scores[a]-teams[key].avg), 2);
 
+					weights += -(alscore-favg);
+					//console.log(key+": "+weights+" - "+alscore);
 				}
+				teams[key].weight = weights/(teams[key].scores.length);
+				teams[key].dv = Math.sqrt(sd/teams[key].scores.length);
+				teams[key].rel = Math.round(teams[key].avg - teams[key].dv + teams[key].weight);
 			}
-
-
-
-			var sensitivity = 2;
-			console.log("A"+2*sigmoid(4)+" "+2*sigmoid(-4));
-
-			for(var key in teams)
-			{
-				var totw = 0;
-				console.log(teams[key].score);
-				for(var a=0;a<teams[key].alliance.length;a++)
-				{
-					var alscore = teams[teams[key].alliance[a]].score;
-					var weight = sigmoid(((alscore - min) - midzone)*sensitivity/midzone);
-					totw += weight;
-				}
-
-				totw /= teams[key].alliance.length;
-				teams[key].totw = totw;
-				teams[key].jp = (teams[key].score*totw)/teams[key].alliance.length;
-				console.log(teams[key].jp);
-			}
-
 
 			for(var key in teams)
 			{
@@ -379,7 +383,14 @@ jQuery.fn.highlight = function (words, options) {
 				tlb += "<td>"+key+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
-				//tlb += "<td>"+teams[key].score+"</td>";
+				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
+				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
+				//tlb += "<td>"+Math.round(teams[key].weight)+"</td>";
+				tlb += "<td>"+teams[key].scores.length+"</td>";
+				if(teams[key].scores.length == 1)
+					tlb += "<td>0</td>";
+				else
+					tlb += "<td>"+teams[key].rel+"</td>";
 				//tlb += "<td>"+Math.round(teams[key].jp)+"</td>";
 				//tlb += "<td>"+teams[key].totw+"</td>";
 				tlb += "</tr>";
@@ -430,8 +441,5 @@ jQuery.fn.highlight = function (words, options) {
 		}
 
 	</script>
-
-
-
 </body>
 </html>
