@@ -18,3 +18,9 @@ body {
 		.navbar-nav li:hover {
 			background-color: #EEE;
 		}
+
+
+.highlight {
+	background-color: #F3F315;
+	border-radius: 1px;
+}

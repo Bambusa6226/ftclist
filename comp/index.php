@@ -63,15 +63,16 @@
 						<thead>
 							<tr>
 								<th>Team</th>
+								<th>Matches</th>
 								<th>QP</th>
 								<th>RP</th>
-								<th>Matches</th>
 								<th>Reliability</th>
 							</tr>
 						</thead>
 						<tbody>
 						</tbody>
 					</table>
+					<div class="help-block">* Reliability index requires a team to have at least two matches in the competition.</div>
 				</div>
 			</div>
 		</div>
@@ -380,17 +381,18 @@ jQuery.fn.highlight = function (words, options) {
 			for(var key in teams)
 			{
 				tlb += "<tr>";
-				tlb += "<td>"+key+"</td>";
+				tlb += "<td> "+key+" </td>";
+				tlb += "<td>"+teams[key].scores.length+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
 				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
 				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
 				//tlb += "<td>"+Math.round(teams[key].weight)+"</td>";
-				tlb += "<td>"+teams[key].scores.length+"</td>";
 				if(teams[key].scores.length == 1)
-					tlb += "<td>0</td>";
+					tlb += "<td data-order='0'>0*</td>";
 				else
-					tlb += "<td>"+teams[key].rel+"</td>";
+					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+"</td>";
+
 				//tlb += "<td>"+Math.round(teams[key].jp)+"</td>";
 				//tlb += "<td>"+teams[key].totw+"</td>";
 				tlb += "</tr>";
@@ -401,27 +403,26 @@ jQuery.fn.highlight = function (words, options) {
 			$("#rows tbody").empty().append(tbl);
 			$("#teams tbody").empty().append(tlb);
 
-			var rows = $("#rows").DataTable({
-				paging: false,
-				info: false});
+			var rows = $("#rows").DataTable();
 
 			rows.on( 'draw', function () {
-        		var body = $( rows.table().body() );
+        		var body = $(rows.table().body());
  
         		body.unhighlight();
         		body.highlight( rows.search() );  
     		});
 
-			var teams = $("#teams").DataTable({
-				paging: false,
-				info: false});
+			var teams = $("#teams").DataTable();
 
 			teams.on( 'draw', function () {
-        		var body = $( teams.table().body() );
- 
+        		var body = $(teams.table().body());
+
         		body.unhighlight();
         		body.highlight( teams.search() );  
     		});
+
+			$('div.dataTables_filter label').contents().filter(function() { return this.nodeType == 3; }).remove();
+    		$('div.dataTables_filter input').addClass('form-control').attr("placeholder", "Search Table").css("font-weight", "400");
 
 		}
 

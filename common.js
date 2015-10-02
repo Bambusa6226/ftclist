@@ -25,10 +25,10 @@ function getcookie(name) {
 }
 
 
-var base = "http://127.0.0.1/ftclist/";
+var base = "http://127.0.0.1/";
 if(getcookie("team") != null)
 {
-	$(".navbar-brand").attr("href", base+"dash");
+	$(".navbar-brand").attr("href", base+"team?"+getcookie("team"));
 	$("#navteam").text("Team " + getcookie("team"));
 	$("#navteam").attr("href", base+"team?"+getcookie("team"));
 	$("#navregion").text(getcookie("region").replace("+", " "));

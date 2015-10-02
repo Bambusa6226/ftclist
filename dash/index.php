@@ -78,6 +78,8 @@
 									<th>Name</th>
 									<th>Date</th>
 									<th>Location</th>
+									<th>Team QP</th>
+									<th>Team RP</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -200,6 +202,8 @@
 <script>
 
 $("document").ready(function() {
+	var me = getcookie(team);
+
 	$("h1").text("Dashboard - Team "+getcookie("team"));
 	if(getcookie("team") != null)
 	{
@@ -214,31 +218,67 @@ $("document").ready(function() {
 			$("#teleop").val(team.teleop);
 			$("#endgame").val(team.endgame);
 
-			// ok now lets render some data or something
-
-		});
-		var region = getcookie("region").toLowerCase().replace("+", "").replace(" ", "");
-		$.getJSON("../data/regions/"+region+".json", function(reg) {
-
-			$("#competition").text("Competitions in "+reg.name);
-
-			var rows = "";
-			for(var a=0;a<reg.comps.length;a++)
+			// lets order the data for the comps for our team
+			var comps = {};
+			for(var a=0;a<team.matches.length;a++)
 			{
-				rows += "<tr>";
-				rows += "<td><a href='../comp?"+reg.comps[a].handle+"'>"+reg.comps[a].name+"</a></td>";
-				rows += "<td>"+reg.comps[a].date+"</td>";
-				rows += "<td>"+reg.comps[a].place+"</td>";
-				rows += "</tr>";
+				var c = team.matches[a];
+				if(comps[c.comp] == undefined)
+				{
+					comps[c.comp] = {};
+					comps[c.comp].QP = 0;
+					comps[c.comp].RP = 0;
+				}
+
+				if(c.red1 == me || c.red2 == me)
+				{
+					comps[c.comp].RP += c.bluescore;
+					if(c.redscore > c.bluescore) comps[c.comp].QP += 2;
+					else if(c.redscore == c.bluescore) comps[c.comp].QP ++;
+				}
+				else
+				{
+					comps[c.comp].RP += c.redscore;
+					if(c.redscore < c.bluescore) comps[c.comp].QP += 2;
+					else if(c.redscore == c.bluescore) comps[c.comp].QP ++;
+				}
 			}
-			$("#comps tbody").empty().append(rows);
-			$("#comps").dataTable({
-				paging: false,
-				info: false,
-				bFilter: false,
-				bInfo: false
-			});
-		})
+
+
+			// ok now lets render some data or something
+			var region = getcookie("region").toLowerCase().replace("+", "").replace(" ", "");
+			$.getJSON("../data/regions/"+region+".json", function(reg) {
+
+				$("#competition").text("Competitions in "+reg.name);
+
+				var rows = "";
+				for(var a=0;a<reg.comps.length;a++)
+				{
+					rows += "<tr>";
+					rows += "<td><a href='../comp?"+reg.comps[a].handle+"'>"+reg.comps[a].name+"</a></td>";
+					rows += "<td>"+reg.comps[a].date+"</td>";
+					rows += "<td>"+reg.comps[a].place+"</td>";
+					if(comps[reg.comps[a].handle] != undefined)
+					{
+						rows += "<td>"+comps[reg.comps[a].handle].QP+"</td>";
+						rows += "<td>"+comps[reg.comps[a].handle].RP+"</td>";
+					}
+					else
+					{
+						rows += "<td>N/A/td>";
+						rows += "<td>N/A</td>";
+					}
+					rows += "</tr>";
+				}
+				$("#comps tbody").empty().append(rows);
+				$("#comps").dataTable({
+					paging: false,
+					info: false,
+					bFilter: false,
+					bInfo: false
+				});
+			})
+		});
 	}
 })
 
