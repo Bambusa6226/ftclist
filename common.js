@@ -25,7 +25,7 @@ function getcookie(name) {
 }
 
 
-var base = "http://127.0.0.1/ftclist";
+var base = "http://127.0.0.1/ftclist/";
 if(getcookie("team") != null)
 {
 	$(".navbar-brand").attr("href", base+"team?"+getcookie("team"));
@@ -34,6 +34,8 @@ if(getcookie("team") != null)
 	$("#navregion").text(getcookie("region").replace("+", " "));
 	var region = getcookie("region").toLowerCase().replace("+", "").replace(" ", "");
 	$("#navregion").attr("href", base+"region?"+region);
+
+
 }
 else
 {
@@ -41,4 +43,6 @@ else
 	$("#navteam").css("display", "none");
 	$("#navregion").css("display", "none");
 	$("#navlogout").css("display", "none");
+    $("#navlogin").css("display", "block");
+    $("#navregister").css("display", "block");
 }

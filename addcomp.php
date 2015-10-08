@@ -77,6 +77,13 @@ if(!isset($search->comps))
 array_push($search->comps, $comp);
 file_put_contents("./data/search.json", json_encode($search));
 
-echo "comp added";
 
+echo "<form action='./team/?".$_COOKIE['team']."' method='post' name='frm'>";
+
+echo "<input type='hidden' name='message' value='Competition added to the region.'>";
 ?>
+
+</form>
+<script>
+//document.frm.submit();
+</script>

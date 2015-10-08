@@ -56,7 +56,7 @@ if(isset($_POST['endgame']) && $_POST['endgame'] != '')
 
 file_put_contents("./data/teams/".$_COOKIE['team'].".json", json_encode($team));
 
-echo "data entered";
-echo "<script>window.location='./dash';</script>";
+
+//echo "<script>window.location='./team?".$_COOKIE['team']."';</script>";
 
 ?>

@@ -24,3 +24,27 @@ body {
 	background-color: #F3F315;
 	border-radius: 1px;
 }
+
+.redwin {
+	font-weight: 800;
+	background-color: #ebc7c7;
+}
+
+.table-hover>tbody>tr.redwin:hover>td, .table-hover>tbody>tr.redwin:hover>th, .table-hover>tbody>tr:hover>.redwin, .table-hover>tbody>tr>td.redwin:hover, .table-hover>tbody>tr>th.redwin:hover {
+	background-color: #ebc0c0;
+}
+
+.bluewin {
+	font-weight: 800;
+	background-color: #c0dff3;
+}
+
+.table-hover>tbody>tr.bluewin:hover>td, .table-hover>tbody>tr.bluewin:hover>th, .table-hover>tbody>tr:hover>.bluewin, .table-hover>tbody>tr>td.bluewin:hover, .table-hover>tbody>tr>th.bluewin:hover {
+		background-color: #b4d8f3;
+}
+
+#statslist dd {
+	font-size: 30px;
+	font-weight: 100;
+	color: #666;
+} 

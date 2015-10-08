@@ -34,40 +34,91 @@
 				<div class="panel panel-default" id="image">
   					<div class="panel-heading">
 	    				<h3 class="panel-title">
-	    					<span>Something?</span>
-	    					<button class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_data">Change Info</button>
+	    					<span>Robot Image</span>
+	    					<button id="chimg" style="display: none;" class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_data">Change Image</button>
 	    				</h3>
 	  				</div>
 	  				<div class="panel-body">
+
 	  				</div>
 	  			</div>
 	  		</div>
 			<div class="col-md-7">
+				<div class="panel panel-default" id="stats">
+  					<div class="panel-heading">
+	    				<h3 class="panel-title">
+	    					<span>Statistics</span>
+	    				</h3>
+	  				</div>
+	  				<div class="panel-body">
+	  					<dl id="statslist">
+	  						<div class="row">
+	  							<div class="col-md-6">
+			  						<dt>Competitions Attended</dt>
+			  						<dd id="attended"></dd>
+
+			  						<dt>Games Recorded</dt>
+			  						<dd id="games"></dd>
+
+			  						<dt>Score Average</dt>
+			  						<dd id="avgscore"></dd>
+
+			  						<dt>Score Standard Deviation</dt>
+			  						<dd id="stddev"></dd>
+			  					</div>
+			  					<div class="col-md-6">
+			  						<dt>Wins</dt>
+			  						<dd id="wins"></dd>
+
+			  						<dt>Losses</dt>
+			  						<dd id="losses"></dd>
+
+			  						<dt>Ties</dt>
+			  						<dd id="ties"></dd>
+
+			  						<dt>Win/Loss Ratio</dt>
+			  						<dd id="winrate"></dd>
+			  					</div>
+			  				</div>
+	  					</dl>
+	  				</div>
+	  			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
 				<div class="panel panel-default" id="description">
   					<div class="panel-heading">
 	    				<h3 class="panel-title">
 	    					<span>Robot Info</span>
-	    					<button class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_data">Change Info</button>
+	    					<button  id="chinfo" style="display: none;" class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_data">Change Info</button>
 	    				</h3>
 	  				</div>
 	  				<div class="panel-body">
 	  					<dl>
-	  						<dt>Robot Description</dt>
-	  						<dd class="des"></dd>
-	  							<br/>
-	  						<dt>Autonomous Abilities</dt>
-	  						<dd class="auto"></dd>
-	  							<br/>
-	  						<dt>TeleOp Abilities</dt>
-	  						<dd class="teleop"></dd>
-	  							<br/>
-	  						<dt>Endgame Abilities</dt>
-	  						<dd class="endgame"></dd>
+	  						<div class="row">
+	  							<div class="col-md-6">
+			  						<dt>Robot Description</dt>
+			  						<dd class="des"></dd>
+			  							<br/>
+			  						<dt>Autonomous Abilities</dt>
+			  						<dd class="auto"></dd>
+	  							</div>
+	  							<div class="col-md-6">
+			  						<dt>TeleOp Abilities</dt>
+			  						<dd class="teleop"></dd>
+			  							<br/>
+			  						<dt>Endgame Abilities</dt>
+			  						<dd class="endgame"></dd>
+			  					</div>
+			  				</div>
 	  					</dl>
 					</div>
 				</div>
 			</div>
 		</div>
+
 
 		<div class="row">
 			<div class="col-md-12">
@@ -210,11 +261,15 @@
 <script>
 
 $("document").ready(function() {
-	var me = getcookie("team");
-
-	if(getcookie("team") != null)
+	var me = readtop();
+	if(getcookie("team") != undefined && getcookie("team") == me)
 	{
-		$.getJSON("../data/teams/"+getcookie("team")+".json", function(team) {
+		$("#chimg").css("display", "block");
+		$("#chinfo").css("display", "block");
+	}
+	if(me != null)
+	{
+		$.getJSON("../data/teams/"+me+".json", function(team) {
 			$(".des").text(team.description);
 			$(".auto").text(team.autonomous);
 			$(".teleop").text(team.teleop);
@@ -225,66 +280,124 @@ $("document").ready(function() {
 			$("#teleop").val(team.teleop);
 			$("#endgame").val(team.endgame);
 
-			$("#image").height($("#description").height());
+			$("#image").height($("#stats").height());
 
 			$("h1").text("Team "+me+" - "+team.name);
 
 
 			// lets order the data for the comps for our team
 			var comps = {};
-			for(var a=0;a<team.games.length;a++)
+			if(team.games != undefined && team.games.length != 0)
 			{
-				var c = team.games[a];
-				if(comps[c.comp] == undefined)
+				var avg = 0;
+				for(var a=0;a<team.games.length;a++)
 				{
-					comps[c.comp] = {};
-					comps[c.comp].QP = 0;
-					comps[c.comp].RP = 0;
-					comps[c.comp].num = 0;
+					if(team.games[a].red1 == me || team.games[a].red2 == me)
+					{
+						avg += Number(team.games[a].redscore);
+					}
+					else
+					{
+						avg += Number(team.games[a].bluescore);
+					}				
 				}
-				comps[c.comp].num ++;
+				avg /= team.games.length;
 
-				if(c.red1 == me || c.red2 == me)
+				var wins = 0;
+				var losses = 0;
+				var ties = 0;
+				var sv = 0;
+				var compnum = 0;
+				for(var a=0;a<team.games.length;a++)
 				{
-					comps[c.comp].RP += parseInt(c.bluescore);
-					if(c.redscore > c.bluescore) comps[c.comp].QP += 2;
+					var c = team.games[a];
+					if(comps[c.comp] == undefined)
+					{
+						comps[c.comp] = {};
+						comps[c.comp].QP = 0;
+						comps[c.comp].RP = 0;
+						comps[c.comp].num = 0;
+						compnum++;
+					}
+					comps[c.comp].num ++;
+
+					if(c.red1 == me || c.red2 == me)
+					{
+						comps[c.comp].RP += parseInt(c.bluescore);
+						if(c.redscore > c.bluescore)
+						{
+							comps[c.comp].QP += 2;
+							wins ++;
+						}
+						else losses ++;
+						sv += Math.pow((c.redscore - avg), 2);
+					}
+					else
+					{
+						comps[c.comp].RP += parseInt(c.redscore);
+						if(parseInt(c.redscore) < parseInt(c.bluescore)) 
+						{
+							comps[c.comp].QP += 2;
+							wins ++;
+						}
+						else losses ++;
+						sv += Math.pow((c.bluescore - avg), 2);
+					}
+					if(parseInt(c.redscore) == parseInt(c.bluescore))
+					{
+						comps[c.comp].QP ++;
+						ties ++;
+						sv += Math.pow((c.bluescore - avg), 2);
+					} 
 				}
-				else
-				{
-					comps[c.comp].RP += parseInt(c.redscore);
-					if(parseInt(c.redscore) < parseInt(c.bluescore)) comps[c.comp].QP += 2;
-				}
-				if(parseInt(c.redscore) == parseInt(c.bluescore)) comps[c.comp].QP ++;
+				sv = Math.sqrt(sv/team.games.length);
+
+				$("#attended").text(compnum);
+				$("#games").text(team.games.length);
+				$("#avgscore").text(parseInt(avg));
+				$("#stddev").text(parseInt(sv));
+				$("#wins").text(wins);
+				$("#losses").text(losses);
+				$("#ties").text(ties);
+				$("#winrate").text((wins/losses).toFixed(2))
+
+				$("#image").height($("#stats").height());
+
 			}
-
-
-			// ok now lets render some data or something
-			var region = getcookie("region").toLowerCase().replace("+", "").replace(" ", "");
+			
+			var region = team.region.toLowerCase().replace("+", "").replace(" ", "");
 			$.getJSON("../data/regions/"+region+".json", function(reg) {
 
 				$("#competition").html("Competitions in <a href='../region?"+reg.handle+"'>"+reg.name+"</a>");
 
 				var rows = "";
-				for(var a=0;a<reg.comps.length;a++)
+				if(reg.comps.length != 0)
 				{
-					rows += "<tr>";
-					rows += "<td><a href='../comp?"+reg.comps[a].handle+"'>"+reg.comps[a].name+"</a></td>";
-					rows += "<td>"+reg.comps[a].date+"</td>";
-					rows += "<td>"+reg.comps[a].place+"</td>";
-					if(comps[reg.comps[a].handle] != undefined)
+					for(var a=0;a<reg.comps.length;a++)
 					{
-						rows += "<td>"+comps[reg.comps[a].handle].num+"</td>";
-						rows += "<td>"+comps[reg.comps[a].handle].QP+"</td>";
-						rows += "<td>"+comps[reg.comps[a].handle].RP+"</td>";
+						rows += "<tr>";
+						rows += "<td><a href='../comp?"+reg.comps[a].handle+"'>"+reg.comps[a].name+"</a></td>";
+						rows += "<td>"+reg.comps[a].date+"</td>";
+						rows += "<td>"+reg.comps[a].place+"</td>";
+						if(comps[reg.comps[a].handle] != undefined)
+						{
+							rows += "<td>"+comps[reg.comps[a].handle].num+"</td>";
+							rows += "<td>"+comps[reg.comps[a].handle].QP+"</td>";
+							rows += "<td>"+comps[reg.comps[a].handle].RP+"</td>";
+						}
+						else
+						{
+							rows += "<td>0</td>";
+							rows += "<td>N/A</td>";
+							rows += "<td>N/A</td>";
+						}
+						rows += "</tr>";
 					}
-					else
-					{
-						rows += "<td>0</td>";
-						rows += "<td>N/A/td>";
-						rows += "<td>N/A</td>";
-					}
-					rows += "</tr>";
 				}
+				else {
+					rows += "<tr><td>No Comps in region</td></tr>";
+				}
+
 				$("#comps tbody").empty().append(rows);
 				$("#comps").dataTable({
 					paging: false,
@@ -292,8 +405,11 @@ $("document").ready(function() {
 					bFilter: false,
 					bInfo: false
 				});
+				
 			})
 		});
+
+			// ok now lets render some data or something
 	}
 })
 

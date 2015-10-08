@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.css"/>
+	<link href="../jquery.growl.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="../common.css"/>
 </head>
 <body>
@@ -67,6 +68,9 @@
 								<th>QP</th>
 								<th>RP</th>
 								<th>Reliability</th>
+								<!--<th>avg</th>
+								<th>dev</th>
+								<th>weight</th>-->
 							</tr>
 						</thead>
 						<tbody>
@@ -127,6 +131,7 @@
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../jquery.growl.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
 <script src="../common.js"></script>
 
@@ -237,12 +242,34 @@ jQuery.fn.highlight = function (words, options) {
 			{
 				tbl += "<tr>";
 				tbl += "<td>"+rows[a].match+"</td>";
-				tbl += "<td class='danger'>"+rows[a].red1+"</td>";
-				tbl += "<td class='danger'>"+rows[a].red2+"</td>";
-				tbl += "<td class='danger'>"+rows[a].redscore+"</td>";
-				tbl += "<td class='info'>"+rows[a].blue1+"</td>";
-				tbl += "<td class='info'>"+rows[a].blue2+"</td>";
-				tbl += "<td class='info'>"+rows[a].bluescore+"</td>";
+				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
+				{
+					tbl += "<td class='redwin'>"+rows[a].red1+"</td>";
+					tbl += "<td class='redwin'>"+rows[a].red2+"</td>";
+					tbl += "<td class='redwin'>"+rows[a].redscore+"</td>";
+					tbl += "<td class='info'>"+rows[a].blue1+"</td>";
+					tbl += "<td class='info'>"+rows[a].blue2+"</td>";
+					tbl += "<td class='info'>"+rows[a].bluescore+"</td>";
+				}
+				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
+				{
+					tbl += "<td class='danger'>"+rows[a].red1+"</td>";
+					tbl += "<td class='danger'>"+rows[a].red2+"</td>";
+					tbl += "<td class='danger'>"+rows[a].redscore+"</td>"; 
+					tbl += "<td class='bluewin'>"+rows[a].blue1+"</td>";
+					tbl += "<td class='bluewin'>"+rows[a].blue2+"</td>";
+					tbl += "<td class='bluewin'>"+rows[a].bluescore+"</td>";
+				}
+				else
+				{
+					tbl += "<td class='redwin'>"+rows[a].red1+"</td>";
+					tbl += "<td class='redwin'>"+rows[a].red2+"</td>";
+					tbl += "<td class='redwin'>"+rows[a].redscore+"</td>";
+					tbl += "<td class='bluewin'>"+rows[a].blue1+"</td>";
+					tbl += "<td class='bluewin'>"+rows[a].blue2+"</td>";
+					tbl += "<td class='bluewin'>"+rows[a].bluescore+"</td>";
+				}
+				
 				tbl += "</tr>";
 
 				if(teams[rows[a].red1] == undefined)
@@ -368,30 +395,31 @@ jQuery.fn.highlight = function (words, options) {
 						var myscore = (teams[key].score - teams[key].scores[a])/(teams[key].alliance.length);
 					}
 
-					sd += Math.pow((teams[key].scores[a]-teams[key].avg), 2);
+					sd += Math.abs((teams[key].scores[a]-teams[key].avg));
 
 					weights += -(alscore-favg);
 					//console.log(key+": "+weights+" - "+alscore);
 				}
 				teams[key].weight = weights/(teams[key].scores.length);
-				teams[key].dv = Math.sqrt(sd/teams[key].scores.length);
+				teams[key].dv = Math.abs(sd/teams[key].scores.length);
 				teams[key].rel = Math.round(teams[key].avg - teams[key].dv + teams[key].weight);
 			}
 
 			for(var key in teams)
 			{
 				tlb += "<tr>";
-				tlb += "<td> "+key+" </td>";
+				tlb += "<td> <a href='../team?"+key+"'>"+key+"</a></td>";
 				tlb += "<td>"+teams[key].scores.length+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
-				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
-				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
-				//tlb += "<td>"+Math.round(teams[key].weight)+"</td>";
-				if(teams[key].scores.length == 1)
+								if(teams[key].scores.length == 1)
 					tlb += "<td data-order='0'>0*</td>";
 				else
 					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+"</td>";
+
+				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
+				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
+				//tlb += "<td>"+Math.round(teams[key].weight)+"</td>";
 
 				//tlb += "<td>"+Math.round(teams[key].jp)+"</td>";
 				//tlb += "<td>"+teams[key].totw+"</td>";
@@ -427,6 +455,8 @@ jQuery.fn.highlight = function (words, options) {
 		}
 
 		$("document").ready(function() {
+
+			<?php if(isset($_POST['message'])) echo "Growl.growl({'title':'Action Successful','message':'".$_POST['message']."'});"; ?>
 
 			$("#comp").attr("value", comp());
 			$.getJSON("../data/comps/"+comp()+".json", function(data) {

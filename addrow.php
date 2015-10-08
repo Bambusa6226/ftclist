@@ -79,10 +79,8 @@ foreach($unconf->confed as $conf)
 	}
 }
 
-
 $obj = new STDClass();
 	$obj->comp = $_POST['comp'];
-	$obj->compname = $_POST['name'];
 	$obj->match = $_POST['match'];
 	$obj->red1 = $_POST['red1'];
 	$obj->red2 = $_POST['red2'];
@@ -108,7 +106,7 @@ foreach($unconf->rows as $row)
 			if($row->contrib == $_COOKIE['team'])
 			{
 				echo "ERROR: Data must be validated by a different team";
-				die;
+				continue;
 			}
 			// ok, we need to credit accounts with points here...
 			echo "row confirmed and added";
@@ -131,16 +129,28 @@ foreach($unconf->rows as $row)
 			saveteam($_POST['blue2'], $obj);
 
 			$found = true;
+			break;
 		}
 	}
 }
 
 if(!$found)
 {
-	echo "adding row to unconfirmed pool";
 	array_push($unconf->rows, $obj);
 }
 
 file_put_contents("./data/unconf/".$_POST['comp'].".json", json_encode($unconf));
 
+// now lets send some postdata?
+
+
+echo "<form action='./comp/?".$_POST['comp']."' method='post' name='frm'>";
+
+if($found) echo "<input type='hidden' name='message' value='You have confirmed match data. Row Added.'>";
+else echo "<input type='hidden' name='message' value='Match data added. Data must now be confirmed by another team to be valid.'>";
 ?>
+
+</form>
+<script>
+document.frm.submit();
+</script>

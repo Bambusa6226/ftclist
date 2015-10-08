@@ -27,8 +27,11 @@
 // - competition folder holding stats on competition wide results
 // - top level team lists and comp lists with overhead data
 // - 
+
+// darker color 
+
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 	<title>ftclist</title>
