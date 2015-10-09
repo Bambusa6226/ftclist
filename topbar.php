@@ -14,14 +14,14 @@
     		<li><a href="#" id="navteam">Team</a></li>
     		<li><a href="#" id="navregion">Region</a></li>
 
-    		<li><a <?php if(!isset($ISHOME)) echo 'href="../logout.php"'; else echo 'href="./logout.php"'; ?> id="navlogout">Log Out</a></li>
+    		<li><a id="navlogout">Log Out</a></li>
       			
             <li><a href="#" id="navlogin" style="display: none;">Login</a></li>
             <li><a href="#" id="navregister" style="display: none;">Register</a></li>
         </ul>
-      	<form class="navbar-form navbar-right" role="search" style="margin-right: 10px;">
+      	<form class="navbar-form navbar-right" role="search" style="margin-right: 10px;" action="../search.php" method="GET">
   			<div class="form-group">
-    			<input type="text" class="form-control" placeholder="Search">
+    			<input name="s" type="text" class="form-control" placeholder="Search">
   			</div>
 		</form>	
 	</div>
