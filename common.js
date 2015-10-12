@@ -34,7 +34,7 @@ if(getcookie("team") != null)
 	$("#navregion").text(getcookie("region").replace("+", " "));
 	var region = getcookie("region").toLowerCase().replace("+", "").replace(" ", "");
 	$("#navregion").attr("href", base+"region?"+region);
-
+    $("#navlogout").attr("href", base+"logout.php");
 
 }
 else

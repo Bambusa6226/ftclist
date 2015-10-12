@@ -104,7 +104,9 @@ if(!isset($search->teams))
 {
 	$search->teams = array();
 }
-array_push($search->teams, $team);
+$steam = $team;
+unset($steam->games);
+array_push($search->teams, $steam);
 
 file_put_contents("./data/search.json", json_encode($search));
 file_put_contents("./data/teams/".$_POST['team'].".json", json_encode($team));
