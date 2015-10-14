@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"teams":[{"number":"4445","name":"Roy, we're going to die"}],"handle":"england","name":"England","superregion":"north"}
+=======
+{"teams":[{"number":"4445","name":"Roy, we're going to die"},{"number":"8887","name":"Nope"}],"handle":"england","name":"England","superregion":"north","comps":[{"date":"1010-10-10","team":"4445","created":1444686827,"name":"The Amazing Race","place":"England","type":"qual","handle":"neWENx","rows":[]},{"date":"0001-11-11","team":"4445","created":1444686966,"name":"1","place":"1","type":"noncomp","handle":"4SJx2W","rows":[]}]}
+>>>>>>> b27b1505229be6978e355fbb8d77ff8dd8c9241e
