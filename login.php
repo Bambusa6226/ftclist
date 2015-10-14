@@ -18,7 +18,7 @@ if(!file_exists("./data/passwd/".$_POST['team'].".json"))
 $pwd = json_decode(file_get_contents("./data/passwd/".$_POST['team'].".json"));
 
 $digest = hash("sha256", hash("sha256", $_POST['pass']));
-if(!$digest == $pwd->hash)
+if($digest != $pwd->hash)
 {
 	echo "ERROR: Password is incorrect.";
 	die;

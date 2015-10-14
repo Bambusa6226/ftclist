@@ -35,11 +35,11 @@
   					<div class="panel-heading">
 	    				<h3 class="panel-title">
 	    					<span>Robot Image</span>
-	    					<button id="chimg" style="display: none;" class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_data">Change Image</button>
+	    					<button id="chimg" style="display: none;" class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#modal_image">Change Image</button>
 	    				</h3>
 	  				</div>
-	  				<div class="panel-body">
-
+	  				<div class="panel-body text-center">
+	  					<img class="img-responsive img-thumbnail" id="robotimg" src="#"/>
 	  				</div>
 	  			</div>
 	  		</div>
@@ -249,7 +249,31 @@
 	</div><!-- /.modal -->
 
 
-							
+	<div class="modal fade" id="modal_image">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">Add Image</h4>
+      			</div>
+      			<div class="modal-body">
+      				<form method="POST" action="../image.php" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="image">Image Upload</label>
+							<input type="file" name="image" id="image">
+							<div class="help-block">Maximum Size: 2 MiB</div>
+						</div>
+        		</div>
+      			<div class="modal-footer">
+        			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-primary">Add Image</button>
+					</form>
+      			</div>
+    		</div><!-- /.modal-content -->
+  		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+						
 
 
 
@@ -280,9 +304,10 @@ $("document").ready(function() {
 			$("#teleop").val(team.teleop);
 			$("#endgame").val(team.endgame);
 
-			$("#image").height($("#stats").height());
-
 			$("h1").text("Team "+me+" - "+team.name);
+
+
+			$("#robotimg").attr("src", "../data/img/"+me+"."+team.ext);
 
 
 			// lets order the data for the comps for our team
@@ -364,6 +389,11 @@ $("document").ready(function() {
 				$("#image").height($("#stats").height());
 
 			}
+			else
+			{
+				$("#statslist").html("No Statistics are availible"); 
+				$("#stats").height($("#image").height());
+			}
 			
 			var region = team.region.toLowerCase().replace("+", "").replace(" ", "");
 			$.getJSON("../data/regions/"+region+".json", function(reg) {
@@ -371,7 +401,7 @@ $("document").ready(function() {
 				$("#competition").html("Competitions in <a href='../region?"+reg.handle+"'>"+reg.name+"</a>");
 
 				var rows = "";
-				if(reg.comps.length != 0)
+				if(reg.comps != undefined && reg.comps.length != 0)
 				{
 					for(var a=0;a<reg.comps.length;a++)
 					{
@@ -395,7 +425,7 @@ $("document").ready(function() {
 					}
 				}
 				else {
-					rows += "<tr><td>No Comps in region</td></tr>";
+					rows += "";
 				}
 
 				$("#comps tbody").empty().append(rows);

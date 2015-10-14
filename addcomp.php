@@ -53,6 +53,7 @@ $comp->created = time();
 $comp->name = $_POST['name'];
 $comp->place = $_POST['place'];
 $comp->type = $_POST['type'];
+$comp->region = $_COOKIE['region'];
 $comp->handle = $handle;
 $comp->rows = array();
 
@@ -85,5 +86,5 @@ echo "<input type='hidden' name='message' value='Competition added to the region
 
 </form>
 <script>
-//document.frm.submit();
+document.frm.submit();
 </script>
