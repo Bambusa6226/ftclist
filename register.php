@@ -42,6 +42,7 @@ else
 
 	// if the team is really new, then add it to the region.
 	$regiondata = strtolower(str_replace(' ', '', $_POST['region']));
+	$newregion = false;
 
 	if(file_exists("./data/regions/".$regiondata.".json"))
 	{
@@ -53,6 +54,7 @@ else
 	else
 	{
 		// ugh, lets make a new region and add it to the superregion list.
+		$newregion = true;
 		$region = new STDClass();
 		$region->teams = array();
 		$region->handle = $regiondata;

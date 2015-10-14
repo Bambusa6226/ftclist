@@ -1,15 +1,16 @@
 <?php
 // and here we need
 
-// a list of all the matches and their scores
-// add a match result?
-// current and final team standings
+// so what rows do we want/need in this page
 
+// competitions in the region
+// teams in the region and respective scores
+// stats?
 ?>
 
 <html>
 <head>
-		<title>Comp - COMPNAME</title>
+		<title>Region - </title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
@@ -21,29 +22,25 @@
 	<div class="container">
 		<?php include("../topbar.php"); ?>
 
-	<h1 class="page-header">Comp - </h1>
+	<h1 class="page-header">Region - </h1>
 
 	<div class="row">
 
-		<div class="col-md-6">	
+		<div class="col-md-5">	
 			<div class="panel panel-default">
   				<div class="panel-heading">
     				<h3 class="panel-title">
-    					Matches
-    					<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Match</button>
+    					Competitions
+    					<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_comp" id="compbtn">Competetion not Listed?</button>
     				</h3>
   				</div>
   				<div class="panel-body">
-  					<table id="rows" class="table table-hover">
+  					<table id="competitions" class="table table-hover table-striped">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Red</th>
-								<th>Red</th>
-								<th>Score</th>
-								<th>Blue</th>
-								<th>Blue</th>
-								<th>Score</th>
+								<th>Name</th>
+								<th>Date</th>
+								<th>Games</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -52,11 +49,11 @@
   				</div>
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<div class="panel panel-default">
   				<div class="panel-heading">
     				<h3 class="panel-title">
-    					Teams
+    					Teams in Region
     				</h3>
   				</div>
   				<div class="panel-body">
@@ -68,66 +65,76 @@
 								<th>QP</th>
 								<th>RP</th>
 								<th>Reliability</th>
-								<!--<th>avg</th>
-								<th>dev</th>
-								<th>weight</th>-->
 							</tr>
 						</thead>
 						<tbody>
 						</tbody>
 					</table>
-					<div class="help-block">* Reliability index requires a team to have at least two matches in the competition.</div>
+					<div class="help-block">* Reliability index requires a team to have at least two matches in the region.</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-
-	<div class="modal fade" id="modal_match">
+	<div class="modal fade" id="modal_comp">
   		<div class="modal-dialog">
     		<div class="modal-content">
       			<div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        			<h4 class="modal-title">Add Match</h4>
+        			<h4 class="modal-title">Add Competition</h4>
       			</div>
       			<div class="modal-body">
-        			<form method="POST" action="../addrow.php">
-        				<input class="form-control" type="text" name="match" placeholder="Match number">
-						<br/><input type='hidden' name='comp' id="comp">
-						<label>Blue Alliance</label>
-						<div class="row">
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="blue1" placeholder="Team Number">
-							</div>
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="blue2" placeholder="Team Number">
-							</div>
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="bluescore" placeholder="Score"><br/>
-							</div>
+      				<form method="POST" action="../addcomp.php">
+						<div class="form-group">
+							<label for="name">Competition Name</label>
+							<input class="form-control" type="text" name="name">
+						</div>
+						
+						<div class="form-group">
+							<label for="place">Compitition Location</label>
+							<input class="form-control" type="text" name="place">
 						</div>
 
-						<label>Red Alliance</label>
-						<div class="row">
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="red1" placeholder="Team Number">
-							</div>
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="red2" placeholder="Team Number">
-							</div>
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="redscore" placeholder="Score"><br/>
-							</div>
+						<div class="form-group">
+							<label for="date">Date</label>
+							<input class="form-control" type="date" name="date">
 						</div>
-      			</div>
+
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="qual">
+								Qualifier
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="league">
+								League Meet
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="region">
+								Regional
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="type" value="noncomp">
+								Non-competitive/practice
+							</label>
+						</div>
+        		</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button class="btn btn-primary">Add Match</button>
+					<button class="btn btn-primary">Add Competition</button>
 					</form>
       			</div>
     		</div><!-- /.modal-content -->
   		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+
+
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -204,9 +211,6 @@ jQuery.fn.highlight = function (words, options) {
 
 
 
-
-
-
 		function setcookie(name,value,days) {
 		    if (days) {
 		        var date = new Date();
@@ -240,7 +244,7 @@ jQuery.fn.highlight = function (words, options) {
 			var teams = {};
 			for(var a=0;a<rows.length;a++)
 			{
-				tbl += "<tr>";
+				/*tbl += "<tr>";
 				tbl += "<td>"+rows[a].match+"</td>";
 				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
 				{
@@ -270,7 +274,7 @@ jQuery.fn.highlight = function (words, options) {
 					tbl += "<td class='bluewin'>"+rows[a].bluescore+"</td>";
 				}
 				
-				tbl += "</tr>";
+				tbl += "</tr>";*/
 
 				if(teams[rows[a].red1] == undefined)
 				{
@@ -427,18 +431,8 @@ jQuery.fn.highlight = function (words, options) {
 			}
 
 			// ok so how do I calc the jp
-
-			$("#rows tbody").empty().append(tbl);
 			$("#teams tbody").empty().append(tlb);
 
-			var rows = $("#rows").DataTable();
-
-			rows.on( 'draw', function () {
-        		var body = $(rows.table().body());
- 
-        		body.unhighlight();
-        		body.highlight( rows.search() );  
-    		});
 
 			var teams = $("#teams").DataTable();
 
@@ -456,16 +450,54 @@ jQuery.fn.highlight = function (words, options) {
 
 		$("document").ready(function() {
 
+			if(getcookie("region") == undefined || getcookie("region").replace("+", '').toLowerCase() != comp())
+			{
+				$("#compbtn").css("display", "none");
+			}
+
 			<?php if(isset($_POST['message'])) echo "Growl.growl({'title':'Action Successful','message':'".$_POST['message']."'});"; ?>
 
 			$("#comp").attr("value", comp());
-			$.getJSON("../data/comps/"+comp()+".json", function(data) {
-				if(data.region != undefined) region = data.region.replace(" ", "").toLowerCase();
-				else region = "";
 
-				$("h1").html(data.name+", <a href='../region?"+region+"'>"+data.region+"</a>, "+data.date);
-				setrows(data.rows);
-		
+
+			// hold on, this is going to get crazy...
+
+			$.getJSON("../data/regions/"+comp()+".json", function(data) {
+				$("h1").text("Region: "+data.name);
+
+				var ccnt = 0;
+				var clist = [];
+				var matches = [];
+				var rs = "";
+				for(var a=0;a<data.comps.length;a++)
+				{
+					$.getJSON("../data/comps/"+data.comps[a].handle+".json", function(cm)
+					{
+						rs += "<tr>";
+						rs += "<td><a href='../comp?"+cm.handle+"'>"+cm.name+"</a></td>";
+						rs += "<td>"+cm.date+"</td>";
+						rs += "<td>"+cm.rows.length+"</td>";
+						rs += "</tr>";
+
+						matches = matches.concat(cm.rows);
+
+						if(++ccnt == data.comps.length)
+						{
+							$("#competitions tbody").empty().append(rs);
+
+							var r = $("#competitions").DataTable();
+
+							r.on( 'draw', function () {
+				        		var body = $(r.table().body());
+				 
+				        		body.unhighlight();
+				        		body.highlight( r.search() );  
+				    		});
+							
+							setrows(matches);
+						}
+					})
+				}		
 			})
 		})
 

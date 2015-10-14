@@ -2,37 +2,24 @@
 
 // lets do some search thing or something?
 
-<<<<<<< HEAD
-$keys = explode($_GET['s'], " ");
-
-$ref = json_decode(file_get_contents("./data/search.json"));
-
-$rel = 0;
-$comps = array();
-=======
 $keys = explode(" ", $_GET['s']);
 
-$ref = json_decode(file_get_contents("./data/search.json"));
+$ref = json_decode(file_get_contents("../data/search.json"));
+
 //echo json_encode($ref)."<br/>";
 $rel = 0;
 $comps = array();
 $teams = array();
+$regions = array();
 //echo json_encode($keys)."<br/>";
->>>>>>> b27b1505229be6978e355fbb8d77ff8dd8c9241e
 foreach($keys as $key)
 {
 	foreach($ref->comps as $comp)
 	{
-<<<<<<< HEAD
-		if(strpos($comp->name, $key) !== false ||
-			strpos($comp->date, $key) !== false ||
-			strpos($comp->place, $key) !== false)
-=======
 		if(count($comps) > 10) break;
 		if(strpos(strtolower($comp->name), strtolower($key)) !== false ||
 			strpos(strtolower($comp->date), strtolower($key)) !== false ||
 			strpos(strtolower($comp->place), strtolower($key)) !== false)
->>>>>>> b27b1505229be6978e355fbb8d77ff8dd8c9241e
 		{
 			array_push($comps, $comp);
 		}
@@ -40,28 +27,25 @@ foreach($keys as $key)
 
 	foreach($ref->teams as $team)
 	{
-<<<<<<< HEAD
-		if(strpos($comp->name, $key) !== false ||
-			strpos($comp->number, $key) !== false)
-=======
 				//echo json_encode($team->number)."<br/>";
 		if(count($teams) > 10) break;
 		if(strpos(strtolower($team->name), strtolower($key)) !== false ||
 			strpos(strtolower($team->number), strtolower($key)) !== false)
->>>>>>> b27b1505229be6978e355fbb8d77ff8dd8c9241e
 		{
 			array_push($teams, $team);
 		}
 	}
+
+	foreach($ref->regions as $region)
+	{
+		if(count($regions) > 10) break;
+		if(strpos(strtolower($region->name), strtolower($key)) !== false)
+		{
+			array_push($regions, $region);
+		}
+	}
 }
 
-<<<<<<< HEAD
-var_dump($teams);
-var_dump($comps);
-
-
-?>
-=======
 //echo json_encode($comps);
 //echo "<br/>";
 //echo json_encode($teams);
@@ -85,13 +69,13 @@ var_dump($comps);
 	<div class="container">
 
 
-		<?php include("./topbar.php"); ?>
+		<?php include("../topbar.php"); ?>
 
 
 		<h1 class="page-header">Search for "<?php echo $_GET['s']; ?>"</h1>
 
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="panel panel-default">
   					<div class="panel-heading">
 	    				<h3 class="panel-title">
@@ -103,8 +87,8 @@ var_dump($comps);
 	  						foreach($teams as $team)
 	  						{
 	  							echo "<div class='team'>";
-	  							echo "<a style='font-size: 12pt' href='./team?".$team->number."'>".$team->name." &ndash; ".$team->number."</a>";
-	  							echo "<div><strong>Region:</strong> <a href='./region?".strtolower(str_replace(' ', '', $team->region))."'>".$team->region."</a></div>";
+	  							echo "<a style='font-size: 12pt' href='../team?".$team->number."'>".$team->name." &ndash; ".$team->number."</a>";
+	  							echo "<div><strong>Region:</strong> <a href='../region?".strtolower(str_replace(' ', '', $team->region))."'>".$team->region."</a></div>";
 	  							echo "";
 	  							echo "</div>";
 	  							echo "<hr/>";
@@ -113,7 +97,7 @@ var_dump($comps);
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="panel panel-default">
   					<div class="panel-heading">
 	    				<h3 class="panel-title">
@@ -125,10 +109,32 @@ var_dump($comps);
 	  						foreach($comps as $comp)
 	  						{
 	  							echo "<div class='comp'>";
-	  							echo "<a style='font-size: 12pt' href='./comp?".$comp->handle."'>".$comp->name."</a>";
+	  							echo "<a style='font-size: 12pt' href='../comp?".$comp->handle."'>".$comp->name."</a>";
 	  							echo "<div><strong>Location:</strong> ".$comp->place."</div>";
 	  							echo "<div><strong>Date: </strong>".$comp->date."</div>";
-	  							echo "<div><strong>Region:</strong> <a href='./region?".strtolower(str_replace(' ', '', $comp->region))."'>".$comp->region."</a></div>";
+	  							echo "<div><strong>Region:</strong> <a href='../region?".strtolower(str_replace(' ', '', $comp->region))."'>".$comp->region."</a></div>";
+	  							echo "";
+	  							echo "</div>";
+	  							echo "<hr/>";
+	  						}
+	  					?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="panel panel-default">
+  					<div class="panel-heading">
+	    				<h3 class="panel-title">
+	    					<span>Regions (<?php echo count($regions); ?>)</span>
+	    				</h3>
+	  				</div>
+	  				<div class="panel-body">
+	  					<?php
+	  						foreach($regions as $region)
+	  						{
+	  							echo "<div class='comp'>";
+	  							echo "<a style='font-size: 12pt' href='../region?".$region->handle."'>".$region->name."</a>";
+	  							echo "<div><strong>Super Region:</strong> ".$region->super."</div>";
 	  							echo "";
 	  							echo "</div>";
 	  							echo "<hr/>";
@@ -258,9 +264,6 @@ var_dump($comps);
   		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-						
-
-
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -271,4 +274,3 @@ var_dump($comps);
 </script>
 
 </html>
->>>>>>> b27b1505229be6978e355fbb8d77ff8dd8c9241e

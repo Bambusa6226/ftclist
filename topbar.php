@@ -19,7 +19,7 @@
             <li><a href="#" id="navlogin" style="display: none;">Login</a></li>
             <li><a href="#" id="navregister" style="display: none;">Register</a></li>
         </ul>
-      	<form class="navbar-form navbar-right" role="search" style="margin-right: 10px;" action="../search.php" method="GET">
+      	<form id="navsearch" class="navbar-form navbar-right" role="search" style="margin-right: 10px;" action="../search" method="GET">
   			<div class="form-group">
     			<input name="s" type="text" class="form-control" placeholder="Search">
   			</div>
