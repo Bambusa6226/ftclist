@@ -34,8 +34,9 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<title>ftclist</title>
+	<title>FTCList</title>
 
+	<link rel="icon" type="image/png" href="http://example.com/image.png" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>

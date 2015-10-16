@@ -16,8 +16,8 @@
 
     		<li><a id="navlogout">Log Out</a></li>
       			
-            <li><a href="#" id="navlogin" style="display: none;">Login</a></li>
-            <li><a href="#" id="navregister" style="display: none;">Register</a></li>
+            <li><a href="#" id="navlogin" style="display: none;" data-toggle="modal" data-target="#modal_login">Login</a></li>
+            <li><a href="../register" id="navregister" style="display: none;">Register</a></li>
         </ul>
       	<form id="navsearch" class="navbar-form navbar-right" role="search" style="margin-right: 10px;" action="../search" method="GET">
   			<div class="form-group">
@@ -26,3 +26,25 @@
 		</form>	
 	</div>
 </nav>
+
+
+  <div class="modal fade" id="modal_login">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Login to FTCList</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="login.php">
+                    <input class="form-control" type="text" name="team" placeholder="Team Number"><br/>
+                    <input class="form-control" type="password" name="pass" placeholder="Password">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary">Login</button>
+          </form>
+            </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

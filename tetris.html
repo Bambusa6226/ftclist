@@ -1,0 +1,387 @@
+<html>
+<head>
+	<style>
+		td {
+			width: 22px;
+			height: 22px;
+			background-color: #EEE;
+		}
+		
+		.set {
+			background-color: #2378F3;
+		}
+		
+	</style>
+	<script src="http://jnxt.org/jquery.js"></script>
+	<script>
+		$("document").ready(function() {
+			
+			var field = [];
+			var colors = [];
+			init();
+			var pts = 0;
+			
+			var pieces = [[[true, true],[true, true]],
+			[[true], [true], [true], [true]],
+			[[false, true, true], [true, true, false]],
+			[[true, true, false], [false, true, true]],
+			[[false, true], [false, true], [true, true]],
+			[[true, false], [true, false], [true, true]],
+			[[true,  true,  true], [false, true,  false]]];
+			
+			run();
+			
+			function run()
+			{
+				var tm = 50;
+				 setInterval(function() {
+						step(pieces[Math.floor(Math.random()*7)]);
+						
+				 }, tm);
+
+				 setTimeout(function() {
+				 	setInterval(function() {
+				 		score();
+				 		$("#score").text(pts);
+				 	}, tm);
+				 }, tm/2);
+			};
+
+			//step(pieces[5]);
+
+			//draw(piece(pieces[1], 2, 9, field));
+			
+			
+			function score()
+			{
+
+				for(var a=0;a<22;a++)
+				{
+					var rowed = false;
+					for(var b=0;b<10;b++)
+					{
+						if(field[a][b] == false) rowed = true;
+					}
+
+					if(!rowed)
+					{
+						pts ++;
+						//a --;
+						var nw = [];
+						for(var h=0;h<21;h++)
+						{
+							nw[h] = [];
+							for(var w=0;w<10;w++)
+							{
+								if(h >= a) nw[h][w] = field[h+1][w];
+								else nw[h][w] = field[h][w];
+							}
+						}
+						field = copy(nw);
+						for(var p=0;p<10;p++)
+						{
+							field[21] = [];
+							field[21][p] = false;
+						}
+					}
+				}
+				draw(field);
+			}
+							 
+			function step(p) {
+				var st = copy(p);
+				var fld = copy(field);
+				var topscore = -1000000;
+				var topor = 0;
+				var toprow = 0;
+				for(r=0;r<4;r++)
+				{
+					for(w=0;w<10;w++)
+					{
+						var pc = piece(st, r, w, copy(fld));
+						if(pc == false)
+						{
+							continue;
+						}
+						var nsc = stat(pc);
+						if(nsc > topscore)
+						{
+							topscore = nsc;
+							topor = r;
+							toprow = w;
+						}
+					}
+				}
+				console.log(topor+ " "+ toprow);
+				field = piece(st, topor, toprow, field);
+				draw(field);
+			}
+							 
+			function piece(p, or, row, fl)
+			{
+				
+				var clr = "#"+(Math.floor(Math.random()*1000000));
+				var st = copy(turnt(p, or));
+				var fld = copy(fl);
+				
+				if(st[0].length + row >= 11) return false;
+				
+				var low = [];
+				for(var x=0;x<st[0].length;x++)
+				{
+					var tr = false;
+					for(var y=st.length-1;y>=0;y--)
+					{
+						if(st[y][x] == true)
+						{
+							low.push(st.length-y);
+							tr = true;
+							break;
+						}
+					}
+					if(!tr) low.push(23);
+				}
+
+				tops = [];
+				for(var z=0;z<10;z++)
+				{
+					var set = false;
+					for(var h=21;h>=0;h--)
+					{
+						if(fld[h][z] == true)
+						{
+							tops[z] = h+1;
+							set = true;
+						}
+						if(set) break;
+						tops[z] = h;
+					}
+				}
+								
+				for(var h=0;h<22;h++)
+				{
+					var skip = false;
+					for(var r=row;r<st[0].length+row;r++)
+					{
+						if(tops[r]-1 > h) skip=true;
+						if(h+low[r] > 21 || h+low[r] <= 0) skip=true;
+						if(fld[h+low[r-row]-1][r] == true) skip=true;
+					}
+					if(skip) continue;
+					// we have a placement op.
+
+					for(var x=0;x<st[0].length;x++)
+					{
+					for(var y=0;y<st.length;y++)
+						{
+							if(st[y][x] == true)
+							{
+								fld[st.length-1-y+h][row+x] = true;
+								colors[st.length-1-y+h][row+x] = clr;
+							}
+						}
+					}
+					break;
+				}
+				return fld;
+			}
+
+
+			function turnt(p, times)
+			{
+				var st = copy(p);
+				for(var a=0;a<times;a++)
+				{
+					st = turn(copy(st));
+				}
+				return copy(st);
+			}
+			
+			function turn (p)
+			{
+				var out = []
+				for(var a=0;a<p[0].length;a++)
+				{
+					out[a] = [];
+					for(var b=0;b<p.length;b++)
+					{
+						if(p[p.length-1-b] == undefined) continue;
+						if(p[p.length-1-b][a] == undefined) continue;
+						out[a][b] = p[p.length-1-b][a];
+					}
+				}
+				return copy(out);
+			}
+			
+			function copy(p)
+			{
+				return JSON.parse(JSON.stringify(p));
+			}
+			
+			function remcol(p, row)
+			{
+				var st = [];
+				for(var y=0;y<p.length;y++)
+				{
+					st[y] = [];
+					for(var x=0;x<p.length;x++)
+					{
+						if(x != row) st[y].push(p[y][x]);
+					}
+				}
+				return st;
+			}
+			
+			function remrow(p, col)
+			{
+				var st = [];
+				for(var y=0;y<p.length;y++)
+				{
+					if(y != col) st.push(p[y]);
+				}
+				return st;
+			}
+			
+			function check(x, y)
+			{
+				return field[y][x];
+			}
+			
+			
+			function init()
+			{
+				var gr = "<table>";
+				for(var y=0;y<22;y++)
+				{
+					field[21-y] = [];
+					colors[21-y] = [];
+					gr += "<tr>";
+					for(var x=0;x<10;x++)
+					{
+						field[21-y][x] = false;
+						colors[21-y][x] = "#2378F3";
+						gr += "<td x='"+x+"' y='"+(21-y)+"'>";
+					}
+					gr += "</tr>";
+				}
+				gr += "</table>";
+				$("body").append(gr);
+			}
+			
+			function set(x, y)
+			{
+				field[y][x] = !field[y][x];
+				if(field[y][x])
+				{
+					$("td[x="+x+"][y="+y+"]").addClass("set");
+				}
+				else
+				{
+				 $("td[x="+x+"][y="+y+"]").removeClass("set");
+				}
+			}
+			
+			function draw(fld)
+			{
+				for(var y=0;y<22;y++)
+				{
+					for(var x=0;x<10;x++)
+					{
+						if(fld[y][x] == true)
+						{
+							$("td[x="+x+"][y="+y+"]").addClass("set");
+							//$("td[x="+x+"][y="+y+"]").css("background-color", colors[y][x]);
+						}
+						else
+						{
+						 $("td[x="+x+"][y="+y+"]").removeClass("set");
+						 //$("td[x="+x+"][y="+y+"]").css("background-color", "#EEE")
+						}
+					}
+				}
+			}
+			
+			function stat(fld)
+			{
+				// rows filled?
+				var filled = 0;
+				var avg = 0;
+				var rows = [];
+				var holes = 0;
+				var height = 0;
+				var nan = [];
+
+				var avhei = 0;
+				tops = [];
+				for(var z=0;z<10;z++)
+				{
+					var set = false;
+					for(var h=21;h>=0;h--)
+					{
+						if(fld[h][z] == true && !set)
+						{
+							tops[z] = h+1;
+							set = true;
+							if(tops[z] > height) height = tops[z];
+							avhei += tops[z];	
+						}
+						if(set)
+						{
+							if(fld[h][z] == false)
+							{
+								holes ++;
+							}
+						}
+
+					}
+				}
+				avhei /= 10;
+
+				for(var h=0;h<22;h++)
+				{
+					var br = false;
+					for(var r=0;r<10;r++)
+					{
+						if(rows[r] == undefined) rows[r] = 0;
+						if(fld[h][r] == true)
+						{
+							rows[r] ++;
+							avg++;
+							if(nan[r] != undefined && !nan[r])
+							{
+								//holes ++;
+							}
+							
+							nan[r] = true;
+						}
+						
+						if(fld[h][r] != true)
+						{
+							//if(nan[r] != undefined && !nan[r]) holes ++;
+							br = true;
+							nan[r] = false;
+						}
+					}
+					if(!br) filled ++;
+				}
+				avg /= 10;
+				
+				// smoothness?
+				var dv = 0;
+				for(var a=0;a<10;a++)
+				{
+					dv += Math.pow(tops[a]-avhei, 2);
+				}
+				dv = Math.sqrt(dv/10);
+				return 10000*filled - 10*dv - 20*holes - (height*0.5);
+				
+			}
+			
+		})
+	</script>
+</head>
+<body>
+	
+	<h1>Score: <span id='score'></span></h1>
+</body>
+</html>

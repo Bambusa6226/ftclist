@@ -305,6 +305,8 @@ $("document").ready(function() {
 			$("#endgame").val(team.endgame);
 
 			$("h1").text("Team "+me+" - "+team.name);
+			$("title").text("Team "+me+" - "+team.name);
+
 
 
 			$("#robotimg").attr("src", "../data/img/"+me+"."+team.ext);
