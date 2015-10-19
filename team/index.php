@@ -273,23 +273,62 @@
   		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-						
+	<div class="modal fade" id="modal_first">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">Account Created</h4>
+      			</div>
+      			<div class="modal-body">
+      				<p class="lead" style="font-weight: 400">
+      					Welcome to FTCList, Team <span class="team"></span>.
+      				</p>
+      				<p>
+      					With your new account you are able to:
+      				</p>
+      				<dl class="dl-horizontal">
+      					<dt>Team Pages</dt>
+      					<dd>Track the Competition Scores for any team.</dd>
+      					<dt>Competition Pages</dt>
+      					<dd>Recieve and contribute realtime competition scoring data.</dd>
+      					<dt>Region Pages</dt>
+      					<dd>Analyse the scores of all of the teams in a region using the score reliability index.</dd>
+      					
+      				</ul>
+        		</div>
+      			<div class="modal-footer">
+        			<button type="button" class="btn btn-default" data-dismiss="modal">Begin</button>
+      			</div>
+    		</div><!-- /.modal-content -->
+  		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+								
 
 
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
 <script src="../common.js"></script>
 
 <script>
 
 $("document").ready(function() {
+
 	var me = readtop();
 	if(getcookie("team") != undefined && getcookie("team") == me)
 	{
 		$("#chimg").css("display", "block");
 		$("#chinfo").css("display", "block");
+
+		if(window.location.hash != undefined && window.location.hash == "#first")
+		{
+			$("#modal_first").modal("show");
+			$(".team").text(me);
+		}
+
 	}
 	if(me != null)
 	{
@@ -307,9 +346,16 @@ $("document").ready(function() {
 			$("h1").text("Team "+me+" - "+team.name);
 			$("title").text("Team "+me+" - "+team.name);
 
+			if(team.ext == undefined)
+			{
+				// backup image or something else?
+				$("#robotimg").attr("src", "../data/img/default.png")
+			}
+			else
+			{
+				$("#robotimg").attr("src", "../data/img/"+me+"."+team.ext);
+			}
 
-
-			$("#robotimg").attr("src", "../data/img/"+me+"."+team.ext);
 
 
 			// lets order the data for the comps for our team

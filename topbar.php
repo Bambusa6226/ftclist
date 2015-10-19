@@ -36,7 +36,7 @@
               <h4 class="modal-title">Login to FTCList</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" action="login.php">
+                <form method="POST" action="login.php" id="loginform">
                     <input class="form-control" type="text" name="team" placeholder="Team Number"><br/>
                     <input class="form-control" type="password" name="pass" placeholder="Password">
             </div>

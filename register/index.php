@@ -71,9 +71,21 @@
 					<div class="form-group">
 						<label for="region" class="col-md-3 control-label">Region</label>
 						<div class="col-md-9">
-							<select multiple class="form-control" name="region" id="region">
-								<option value="null">None Yet</option>
-							</select>
+							<div class="radio" id="region">
+  								<label>
+    								<input type="radio" name="region" value="null" disabled>
+    								None Yet
+  								</label>
+							</div>
+						</div>
+						<div id="newregion" style="display: none;">
+							<br/><br/>
+							<div class="form-group">
+								<label for="rgn" class="col-md-3 control-label">New Region Name</label>
+								<div class="col-md-9">
+									<input class="form-control" type="text" name="regionnew" id="rgn">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -83,8 +95,8 @@
 	</div>
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="../common.js"></script>
 
 <script>
@@ -95,14 +107,34 @@ $("document").ready(function() {
 		var val = $("#superregion").val();
 		$.getJSON("../data/super/"+val+".json", function(data) {
 			var cols = "";
-			for(var a=0;a<data.regions.length;a++)
+			if(data.regions != undefined)
 			{
-				cols += "<option value='"+data.regions[a]+"'>"+data.regions[a]+"</option>";
+				for(var a=0;a<data.regions.length;a++)
+				{
+					cols += "<label>";
+					cols += "<input type='radio' name='region' class='rgnc' value='"+data.regions[a]+"'>"+data.regions[a]
+					cols += "</label><br/>";
+				}
 			}
-			console.log(cols);
+			cols += "<label><input type='radio' name='region' class='rgnc' value='other'>Not Listed, Add New Region</label><br/>";
 			$("#region").empty().append(cols);
+
+			$(".rgnc").change(function() {
+				console.log("23")
+				if($("input:radio[name=region]:checked").val() == "other")
+				{
+					$("#newregion").css("display", "block");
+				}
+				else
+				{
+					$("#newregion").css("display", "none");
+				}
+			})
+
 		})
 	})
+
+	
 })
 
 </script>

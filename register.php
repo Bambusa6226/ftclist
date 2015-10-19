@@ -113,9 +113,6 @@ array_push($search->teams, $steam);
 file_put_contents("./data/search.json", json_encode($search));
 file_put_contents("./data/teams/".$_POST['team'].".json", json_encode($team));
 
-echo "ok, we have all of the data saved to the schema";
-
-
 setcookie("hash", hash("sha256", $_POST['pass']));
 setcookie("team", $_POST['team']);
 setcookie("time", time());
@@ -124,7 +121,7 @@ setcookie("region", $_POST['region']);
 // ok, thats easy enough...
 
 echo "sucessfully logged in";
-echo "<script>window.location='./team?".$_POST['team']."';</script>";
+echo "<script>window.location='./team?".$_POST['team']."#first';</script>";
 
 
 ?>
