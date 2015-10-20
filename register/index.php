@@ -36,13 +36,13 @@
 					<div class="form-group">
 						<label for="tn" class="col-md-3 control-label">Team Name</label>
 						<div class="col-md-9">
-							<input class="form-control" type="text" name="tn">
+							<input class="form-control" type="text" name="tn" id="tn">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="email" class="col-md-3 control-label">Email</label>
 						<div class="col-md-9">
-							<input class="form-control" type="text" name="email" id="email">
+							<input class="form-control" type="email" name="email" id="email">
 						</div>
 					</div>
 					<div class="form-group">
@@ -52,7 +52,7 @@
 						</div>
 					</div>
 					
-					<button class="btn btn-default col-md-offset-3">Register</button>
+					<button class="btn btn-default col-md-offset-3" id='register' disabled>Register</button>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
@@ -102,7 +102,16 @@
 <script>
 
 $("document").ready(function() {
+	$("input").on("input propertychange", function() {
+		if($("#team").val() != "" && $("#tn").val() != "" && $("#email").val() != "" && $("#pass").val() != "" && $("#superregion").val() != "null")
+		{
+			$("#register").removeAttr("disabled");
+		}
+		else $("#register").attr("disabled", "disabled");
+	})
+
 	$("#superregion").change(function() {
+
 		console.log("ch");
 		var val = $("#superregion").val();
 		$.getJSON("../data/super/"+val+".json", function(data) {
@@ -120,7 +129,13 @@ $("document").ready(function() {
 			$("#region").empty().append(cols);
 
 			$(".rgnc").change(function() {
-				console.log("23")
+
+				if($("#team").val() != "" && $("#tn").val() != "" && $("#email").val() != "" && $("#pass").val() != "" && $("#superregion").val() != "null")
+				{
+					$("#register").removeAttr("disabled");
+				}
+				else $("#register").attr("disabled", "disabled");
+
 				if($("input:radio[name=region]:checked").val() == "other")
 				{
 					$("#newregion").css("display", "block");

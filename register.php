@@ -41,6 +41,17 @@ else
 	}
 
 	// if the team is really new, then add it to the region.
+	if($_POST['region'] == "null")
+	{
+		echo "ERROR: Region not selected";
+		die;
+	}
+
+	if($_POST['region'] == "other")
+	{
+		$regiondata = strtolower(str_replace(' ', '', $_POST['regionnew']));
+	}
+
 	$regiondata = strtolower(str_replace(' ', '', $_POST['region']));
 	$newregion = false;
 
@@ -58,7 +69,7 @@ else
 		$region = new STDClass();
 		$region->teams = array();
 		$region->handle = $regiondata;
-		$region->name = $_POST['region'];
+		$region->name = $_POST['regionnew'];
 		array_push($region->teams, $rgn);
 		$region->superregion = $_POST['superregion'];
 		file_put_contents("./data/regions/".$regiondata.".json", json_encode($region));
@@ -90,7 +101,7 @@ $pwd = new STDclass();
 $pwd->hash = hash("sha256", hash("sha256", $_POST['pass']));
 $pwd->team = $_POST['team'];
 $pwd->email = $_POST['email'];
-$pwd->region = $_POST['region'];
+$pwd->region = $regiondata;
 
 file_put_contents("./data/passwd/".$_POST['team'].".json", json_encode($pwd));
 
@@ -98,7 +109,7 @@ $team->number = $_POST['team'];
 $team->name = $_POST['tn'];
 $team->email = $_POST['email'];
 $team->superregion = $_POST['superregion'];
-$team->region = $_POST['region'];
+$team->region = $regiondata;
 $team->contribution = 10;
 $team->isSet = true;
 
@@ -116,7 +127,7 @@ file_put_contents("./data/teams/".$_POST['team'].".json", json_encode($team));
 setcookie("hash", hash("sha256", $_POST['pass']));
 setcookie("team", $_POST['team']);
 setcookie("time", time());
-setcookie("region", $_POST['region']);
+setcookie("region", $regiondata);
 
 // ok, thats easy enough...
 

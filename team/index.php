@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.css"/>
+	<link rel='stylesheet' href='../jquery.growl.css' />
 	<link rel="stylesheet" href="../common.css"/>
 
 </head>
@@ -39,7 +40,7 @@
 	    				</h3>
 	  				</div>
 	  				<div class="panel-body text-center">
-	  					<img class="img-responsive img-thumbnail" id="robotimg" src="#"/>
+	  					<img class="img-responsive" id="robotimg" src="#"/>
 	  				</div>
 	  			</div>
 	  		</div>
@@ -311,6 +312,7 @@
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../jquery.growl.js"></script>
 <script src="../common.js"></script>
 
 <script>
@@ -323,25 +325,70 @@ $("document").ready(function() {
 		$("#chimg").css("display", "block");
 		$("#chinfo").css("display", "block");
 
-		if(window.location.hash != undefined && window.location.hash == "#first")
+		if(window.location.hash == "#first")
 		{
 			$("#modal_first").modal("show");
 			$(".team").text(me);
+		}
+
+		if(window.location.hash == "#img")
+		{
+			$.growl({title: "Success!", message: "Image Successfully Uploaded."});
+		}
+
+		if(window.location.hash == "#info")
+		{
+			$.growl({title: "Success!", message: "Team Info Updated."});
+		}
+
+		if(window.location.hash == "#comp")
+		{
+			$.growl({title: "Success!", message: "Competition added to the region."});
 		}
 
 	}
 	if(me != null)
 	{
 		$.getJSON("../data/teams/"+me+".json", function(team) {
-			$(".des").text(team.description);
-			$(".auto").text(team.autonomous);
-			$(".teleop").text(team.teleop);
-			$(".endgame").text(team.endgame);
+			if(team.description == undefined)
+			{
+				$(".des").text("Data has not yet been entered.");
+			}
+			else
+			{
+				$(".des").text(team.description);
+				$("#des").val(team.description);
+			}
 
-			$("#des").val(team.description);
-			$("#auto").val(team.autonomous);
-			$("#teleop").val(team.teleop);
-			$("#endgame").val(team.endgame);
+			if(team.autonomous == undefined)
+			{
+				$(".auto").text("Data has not yet been entered.");
+			}
+			else
+			{
+				$(".auto").text(team.autonomous);
+				$("#auto").val(team.autonomous);
+			}
+
+			if(team.teleop == undefined)
+			{
+				$(".teleop").text("Data has not yet been entered.");
+			}
+			else
+			{
+				$(".teleop").text(team.teleop);
+				$("#teleop").val(team.teleop);
+			}
+
+			if(team.endgame == undefined)
+			{
+				$(".endgame").text("Data has not yet been entered.");
+			}
+			else
+			{
+				$(".endgame").text(team.endgame);
+				$("#endgame").val(team.endgame);
+			}
 
 			$("h1").text("Team "+me+" - "+team.name);
 			$("title").text("Team "+me+" - "+team.name);

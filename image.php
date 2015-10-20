@@ -46,14 +46,14 @@ $team->ext = $ext;
 file_put_contents("./data/teams/".$_COOKIE['team'].".json", json_encode($team));
 
 if (move_uploaded_file($_FILES["image"]["tmp_name"], $dest)) {
-	echo "success?";
+	echo "Uploading File...";
 } else {
 	echo "ERROR: file not uploadable for some reason";
 	die;
 }
 
 // redirect?
-
+echo "<script>setTimeout(function() { window.location = './team?".$_COOKIE['team']."#img'; }, 400);</script>";
 
 
 ?>
