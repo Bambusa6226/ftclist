@@ -74,11 +74,11 @@
 			  						<dt>Losses</dt>
 			  						<dd id="losses"></dd>
 
-			  						<dt>Ties</dt>
-			  						<dd id="ties"></dd>
-
 			  						<dt>Win/Loss Ratio</dt>
 			  						<dd id="winrate"></dd>
+
+			  						<dt>Contribution Points</dt>
+			  						<dd id="contrib"></dd>
 			  					</div>
 			  				</div>
 	  					</dl>
@@ -330,20 +330,17 @@ $("document").ready(function() {
 			$("#modal_first").modal("show");
 			$(".team").text(me);
 		}
-
-		if(window.location.hash == "#img")
+		else if(window.location.hash == "#img")
 		{
 			$.growl({title: "Success!", message: "Image Successfully Uploaded."});
 		}
-
-		if(window.location.hash == "#info")
-		{
-			$.growl({title: "Success!", message: "Team Info Updated."});
-		}
-
-		if(window.location.hash == "#comp")
+		else if(window.location.hash == "#comp")
 		{
 			$.growl({title: "Success!", message: "Competition added to the region."});
+		}
+		else if(window.location.hash == "#data")
+		{
+			$.growl({title: "Success!", message: "Your team's data has been updated."})
 		}
 
 	}
@@ -479,7 +476,8 @@ $("document").ready(function() {
 				$("#wins").text(wins);
 				$("#losses").text(losses);
 				$("#ties").text(ties);
-				$("#winrate").text((wins/losses).toFixed(2))
+				$("#winrate").text((wins/losses).toFixed(2));
+				$("#contrib").text(team.contribution);
 
 				$("#image").height($("#stats").height());
 

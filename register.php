@@ -124,6 +124,10 @@ array_push($search->teams, $steam);
 file_put_contents("./data/search.json", json_encode($search));
 file_put_contents("./data/teams/".$_POST['team'].".json", json_encode($team));
 
+$contrib = json_decode(file_get_contents("./data/contrib.json"));
+$contrib->team[$team->number] = 10;
+file_put_contents("./data/contrib.json", json_encode($contrib));
+
 setcookie("hash", hash("sha256", $_POST['pass']));
 setcookie("team", $_POST['team']);
 setcookie("time", time());

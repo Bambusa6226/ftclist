@@ -25,14 +25,14 @@ function getcookie(name) {
 }
 
 
-var base = "http://10.63.160.73/";
+var base = "http://10.63.161.57/";
 $("#navsearch").attr("action", base+"search");
 $("#loginform").attr("action", base+"login.php");
 $("#navregister").attr("href", base+"register");
 
 if(getcookie("team") != null)
 {
-	$(".navbar-brand").attr("href", base+"team?"+getcookie("team"));
+	$(".navbar-brand").attr("href", base);
 	$("#navteam").text("Team " + getcookie("team"));
 	$("#navteam").attr("href", base+"team?"+getcookie("team"));
 	$("#navregion").text(getcookie("region").replace("+", " "));
