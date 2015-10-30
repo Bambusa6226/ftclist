@@ -45,65 +45,51 @@
 
 </head>
 <body>
-	<div class="container">
 	<?php 
 		include("topbar.php"); 
 	?>
-
-	<p class="lead"></p>
-
-	<!--<div class="row">
-
-		<div class="col-md-4">
-			<h2>login</h2>
-			<form method="POST" action="login.php">
-				<input class="form-control" type="text" name="team" placeholder="Team Number"><br/>
-				<input class="form-control" type="password" name="pass" placeholder="Password">
-				<br/>
-				
-				<button class="btn btn-default">Login</button>
-			</form>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>FTCList</h1>
+			<p>The easiest way to stay up to date on FTC robotics teams and competitions.</p>
+			<a href="./register" class="btn btn-primary btn-lg">Register</a>
 		</div>
+	</div>
 
-		<div class="col-md-8">
-		<h2>Register</h2>
-			<form method="POST" action="register.php">
-				<div class="row">
-					<div class="col-md-6">
-						<input class="form-control" type="text" name="team" placeholder="Team Number">
-					</div>
-					<div class="col-md-6">
-						<input class="form-control" type="text" name="tn" placeholder="Team Name">
-					</div>
-				</div><br/>
-				<div class="row">
-					<div class="col-md-6">
-						<input class="form-control" type="text" name="email" placeholder="Email">
-					</div>
-					<div class="col-md-6">
-						<input class="form-control" type="password" name="pass" placeholder="Password">
-					</div>
-				</div><br/>
-				<div class="row">
-					<div class="col-md-6">
-						<select class="form-control" name="superregion">
-							<option selected value="north">North Region</option>
-							<option value="west">West Region</option>
-							<option value="south">South Region</option>
-							<option value="east">East Region</option>
-							<option value="outside">Outside US</option>
-						</select>
-					</div>
-					<div class="col-md-6">
-						<input class="form-control" type="text" name="region" placeholder="Region Name">
-					</div>
-				</div><br/>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h2 class="page-header">Recent competitions</h2>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Matches Recorded</th>
+							<th>Date</th>
+							<th>Region</th>
+						</tr>
+					</head>
+					<tbody>
+						<?php
+							include("recent.php");
+						?>
+					</tbody>
+				</table>
+		  	</div>
+		  	<div class="col-md-6">
+		  		<h2 class="page-header">Top Contributors</h2>
+		  	</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<h2 class="page-header">Random Team</h2>
+		  	</div>
+		  	<div class="col-md-6">
+		  		<h2 class="page-header">Links</h2>
+		  	</div>
+	  	</div>
+	</div>
 
-				
-				<button class="btn btn-default">Register</button>
-			</form>
-	
-	</div>-->
 
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

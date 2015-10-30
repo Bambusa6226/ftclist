@@ -48,3 +48,16 @@ body {
 	font-weight: 100;
 	color: #666;
 } 
+
+.jumbotron {
+	background-color: #FFF;
+}
+
+.jumbotron h1
+{
+	color: #666;
+}
+
+.jumbotron p {
+	font-weight: normal;
+}
