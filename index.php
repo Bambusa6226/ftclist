@@ -58,8 +58,13 @@
 
 	<div class="container">
 		<div class="row">
+			<div class="col-md-12">
+				stuff?
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
-				<h2 class="page-header">Recent competitions</h2>
+				<h2 class="page-header">Recent Competitions</h2>
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -78,16 +83,19 @@
 		  	</div>
 		  	<div class="col-md-6">
 		  		<h2 class="page-header">Top Contributors</h2>
+		  		<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Team</th>
+							<th>Contribution Points</th>
+						</tr>
+					</head>
+					<tbody id='contrib'>
+						
+					</tbody>
+				</table>
 		  	</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<h2 class="page-header">Random Team</h2>
-		  	</div>
-		  	<div class="col-md-6">
-		  		<h2 class="page-header">Links</h2>
-		  	</div>
-	  	</div>
 	</div>
 
 
@@ -95,7 +103,20 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
 	<script src="./common.js"></script>
+	<script>
 
+	$("document").ready(function() {
+		$.getJSON("./data/contrib.json",function(contrib)
+		{
+			var teams = contrib.teams;
+			for(var key in teams)
+			{
+				console.log(key)
+			}
+		})
+	})
+
+	</script>
 
 
 </body>

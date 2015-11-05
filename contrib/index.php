@@ -165,6 +165,8 @@ $("document").ready(function() {
 	$.getJSON("./data/contrib.json", function(contrib) {
 		var tbl = "";
 
+		for()
+
 		for(var key in contrib.teams)
 		{
 			if(getcookie("team") == key) tbl += "<tr class='info'>";
@@ -187,7 +189,7 @@ $("document").ready(function() {
 
 			$('div.dataTables_filter label').contents().filter(function() { return this.nodeType == 3; }).remove();
     		$('div.dataTables_filter input').addClass('form-control').attr("placeholder", "Search Table").css("font-weight", "400");
-    		
+
 	})
 })
 

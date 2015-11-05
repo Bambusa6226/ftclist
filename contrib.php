@@ -1,14 +1,14 @@
 <?php
 
 
-$files = scandir("./data/comps");
+$teams = json_decode(file_get_contents("./data/contrib.json"))->teams;
 
 $rtimes = array();
 $rnames = array();
 $max = 0;
 $n = 10;
 
-foreach($files as $file)
+foreach($teams as $team)
 {
 	if($file == "." || $file == "..") continue;
 	$time = intval(filemtime("./data/comps/".$file));
