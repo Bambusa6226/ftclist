@@ -25,7 +25,7 @@ function getcookie(name) {
 }
 
 
-var base = "http://10.63.160.73/";
+var base = "http://10.63.161.57/";
 $("#navsearch").attr("action", base+"search");
 $("#loginform").attr("action", base+"login.php");
 $("#navregister").attr("href", base+"register");

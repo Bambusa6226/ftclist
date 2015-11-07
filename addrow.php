@@ -119,12 +119,8 @@ foreach($unconf->rows as $row)
 			file_put_contents("./data/teams/".$_COOKIE['team'].".json", json_encode($supp));
 
 			$contrib = json_decode(file_get_contents("./data/contrib.json"));
-			if(isset($contrib->teams[(string)$orig->number]))
-				$contrib->teams[(string)$orig->number] = 0;
-			$contrib->teams[(string)$orig->number] += 3;
-			if(isset($contrib->teams[(string)$supp->number]))
-				$contrib->teams[(string)$supp->number] = 0;
-			$contrib->teams[(string)$supp->number] += 2;
+			$contrib->teams[(string)$orig->number]->pts += 3;
+			$contrib->teams[(string)$supp->number]->pts += 2;
 			file_put_contents("./data/contrib.json", json_encode($contrib));
 
 			array_push($unconf->confed, $_POST['match']);

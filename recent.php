@@ -5,7 +5,7 @@ $files = scandir("./data/comps");
 
 $rtimes = array();
 $rnames = array();
-$max = 0;
+$max = 2000000000;
 $n = 10;
 
 foreach($files as $file)
@@ -36,7 +36,7 @@ foreach($files as $file)
 	}
 }
 // insertion sort bc the data is close?
-for($a=0;$a<$n;$a++)
+for($a=1;$a<$n;$a++)
 {
 	$b = $a;
 	while($b<0 || intval($rtimes[$b-1]) > intval($rtimes[$b]))

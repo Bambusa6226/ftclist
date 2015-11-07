@@ -125,7 +125,11 @@ file_put_contents("./data/search.json", json_encode($search));
 file_put_contents("./data/teams/".$_POST['team'].".json", json_encode($team));
 
 $contrib = json_decode(file_get_contents("./data/contrib.json"));
-$contrib->teams[$team->number] = 10;
+$contrib->teams[$team->number] = new STDClass();
+$contrib->teams[$team->number]->pts = 10;
+$contrib->teams[$team->number]->name = $team->name;
+
+
 file_put_contents("./data/contrib.json", json_encode($contrib));
 
 setcookie("hash", hash("sha256", $_POST['pass']));
