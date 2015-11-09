@@ -200,11 +200,11 @@
 <script src="../common.js"></script>
 
 <script>
-
+/*
 $("document").ready(function() {
 	var me = getcookie(team);
 
-	$("h1").text("Dashboard - Team "+getcookie("team"));
+	$("h1").text("Dashboard - Team "+xss(getcookie("team")));
 	if(getcookie("team") != null)
 	{
 		$.getJSON("../data/teams/"+getcookie("team")+".json", function(team) {
@@ -244,7 +244,7 @@ $("document").ready(function() {
 				}
 			}
 
-
+			
 			// ok now lets render some data or something
 			var region = getcookie("region").toLowerCase().replace("+", "").replace(" ", "");
 			$.getJSON("../data/regions/"+region+".json", function(reg) {
@@ -280,7 +280,7 @@ $("document").ready(function() {
 			})
 		});
 	}
-})
+})*/
 
 	</script>
 </body>

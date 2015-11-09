@@ -412,7 +412,7 @@ jQuery.fn.highlight = function (words, options) {
 			for(var key in teams)
 			{
 				tlb += "<tr>";
-				tlb += "<td> <a href='../team?"+key+"'>"+key+"</a></td>";
+				tlb += "<td> <a href='../team?"+key+"'>"+xss(key)+"</a></td>";
 				tlb += "<td>"+teams[key].scores.length+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
@@ -463,7 +463,7 @@ jQuery.fn.highlight = function (words, options) {
 			// hold on, this is going to get crazy...
 
 			$.getJSON("../data/regions/"+comp()+".json", function(data) {
-				$("h1").text("Region: "+data.name);
+				$("h1").text("Region: "+xss(data.name));
 
 				var ccnt = 0;
 				var clist = [];
@@ -474,8 +474,8 @@ jQuery.fn.highlight = function (words, options) {
 					$.getJSON("../data/comps/"+data.comps[a].handle+".json", function(cm)
 					{
 						rs += "<tr>";
-						rs += "<td><a href='../comp?"+cm.handle+"'>"+cm.name+"</a></td>";
-						rs += "<td>"+cm.date+"</td>";
+						rs += "<td><a href='../comp?"+cm.handle+"'>"+xss(cm.name)+"</a></td>";
+						rs += "<td>"+xss(cm.date)+"</td>";
 						rs += "<td>"+cm.rows.length+"</td>";
 						rs += "</tr>";
 

@@ -68,12 +68,12 @@
 
 			</div>
 		</div><br/><br/>
-		<div class="row">
+		<!--<div class="row">
 			<h2 class="page-header">Regions</h2>
 			<div class="col-md-12">
 
 			</div>
-		</div>
+		</div>-->
 		<div class="row">
 			<div class="col-md-6">
 				<h2 class="page-header">Recent Competitions</h2>
@@ -108,9 +108,6 @@
 					</tbody>
 				</table>
 		  	</div>
-		</div>
-		<div class="row">
-			<p style="text-align: center;color: #666">A Jones Production &copy; Copyright 2015</p>
 		</div>
 	</div>
 
@@ -167,8 +164,8 @@
 			for(var i=0;i<n;i++)
 			{
 				tbl += "<tr>";
-				tbl += "<td><a href='./team?"+tops[i].num+"'>"+tops[i].num+"</a></td>";
-				tbl += "<td>"+tops[i].name+"</td>";
+				tbl += "<td><a href='./team?"+tops[i].num+"'>"+xss(tops[i].num)+"</a></td>";
+				tbl += "<td>"+xss(tops[i].name)+"</td>";
 				tbl += "<td>"+tops[i].pts+"</td>";
 				tbl += "</tr>";
 			}

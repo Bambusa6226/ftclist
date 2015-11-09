@@ -491,7 +491,7 @@ $("document").ready(function() {
 			var region = team.region.toLowerCase().replace("+", "").replace(" ", "");
 			$.getJSON("../data/regions/"+region+".json", function(reg) {
 
-				$("#competition").html("Competitions in <a href='../region?"+reg.handle+"'>"+reg.name+"</a>");
+				$("#competition").html("Competitions in <a href='../region?"+reg.handle+"'>"+xss(reg.name)+"</a>");
 
 				var rows = "";
 				if(reg.comps != undefined && reg.comps.length != 0)
@@ -499,14 +499,14 @@ $("document").ready(function() {
 					for(var a=0;a<reg.comps.length;a++)
 					{
 						rows += "<tr>";
-						rows += "<td><a href='../comp?"+reg.comps[a].handle+"'>"+reg.comps[a].name+"</a></td>";
-						rows += "<td>"+reg.comps[a].date+"</td>";
-						rows += "<td>"+reg.comps[a].place+"</td>";
+						rows += "<td><a href='../comp?"+reg.comps[a].handle+"'>"+xss(reg.comps[a].name)+"</a></td>";
+						rows += "<td>"+xss(reg.comps[a].date)+"</td>";
+						rows += "<td>"+xss(reg.comps[a].place)+"</td>";
 						if(comps[reg.comps[a].handle] != undefined)
 						{
-							rows += "<td>"+comps[reg.comps[a].handle].num+"</td>";
-							rows += "<td>"+comps[reg.comps[a].handle].QP+"</td>";
-							rows += "<td>"+comps[reg.comps[a].handle].RP+"</td>";
+							rows += "<td>"+xss(comps[reg.comps[a].handle].num)+"</td>";
+							rows += "<td>"+xss(comps[reg.comps[a].handle].QP)+"</td>";
+							rows += "<td>"+xss(comps[reg.comps[a].handle].RP)+"</td>";
 						}
 						else
 						{

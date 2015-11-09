@@ -52,15 +52,26 @@ for($a=0;$a<$n;$a++)
 	}
 }
 
+function xss($val)
+{
+	$val = str_replace("&", "&amp;", $val);
+	$val = str_replace("<", "&lt;", $val);
+	$val = str_replace(">", "&gt;", $val);
+	$val = str_replace('"', "&quot;", $val);
+	$val = str_replace("'", "&#x27;", $val);
+	$val = str_replace("/", "&#x2F;", $val);
+	return $val;
+}
+
 
 for($j=$n-1;$j>=0;$j--)
 {
 	$cmp = json_decode(file_get_contents("./data/comps/".$rnames[$j]));
 	echo "<tr>";
-	echo "<td><a href='./comp/?".substr($rnames[$j], 0, -5)."'>".$cmp->name."</a></td>";
+	echo "<td><a href='./comp/?".substr($rnames[$j], 0, -5)."'>".xss($cmp->name)."</a></td>";
 	echo "<td>".count($cmp->rows)."</td>";
-	echo "<td>".$cmp->date."</td>";
-	echo "<td><a href='./region/?".str_replace(" ", "", strtolower($cmp->region))."'>".$cmp->region."</a></td>";
+	echo "<td>".xss($cmp->date)."</td>";
+	echo "<td><a href='./region/?".str_replace(" ", "", strtolower($cmp->region))."'>".xss($cmp->region)."</a></td>";
 	echo "</tr>";
 }
 

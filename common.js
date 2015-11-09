@@ -24,11 +24,19 @@ function getcookie(name) {
     return null;
 }
 
+function xss(val)
+{
+    return val.replace("&","&amp;").replace("<", "&lt;").replace(">","&gt;").replace('"', '&quot;').replace("'", "&#x27;").replace("/", "&#x2F;");
+}
 
-var base = "http://10.63.161.57/";
+
+var base = "http://10.63.160.73/";
 $("#navsearch").attr("action", base+"search");
 $("#loginform").attr("action", base+"login.php");
 $("#navregister").attr("href", base+"register");
+
+
+$("body").append('<p style="text-align: center;color: #666">A Jones Production &copy; Copyright 2015</p>');
 
 if(getcookie("team") != null)
 {

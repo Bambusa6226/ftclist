@@ -1,6 +1,16 @@
 <?php
 
 // lets do some search thing or something?
+function xss($val)
+{
+	$val = str_replace("&", "&amp;", $val);
+	$val = str_replace("<", "&lt;", $val);
+	$val = str_replace(">", "&gt;", $val);
+	$val = str_replace('"', "&quot;", $val);
+	$val = str_replace("'", "&#x27;", $val);
+	$val = str_replace("/", "&#x2F;", $val);
+	return $val;
+}
 
 $keys = explode(" ", $_GET['s']);
 
@@ -72,7 +82,7 @@ foreach($keys as $key)
 		<?php include("../topbar.php"); ?>
 
 
-		<h1 class="page-header">Search for "<?php echo $_GET['s']; ?>"</h1>
+		<h1 class="page-header">Search for "<?php echo xss($_GET['s']); ?>"</h1>
 
 		<div class="row">
 			<div class="col-md-4">
@@ -87,8 +97,8 @@ foreach($keys as $key)
 	  						foreach($teams as $team)
 	  						{
 	  							echo "<div class='team'>";
-	  							echo "<a style='font-size: 12pt' href='../team?".$team->number."'>".$team->name." &ndash; ".$team->number."</a>";
-	  							echo "<div><strong>Region:</strong> <a href='../region?".strtolower(str_replace(' ', '', $team->region))."'>".$team->region."</a></div>";
+	  							echo "<a style='font-size: 12pt' href='../team?".xss($team->number)."'>".xss($team->name)." &ndash; ".xss($team->number)."</a>";
+	  							echo "<div><strong>Region:</strong> <a href='../region?".xss(strtolower(str_replace(' ', '', $team->region)))."'>".xss($team->region)."</a></div>";
 	  							echo "";
 	  							echo "</div>";
 	  							echo "<hr/>";
@@ -109,10 +119,10 @@ foreach($keys as $key)
 	  						foreach($comps as $comp)
 	  						{
 	  							echo "<div class='comp'>";
-	  							echo "<a style='font-size: 12pt' href='../comp?".$comp->handle."'>".$comp->name."</a>";
-	  							echo "<div><strong>Location:</strong> ".$comp->place."</div>";
-	  							echo "<div><strong>Date: </strong>".$comp->date."</div>";
-	  							echo "<div><strong>Region:</strong> <a href='../region?".strtolower(str_replace(' ', '', $comp->region))."'>".$comp->region."</a></div>";
+	  							echo "<a style='font-size: 12pt' href='../comp?".$comp->handle."'>".xss($comp->name)."</a>";
+	  							echo "<div><strong>Location:</strong> ".xss($comp->place)."</div>";
+	  							echo "<div><strong>Date: </strong>".xss($comp->date)."</div>";
+	  							echo "<div><strong>Region:</strong> <a href='../region?".xss(strtolower(str_replace(' ', '', $comp->region)))."'>".xss($comp->region)."</a></div>";
 	  							echo "";
 	  							echo "</div>";
 	  							echo "<hr/>";
@@ -133,8 +143,8 @@ foreach($keys as $key)
 	  						foreach($regions as $region)
 	  						{
 	  							echo "<div class='comp'>";
-	  							echo "<a style='font-size: 12pt' href='../region?".$region->handle."'>".$region->name."</a>";
-	  							echo "<div><strong>Super Region:</strong> ".$region->super."</div>";
+	  							echo "<a style='font-size: 12pt' href='../region?".$region->handle."'>".xss($region->name)."</a>";
+	  							echo "<div><strong>Super Region:</strong> ".xss($region->super)."</div>";
 	  							echo "";
 	  							echo "</div>";
 	  							echo "<hr/>";

@@ -241,33 +241,33 @@ jQuery.fn.highlight = function (words, options) {
 			for(var a=0;a<rows.length;a++)
 			{
 				tbl += "<tr>";
-				tbl += "<td>"+rows[a].match+"</td>";
+				tbl += "<td>"+xss(rows[a].match)+"</td>";
 				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
 				{
-					tbl += "<td class='redwin'>"+rows[a].red1+"</td>";
-					tbl += "<td class='redwin'>"+rows[a].red2+"</td>";
-					tbl += "<td class='redwin'>"+rows[a].redscore+"</td>";
-					tbl += "<td class='info'>"+rows[a].blue1+"</td>";
-					tbl += "<td class='info'>"+rows[a].blue2+"</td>";
-					tbl += "<td class='info'>"+rows[a].bluescore+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
+					tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
+					tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
+					tbl += "<td class='info'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
 				{
-					tbl += "<td class='danger'>"+rows[a].red1+"</td>";
-					tbl += "<td class='danger'>"+rows[a].red2+"</td>";
-					tbl += "<td class='danger'>"+rows[a].redscore+"</td>"; 
-					tbl += "<td class='bluewin'>"+rows[a].blue1+"</td>";
-					tbl += "<td class='bluewin'>"+rows[a].blue2+"</td>";
-					tbl += "<td class='bluewin'>"+rows[a].bluescore+"</td>";
+					tbl += "<td class='danger'>"+xss(rows[a].red1)+"</td>";
+					tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
+					tbl += "<td class='danger'>"+xss(rows[a].redscore)+"</td>"; 
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				else
 				{
-					tbl += "<td class='redwin'>"+rows[a].red1+"</td>";
-					tbl += "<td class='redwin'>"+rows[a].red2+"</td>";
-					tbl += "<td class='redwin'>"+rows[a].redscore+"</td>";
-					tbl += "<td class='bluewin'>"+rows[a].blue1+"</td>";
-					tbl += "<td class='bluewin'>"+rows[a].blue2+"</td>";
-					tbl += "<td class='bluewin'>"+rows[a].bluescore+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				
 				tbl += "</tr>";
@@ -408,7 +408,7 @@ jQuery.fn.highlight = function (words, options) {
 			for(var key in teams)
 			{
 				tlb += "<tr>";
-				tlb += "<td> <a href='../team?"+key+"'>"+key+"</a></td>";
+				tlb += "<td> <a href='../team?"+xss(key)+"'>"+xss(key)+"</a></td>";
 				tlb += "<td>"+teams[key].scores.length+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
@@ -463,7 +463,7 @@ jQuery.fn.highlight = function (words, options) {
 				if(data.region != undefined) region = data.region.replace(" ", "").toLowerCase();
 				else region = "";
 
-				$("h1").html(data.name+", <a href='../region?"+region+"'>"+data.region+"</a>, "+data.date);
+				$("h1").html(data.name+", <a href='../region?"+region+"'>"+xss(data.region)+"</a>, "+xss(data.date));
 				setrows(data.rows);
 		
 			})

@@ -129,10 +129,6 @@ jQuery.fn.highlight = function (words, options) {
 };
 
 
-
-
-
-
 		function setcookie(name,value,days) {
 		    if (days) {
 		        var date = new Date();
@@ -155,24 +151,16 @@ jQuery.fn.highlight = function (words, options) {
 		}
 
 
-
-
-
-
-
-
 $("document").ready(function() {
 	$.getJSON("./data/contrib.json", function(contrib) {
 		var tbl = "";
-
-		for()
 
 		for(var key in contrib.teams)
 		{
 			if(getcookie("team") == key) tbl += "<tr class='info'>";
 			else tbl += "<tr clas='info'>";
-			tbl += "<td><a href='../team?"+key+"'>"+key+"</a></td>";
-			tbl += "<td>"+contrib.teams[key]+"</td>";
+			tbl += "<td><a href='../team?"+key+"'>"+xss(key)+"</a></td>";
+			tbl += "<td>"+xss(contrib.teams[key])+"</td>";
 			tbl += "</tr>";
 		}
 
