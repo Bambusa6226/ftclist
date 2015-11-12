@@ -129,18 +129,21 @@
 			for(var key in teams)
 			{
 				teams[key].num = key;
+									console.log(teams[key].pts)
+
 				if(tops.length < n)
 				{
 					tops.push(teams[key]);
-					if(teams[key].pts < max) max = teams[key].pts;
+					if(parseInt(teams[key].pts) < max) max = parseInt(teams[key].pts);
 				}
 				else
 				{
-					if(teams[key].pts > max)
+					console.log(teams[key].pts)
+					if(parseInt(teams[key].pts) > max)
 					{
 						for(var i=0;i<n;i++)
 						{
-							if(teams[key].pts > tops[i].pts) 
+							if(parseInt(teams[key].pts) > parseInt(tops[i].pts)) 
 							{
 								tops[i] = teams[key];
 								break;

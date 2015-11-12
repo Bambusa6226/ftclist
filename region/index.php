@@ -237,13 +237,15 @@ jQuery.fn.highlight = function (words, options) {
 			return window.location.search.substring(1);
 		}
 
-		function setrows(rows)
+		function setrows(rows, others)
 		{
 			var tbl = "";
 			var tlb = "";
 			var teams = {};
 			for(var a=0;a<rows.length;a++)
 			{
+
+
 				/*tbl += "<tr>";
 				tbl += "<td>"+rows[a].match+"</td>";
 				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
@@ -365,6 +367,12 @@ jQuery.fn.highlight = function (words, options) {
 			var cnt = 0;
 			for(var key in teams)
 			{
+
+				for(var b=0;b<others.length;b++)
+				{
+					if(others[b].number == key) others.splice(b, 1);
+				}
+
 				teams[key].avg = teams[key].score / teams[key].alliance.length;
 				if(teams[key].avg < min) min = teams[key].avg;
 				if(teams[key].avg > max) max = teams[key].avg;
@@ -416,7 +424,7 @@ jQuery.fn.highlight = function (words, options) {
 				tlb += "<td>"+teams[key].scores.length+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
-								if(teams[key].scores.length == 1)
+				if(teams[key].scores.length == 1)
 					tlb += "<td data-order='0'>0*</td>";
 				else
 					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+"</td>";
@@ -430,11 +438,32 @@ jQuery.fn.highlight = function (words, options) {
 				tlb += "</tr>";
 			}
 
+			for(var a=0;a<others.length;a++)
+			{
+				tlb += "<tr>";
+				tlb += "<td> <a href='../team?"+others[a].number+"'>"+xss(others[a].number)+"</a></td>";
+				tlb += "<td>0</td>";
+				tlb += "<td>0</td>";
+				tlb += "<td>0</td>";
+				tlb += "<td data-order='0'>0*</td>";
+
+				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
+				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
+				//tlb += "<td>"+Math.round(teams[key].weight)+"</td>";
+
+				//tlb += "<td>"+Math.round(teams[key].jp)+"</td>";
+				//tlb += "<td>"+teams[key].totw+"</td>";
+				tlb += "</tr>";
+
+			}
+
 			// ok so how do I calc the jp
 			$("#teams tbody").empty().append(tlb);
 
 
-			var teams = $("#teams").DataTable();
+			var teams = $("#teams").DataTable({
+					"order": [[ 2, 'desc' ], [ 3, 'desc' ]]
+				});
 
 			teams.on( 'draw', function () {
         		var body = $(teams.table().body());
@@ -486,7 +515,9 @@ jQuery.fn.highlight = function (words, options) {
 						{
 							$("#competitions tbody").empty().append(rs);
 
-							var r = $("#competitions").DataTable();
+							var r = $("#competitions").DataTable({
+								"order": [[ 1, 'asc' ]]
+							});
 
 							r.on( 'draw', function () {
 				        		var body = $(r.table().body());
@@ -495,7 +526,7 @@ jQuery.fn.highlight = function (words, options) {
 				        		body.highlight( r.search() );  
 				    		});
 							
-							setrows(matches);
+							setrows(matches, data.teams);
 						}
 					})
 				}		

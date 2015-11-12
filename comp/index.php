@@ -53,6 +53,7 @@
 			  			    </div>
 			  			</div>
 	  	            </dl>
+	  	           
   				</div>
 			</div>
 		</div>
@@ -82,6 +83,9 @@
 						<tbody>
 						</tbody>
 					</table>
+					 <div class="help-block">
+	  	            	Tables update automatically as new matches are added.
+	  	            </div>
   				</div>
 			</div>
 		</div>
@@ -266,6 +270,8 @@ jQuery.fn.highlight = function (words, options) {
 			return window.location.search.substring(1);
 		}
 
+
+		var teamstbl, rowstbl;
 		function setrows(rows)
 		{
 			var tbl = "";
@@ -460,33 +466,44 @@ jQuery.fn.highlight = function (words, options) {
 			}
 
 			// ok so how do I calc the jp
+			if(!fst)
+			{
+				teamstbl.destroy();
+				rowstbl.destroy();
+			}
+			else
+			{
+				fst = false;
+			}
+				$("#rows tbody").empty().append(tbl);
+				$("#teams tbody").empty().append(tlb);
 
-			$("#rows tbody").empty().append(tbl);
-			$("#teams tbody").empty().append(tlb);
 
-			var rows = $("#rows").DataTable();
+				fst = false;
+				rowstbl = $("#rows").DataTable();
 
-			rows.on( 'draw', function () {
-        		var body = $(rows.table().body());
- 
-        		body.unhighlight();
-        		body.highlight( rows.search() );  
-    		});
+				rowstbl.on( 'draw', function () {
+	        		var body = $(rowstbl.table().body());
+	 
+	        		body.unhighlight();
+	        		body.highlight( rowstbl.search() );  
+	    		});
 
-			var teams = $("#teams").DataTable();
+				teamstbl = $("#teams").DataTable({
+					"order": [[ 2, 'desc' ], [ 3, 'desc' ]]
+				});
 
-			teams.on( 'draw', function () {
-        		var body = $(teams.table().body());
+				teamstbl.on( 'draw', function () {
+	        		var body = $(teamstbl.table().body());
 
-        		body.unhighlight();
-        		body.highlight( teams.search() );  
-    		});
+	        		body.unhighlight();
+	        		body.highlight( teamstbl.search() );  
+	    		});
 
-			$('div.dataTables_filter label').contents().filter(function() { return this.nodeType == 3; }).remove();
-    		$('div.dataTables_filter input').addClass('form-control').attr("placeholder", "Search Table").css("font-weight", "400");
-
+				$('div.dataTables_filter label').contents().filter(function() { return this.nodeType == 3; }).remove();
+	    		$('div.dataTables_filter input').addClass('form-control').attr("placeholder", "Search Table").css("font-weight", "400");
 		}
-
+		var fst = true;
 		$("document").ready(function() {
 
 
@@ -499,7 +516,7 @@ jQuery.fn.highlight = function (words, options) {
 
 				$("#location").text(data.place);
 				$("#date").text(data.date);
-				$("#region").html("<a href='"+region+"'>"+xss(data.region)+"</a>");
+				$("#region").html("<a href='../region?"+region+"'>"+xss(data.region)+"</a>");
 				var type = data.type == "qual" ? "Qualifier" : data.type == "league" ? "League Meet" : data.type == "noncomp" ? "Practice/Scrimmage" : data.type == "region" ? "Regional" : type; 
 				$("#type").text(type);
                 
@@ -537,16 +554,19 @@ jQuery.fn.highlight = function (words, options) {
 				}
 				if(unc == "") unc = "No Unconfirmed Matches";
 				$("#unconfs").text(unc);
+				console.log("rechecking");
                 
                 if(JSON.stringify(data.confed) != JSON.stringify(confs))
                 {
                     confs = data.confed;
-                    setrows(rowsdata);
+                    $.getJSON("../data/comps/"+comp()+".json", function(data) {
+                    	setrows(data.rows);
+                	})
                 }
 			});
 		}
     
-        SetInterval(unconfs, 10000);
+        setInterval(unconfs, 10000);
 
 	</script>
 </body>

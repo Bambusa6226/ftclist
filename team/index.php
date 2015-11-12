@@ -526,7 +526,8 @@ $("document").ready(function() {
 					paging: false,
 					info: false,
 					bFilter: false,
-					bInfo: false
+					bInfo: false,
+					order: [[ 1, 'asc' ]]
 				});
 				
 			})

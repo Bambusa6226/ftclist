@@ -37,7 +37,7 @@ function trim(val, len)
     return xss("<span title='"+val+"'>"+val.slice(0, len)+"..</span>");
 }
 
-var base = "http://127.0.0.1:8080/";
+var base = "http://10.63.160.73/";
 $("#navsearch").attr("action", base+"search");
 $("#loginform").attr("action", base+"login.php");
 $("#navregister").attr("href", base+"register");

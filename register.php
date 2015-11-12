@@ -145,7 +145,7 @@ setcookie("region", $regionname);
 // ok, thats easy enough...
 
 echo "sucessfully logged in";
-echo "<script>window.location='./team?".$_POST['team']."#first';</script>";
+//echo "<script>window.location='./team?".$_POST['team']."#first';</script>";
 
 
 ?>
