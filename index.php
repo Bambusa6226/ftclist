@@ -36,7 +36,7 @@
 <head>
 	<title>FTCList</title>
 
-	<link rel="icon" type="image/png" href="http://example.com/image.png" />
+	<link rel="icon" type="image/png" href="./robot.png" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
@@ -75,13 +75,14 @@
 			</div>
 		</div>-->
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<h2 class="page-header">Recent Competitions</h2>
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Matches Recorded</th>
+							<th>Matches</th>
+							<th>Changed</th>
 							<th>Date</th>
 							<th>Region</th>
 						</tr>
@@ -93,14 +94,14 @@
 					</tbody>
 				</table>
 		  	</div>
-		  	<div class="col-md-6">
-		  		<h2 class="page-header">Top Contributors</h2>
+		  	<div class="col-md-4">
+		  		<h2 class="page-header">Top Contributors <small><a href='./contrib'>more...</a></small></h2>
 		  		<table class="table table-striped table-hover"  id='contrib'>
 					<thead>
 						<tr>
 							<th>Team Number</th>
 							<th>Team Name</th>
-							<th>Contribution Points</th>
+							<th>Points</th>
 						</tr>
 					</head>
 					<tbody>

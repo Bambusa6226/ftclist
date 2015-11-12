@@ -26,17 +26,19 @@ function getcookie(name) {
 
 function xss(val)
 {
+    if(val == undefined) return undefined;
+    if(typeof(val) != String) return val;
     return val.replace("&","&amp;").replace("<", "&lt;").replace(">","&gt;").replace('"', '&quot;').replace("'", "&#x27;").replace("/", "&#x2F;");
 }
 
 
-var base = "http://10.63.160.73/";
+var base = "http://127.0.0.1:8080/";
 $("#navsearch").attr("action", base+"search");
 $("#loginform").attr("action", base+"login.php");
 $("#navregister").attr("href", base+"register");
 
 
-$("body").append('<p style="text-align: center;color: #666">A Jones Production &copy; Copyright 2015</p>');
+$("body").append('<p style="text-align: center;color: #666">FTC Team <a href="'+base+'about">6226 Bambusa</a> &copy; Copyright 2015</p>');
 
 if(getcookie("team") != null)
 {

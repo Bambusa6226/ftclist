@@ -43,7 +43,7 @@ body {
 		background-color: #b4d8f3;
 }
 
-#statslist dd {
+#statslist dd, #aboutlist dd {
 	font-size: 30px;
 	font-weight: 100;
 	color: #666;

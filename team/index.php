@@ -388,7 +388,7 @@ $("document").ready(function() {
 			}
 
 			$("h1").text("Team "+me+" - "+team.name);
-			$("title").text("Team "+me+" - "+team.name);
+			$("title").text("Team - "+me+" "+team.name+" - FTCList");
 
 			if(team.ext == undefined)
 			{

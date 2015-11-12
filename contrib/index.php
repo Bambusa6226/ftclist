@@ -21,7 +21,7 @@
 	<div class="container">
 		<?php include("../topbar.php"); ?>
 
-	<h1 class="page-header">Contribution Leaderboard</h1>
+	<h1 class="page-header">Contribution Leaderboard - FTCList</h1>
 
 	<p class="lead" style="font-weight: 400;">
 		Contribution Points are awarded to teams that input competition data into the FTCList database.
@@ -40,11 +40,13 @@
     				</h3>
   				</div>
   				<div class="panel-body">
-  					<table id="contrib" class="table table-hover">
+  					<table id="contrib" class="table table-hover table-striped">
 						<thead>
 							<tr>
-								<th>Team</th>
-								<th>Contribution Points</th>
+								<th>#</th>
+								<th>Team Number</th>
+								<th>Team Name</th>
+								<th>Points</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -155,13 +157,36 @@ $("document").ready(function() {
 	$.getJSON("./data/contrib.json", function(contrib) {
 		var tbl = "";
 
+		var list = [];
 		for(var key in contrib.teams)
 		{
-			if(getcookie("team") == key) tbl += "<tr class='info'>";
+			contrib.teams[key].num = key;
+			list.push(contrib.teams[key]);
+		}
+
+		for(var i=1;i<list.length;i++)
+		{
+			var j=i;
+			while(j>0 && list[j-1].pts < list[j].pts)
+			{
+				var tmp = list[j-1];
+				list[j-1] = list[j];
+				list[j] = tmp;
+				j--;
+			}
+		}
+
+		var cntr = 1;
+		for(var i=0;i<list.length;i++)
+		{
+			if(getcookie("team") == list[i].num) tbl += "<tr class='info'>";
 			else tbl += "<tr clas='info'>";
-			tbl += "<td><a href='../team?"+key+"'>"+xss(key)+"</a></td>";
-			tbl += "<td>"+xss(contrib.teams[key])+"</td>";
+			tbl += "<td>"+cntr+"</td>";
+			tbl += "<td><a href='../team?"+list[i].num+"'>"+xss(list[i].num)+"</a></td>";
+			tbl += "<td>"+xss(list[i].name)+"</td>";
+			tbl += "<td>"+xss(list[i].pts)+"</td>";
 			tbl += "</tr>";
+			cntr ++;
 		}
 
 			$("#contrib tbody").empty().append(tbl);

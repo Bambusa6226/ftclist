@@ -18,7 +18,7 @@ if(file_exists("./data/teams/".$_POST['team'].".json"))
 
 	if($team->isSet == true)
 	{
-		echo "ERROR: team account already created, if you believe this is incorrect please email alex.theboy.jones@gmail.com";
+		echo "ERROR: team account already created, if you believe this is incorrect please email help@ftclist.org";
 		die;
 	}
 }
@@ -47,13 +47,17 @@ else
 		die;
 	}
 
-	if($_POST['region'] == "other")
+	if($_POST['region'] == "_other")
 	{
 		$regiondata = strtolower(str_replace(' ', '', $_POST['regionnew']));
+		$regionname = $_POST['regionnew'];
 	}
-
-	$regiondata = strtolower(str_replace(' ', '', $_POST['region']));
-	$newregion = false;
+	else 
+	{
+		$regiondata = strtolower(str_replace(' ', '', $_POST['region']));
+		$regionname = $_POST['region'];
+		$newregion = false;
+	}
 
 	if(file_exists("./data/regions/".$regiondata.".json"))
 	{
@@ -69,7 +73,7 @@ else
 		$region = new STDClass();
 		$region->teams = array();
 		$region->handle = $regiondata;
-		$region->name = $_POST['regionnew'];
+		$region->name = $regionname;
 		array_push($region->teams, $rgn);
 		$region->superregion = $_POST['superregion'];
 		file_put_contents("./data/regions/".$regiondata.".json", json_encode($region));
@@ -91,7 +95,7 @@ else
 			$super = new STDClass();
 			$super->regions = array();
 		}
-		array_push($super->regions, $regiondata);
+		array_push($super->regions, $regionname);
 		file_put_contents("./data/super/".$_POST['superregion'].".json", json_encode($super));
 	}
 }
@@ -101,7 +105,7 @@ $pwd = new STDclass();
 $pwd->hash = hash("sha256", hash("sha256", $_POST['pass']));
 $pwd->team = $_POST['team'];
 $pwd->email = $_POST['email'];
-$pwd->region = $regiondata;
+$pwd->region = $regionname;
 
 file_put_contents("./data/passwd/".$_POST['team'].".json", json_encode($pwd));
 
@@ -109,7 +113,7 @@ $team->number = $_POST['team'];
 $team->name = $_POST['tn'];
 $team->email = $_POST['email'];
 $team->superregion = $_POST['superregion'];
-$team->region = $regiondata;
+$team->region = $regionname;
 $team->contribution = 10;
 $team->isSet = true;
 
@@ -125,9 +129,10 @@ file_put_contents("./data/search.json", json_encode($search));
 file_put_contents("./data/teams/".$_POST['team'].".json", json_encode($team));
 
 $contrib = json_decode(file_get_contents("./data/contrib.json"));
-$contrib->teams[$team->number] = new STDClass();
-$contrib->teams[$team->number]->pts = 10;
-$contrib->teams[$team->number]->name = $team->name;
+$num = (string)$team->number;
+$contrib->teams->$num = new STDClass();
+$contrib->teams->$num->pts = 10;
+$contrib->teams->$num->name = $team->name;
 
 
 file_put_contents("./data/contrib.json", json_encode($contrib));
@@ -135,7 +140,7 @@ file_put_contents("./data/contrib.json", json_encode($contrib));
 setcookie("hash", hash("sha256", $_POST['pass']));
 setcookie("team", $_POST['team']);
 setcookie("time", time());
-setcookie("region", $regiondata);
+setcookie("region", $regionname);
 
 // ok, thats easy enough...
 

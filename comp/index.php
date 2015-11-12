@@ -24,7 +24,41 @@
 	<h1 class="page-header">Comp - </h1>
 
 	<div class="row">
+		<div class="col-md-12">	
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+    				<h3 class="panel-title">
+    					About
+    				</h3>
+  				</div>
+  				<div class="panel-body">
+  					<dl id="aboutlist">
+	  						<div class="row">
+	  							<div class="col-md-6">
+			  						<dt>Date</dt>
+			  						<dd id="date"></dd>
 
+			  						<dt>Location</dt>
+			  						<dd id="location"></dd>
+
+			  						<dt>Unconfirmed Matches</dt>
+			  						<dd id="unconfs"></dd>
+			  					</div>
+			  					<div class="col-md-6">
+			  						<dt>Region</dt>
+			  						<dd id="region"></dd>
+
+			  						<dt>Competition Type</dt>
+			  						<dd id="type"></dd>
+			  					</div>
+			  				</div>
+	  					</dl>
+
+  				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-md-6">	
 			<div class="panel panel-default">
   				<div class="panel-heading">
@@ -456,6 +490,7 @@ jQuery.fn.highlight = function (words, options) {
 
 		$("document").ready(function() {
 
+
 			<?php if(isset($_POST['message'])) echo "Growl.growl({'title':'Action Successful','message':'".$_POST['message']."'});"; ?>
 
 			$("#comp").attr("value", comp());
@@ -463,11 +498,47 @@ jQuery.fn.highlight = function (words, options) {
 				if(data.region != undefined) region = data.region.replace(" ", "").toLowerCase();
 				else region = "";
 
-				$("h1").html(data.name+", <a href='../region?"+region+"'>"+xss(data.region)+"</a>, "+xss(data.date));
+				$("#location").text(data.place);
+				$("#date").text(data.date);
+				$("#region").html("<a href='"+region+"'>"+xss(data.region)+"</a>");
+				var type = data.type == "qual" ? "Qualifier" : data.type == "league" ? "League Meet" : data.type == "noncomp" ? "Practice/Scrimmage" : data.type == "region" ? "Regional" : type; 
+				$("#type").text(type);
+				unconfs();
+
+				$("h1").text(data.name);
+				$("title").text("Competition - "+data.name+" - FTCList");
 				setrows(data.rows);
 		
 			})
-		})
+		});
+
+		var confs = [];
+		function unconfs() {
+			$("#unconfs").text("No Unconfirmed Matches");
+			$.getJSON("../data/unconf/"+comp()+".json",function(data) {
+				var rem = [];
+				var unc = "";
+				var first = true;
+				for(var i=0;i<data.rows.length;i++)
+				{
+					var broke = false;
+					for(var j=0;j<data.confed.length;j++)
+					{
+						if(data.rows[i].match == data.confed[j]) broke = true;
+					}
+					if(!broke) 
+					{
+						if(!first) unc += ", ";
+						else first = !first;
+						unc += data.rows[i].match;
+					}
+				}
+				if(unc == "") unc = "No Unconfirmed Matches";
+				$("#unconfs").text(unc);
+
+			});
+		}
+
 
 		function sigmoid(x)
 		{

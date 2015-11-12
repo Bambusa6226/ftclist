@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Search </title>
+	<title> Register Your Team - FTCList </title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
@@ -102,6 +102,9 @@
 <script>
 
 $("document").ready(function() {
+
+	if($("#superregion").val() != "null") chng();
+
 	$("input").on("input propertychange", function() {
 		if($("#team").val() != "" && $("#tn").val() != "" && $("#email").val() != "" && $("#pass").val() != "" && $("#superregion").val() != "null")
 		{
@@ -110,10 +113,15 @@ $("document").ready(function() {
 		else $("#register").attr("disabled", "disabled");
 	})
 
-	$("#superregion").change(function() {
+	$("#superregion").change(chng);
+
+
+
+	function chng() {
 
 		console.log("ch");
 		var val = $("#superregion").val();
+		if(val == "null") return;
 		$.getJSON("../data/super/"+val+".json", function(data) {
 			var cols = "";
 			if(data.regions != undefined)
@@ -125,7 +133,7 @@ $("document").ready(function() {
 					cols += "</label><br/>";
 				}
 			}
-			cols += "<label><input type='radio' name='region' class='rgnc' value='other'>Not Listed, Add New Region</label><br/>";
+			cols += "<label><input type='radio' name='region' class='rgnc' value='_other'>Not Listed, Add New Region</label><br/><br/>";
 			$("#region").empty().append(cols);
 
 			$(".rgnc").change(function() {
@@ -136,7 +144,7 @@ $("document").ready(function() {
 				}
 				else $("#register").attr("disabled", "disabled");
 
-				if($("input:radio[name=region]:checked").val() == "other")
+				if($("input:radio[name=region]:checked").val() == "_other")
 				{
 					$("#newregion").css("display", "block");
 				}
@@ -145,12 +153,11 @@ $("document").ready(function() {
 					$("#newregion").css("display", "none");
 				}
 			})
-
 		})
-	})
+	}
 
-	
 })
+
 
 </script>
 

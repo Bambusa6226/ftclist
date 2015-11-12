@@ -464,6 +464,7 @@ jQuery.fn.highlight = function (words, options) {
 
 			$.getJSON("../data/regions/"+comp()+".json", function(data) {
 				$("h1").text("Region: "+xss(data.name));
+				$("title").text("Region - "+data.name+" - FTCList");
 
 				var ccnt = 0;
 				var clist = [];
