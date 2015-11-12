@@ -33,27 +33,26 @@
   				</div>
   				<div class="panel-body">
   					<dl id="aboutlist">
-	  						<div class="row">
-	  							<div class="col-md-6">
-			  						<dt>Date</dt>
-			  						<dd id="date"></dd>
+	  					<div class="row">
+                            <div class="col-md-6">
+			  					<dt>Date</dt>
+                                <dd id="date"></dd>
 
-			  						<dt>Location</dt>
-			  						<dd id="location"></dd>
+			  			        <dt>Location</dt>
+			  			        <dd id="location"></dd>
 
-			  						<dt>Unconfirmed Matches</dt>
-			  						<dd id="unconfs"></dd>
-			  					</div>
-			  					<div class="col-md-6">
-			  						<dt>Region</dt>
-			  						<dd id="region"></dd>
+                                <dt>Unconfirmed Matches</dt>
+                                <dd id="unconfs"></dd>
+			  			    </div>
+			  			    <div class="col-md-6">
+			  			        <dt>Region</dt>
+                                <dd id="region"></dd>
 
-			  						<dt>Competition Type</dt>
-			  						<dd id="type"></dd>
-			  					</div>
-			  				</div>
-	  					</dl>
-
+                                <dt>Competition Type</dt>
+                                <dd id="type"></dd>
+			  			    </div>
+			  			</div>
+	  	            </dl>
   				</div>
 			</div>
 		</div>
@@ -503,15 +502,18 @@ jQuery.fn.highlight = function (words, options) {
 				$("#region").html("<a href='"+region+"'>"+xss(data.region)+"</a>");
 				var type = data.type == "qual" ? "Qualifier" : data.type == "league" ? "League Meet" : data.type == "noncomp" ? "Practice/Scrimmage" : data.type == "region" ? "Regional" : type; 
 				$("#type").text(type);
+                
+                rowsdata = data.rows;
+                
 				unconfs();
 
 				$("h1").text(data.name);
 				$("title").text("Competition - "+data.name+" - FTCList");
-				setrows(data.rows);
+				//setrows(data.rows);
 		
 			})
 		});
-
+        var rowsdata = [];
 		var confs = [];
 		function unconfs() {
 			$("#unconfs").text("No Unconfirmed Matches");
@@ -535,15 +537,16 @@ jQuery.fn.highlight = function (words, options) {
 				}
 				if(unc == "") unc = "No Unconfirmed Matches";
 				$("#unconfs").text(unc);
-
+                
+                if(JSON.stringify(data.confed) != JSON.stringify(confs))
+                {
+                    confs = data.confed;
+                    setrows(rowsdata);
+                }
 			});
 		}
-
-
-		function sigmoid(x)
-		{
-			return 1/(1+(Math.pow(2.71828, -x)));
-		}
+    
+        SetInterval(unconfs, 10000);
 
 	</script>
 </body>

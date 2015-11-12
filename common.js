@@ -31,6 +31,11 @@ function xss(val)
     return val.replace("&","&amp;").replace("<", "&lt;").replace(">","&gt;").replace('"', '&quot;').replace("'", "&#x27;").replace("/", "&#x2F;");
 }
 
+function trim(val, len)
+{
+    if(val.length <= len) return val;
+    return xss("<span title='"+val+"'>"+val.slice(0, len)+"..</span>");
+}
 
 var base = "http://127.0.0.1:8080/";
 $("#navsearch").attr("action", base+"search");
