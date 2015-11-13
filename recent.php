@@ -47,20 +47,29 @@ foreach($files as $file)
 	{
 		if($time > $max)
 		{
+			$min = 2000000000;
+			$rpl = -1;
 			for($i=0;$i<$n;$i++)
 			{
 				if($time > $rtimes[$i])
 				{
-					$rtimes[$i] = $time;
-					$rnames[$i] = $file;
-					break;
+					if($rtimes[$i] < $min)
+					{
+						$min = $rtimes[$i];
+						$rpl = $i;
+					}
 				}
+			}
+			if($rpl != -1) 
+			{
+				$rtimes[$rpl] = $time;
+				$rnames[$rpl] = $file;
 			}
 		}
 	}
 }
 // insertion sort bc the data is close?
-for($a=1;$a<$n;$a++)
+for($a=1;$a<count($rtimes);$a++)
 {
 	$b = $a;
 	while($b>0 && intval($rtimes[$b-1]) > intval($rtimes[$b]))
@@ -87,7 +96,7 @@ function xss($val)
 	return $val;
 }
 
-for($j=$n-1;$j>=0;$j--)
+for($j=count($rtimes)-1;$j>=0;$j--)
 {
 	$cmp = json_decode(file_get_contents("./data/comps/".$rnames[$j]));
 	echo "<tr>";

@@ -154,7 +154,7 @@ jQuery.fn.highlight = function (words, options) {
 
 
 $("document").ready(function() {
-	$.getJSON("./data/contrib.json", function(contrib) {
+	$.getJSON("../data/contrib.json", function(contrib) {
 		var tbl = "";
 
 		var list = [];

@@ -119,6 +119,10 @@
 	<script src="./common.js"></script>
 	<script>
 
+	Array.prototype.insert = function (index, item) {
+  		this.splice(index, 0, item);
+	};
+
 	$("document").ready(function() {
 		$.getJSON("./data/contrib.json",function(contrib)
 		{
@@ -129,7 +133,6 @@
 			for(var key in teams)
 			{
 				teams[key].num = key;
-									console.log(teams[key].pts)
 
 				if(tops.length < n)
 				{
@@ -138,21 +141,31 @@
 				}
 				else
 				{
-					console.log(teams[key].pts)
 					if(parseInt(teams[key].pts) > max)
 					{
+						var min = 1000000;
+						var ths = -1;
 						for(var i=0;i<n;i++)
 						{
+							console.log(tops[i]);
 							if(parseInt(teams[key].pts) > parseInt(tops[i].pts)) 
 							{
-								tops[i] = teams[key];
-								break;
+								if(parseInt(tops[i].pts) < parseInt(min)) 
+								{
+									min = tops[i].pts;
+									ths = i;
+								}
 							}
+						}
+						if(ths != -1) 
+						{
+							console.log(tops[ths].pts);
+							tops[ths] = teams[key];
 						}
 					}
 				}
 			}
-			for(var i=1;i<n;i++)
+			for(var i=1;i<tops.length;i++)
 			{
 				var j=i;
 				while(j>0 && tops[j-1].pts < tops[j].pts)
@@ -165,7 +178,7 @@
 			}
 			
 			var tbl = "";
-			for(var i=0;i<n;i++)
+			for(var i=0;i<tops.length;i++)
 			{
 				tbl += "<tr>";
 				tbl += "<td><a href='./team?"+tops[i].num+"'>"+xss(tops[i].num)+"</a></td>";

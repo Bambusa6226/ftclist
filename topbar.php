@@ -8,7 +8,7 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="#">FTCList</a>
+      		<a class="navbar-brand" href="#">FTCList (beta)</a>
     	</div>
       	<ul class="nav navbar-nav navbar-right">
     		<li><a href="#" id="navteam">Team</a></li>
@@ -31,12 +31,12 @@
   <div class="modal fade" id="modal_login">
       <div class="modal-dialog">
         <div class="modal-content">
+          <form method="POST" action="./login.php" id="loginform">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Login to FTCList</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" action="login.php" id="loginform">
                     <input class="form-control" type="text" name="team" placeholder="Team Number"><br/>
                     <input class="form-control" type="password" name="pass" placeholder="Password">
             </div>
