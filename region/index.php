@@ -499,36 +499,43 @@ jQuery.fn.highlight = function (words, options) {
 				var clist = [];
 				var matches = [];
 				var rs = "";
-				for(var a=0;a<data.comps.length;a++)
+				if(data.comps != undefined)
 				{
-					$.getJSON("../data/comps/"+data.comps[a].handle+".json", function(cm)
+					for(var a=0;a<data.comps.length;a++)
 					{
-						rs += "<tr>";
-						rs += "<td><a href='../comp?"+cm.handle+"'>"+xss(cm.name)+"</a></td>";
-						rs += "<td>"+xss(cm.date)+"</td>";
-						rs += "<td>"+cm.rows.length+"</td>";
-						rs += "</tr>";
-
-						matches = matches.concat(cm.rows);
-
-						if(++ccnt == data.comps.length)
+						$.getJSON("../data/comps/"+data.comps[a].handle+".json", function(cm)
 						{
-							$("#competitions tbody").empty().append(rs);
+							rs += "<tr>";
+							rs += "<td><a href='../comp?"+cm.handle+"'>"+xss(cm.name)+"</a></td>";
+							rs += "<td>"+xss(cm.date)+"</td>";
+							rs += "<td>"+cm.rows.length+"</td>";
+							rs += "</tr>";
 
-							var r = $("#competitions").DataTable({
-								"order": [[ 1, 'asc' ]]
-							});
+							matches = matches.concat(cm.rows);
 
-							r.on( 'draw', function () {
-				        		var body = $(r.table().body());
-				 
-				        		body.unhighlight();
-				        		body.highlight( r.search() );  
-				    		});
-							
-							setrows(matches, data.teams);
-						}
-					})
+							if(++ccnt == data.comps.length)
+							{
+								$("#competitions tbody").empty().append(rs);
+
+								var r = $("#competitions").DataTable({
+									"order": [[ 1, 'asc' ]]
+								});
+
+								r.on( 'draw', function () {
+					        		var body = $(r.table().body());
+					 
+					        		body.unhighlight();
+					        		body.highlight( r.search() );  
+					    		});
+								
+								setrows(matches, data.teams);
+							}
+						})
+					}
+				}
+				else
+				{
+					setrows([], data.teams);
 				}		
 			})
 		})
