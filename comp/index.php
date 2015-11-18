@@ -118,6 +118,25 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+    				<h3 class="panel-title">
+    					Score Spread
+    				</h3>
+  				</div>
+  				<div class="panel-body">
+  					<svg id="spread" style="width: 100%;">
+  						<g id="axis">
+  							<line x1="0" x2="10000" y1="0" y2="10000" stroke="black" />
+  						</g>
+  					</svg>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+
 
 
 	<div class="modal fade" id="modal_match">
@@ -170,6 +189,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="../jquery.growl.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="../common.js"></script>
 
 
@@ -279,6 +299,8 @@ jQuery.fn.highlight = function (words, options) {
 			var teams = {};
 			for(var a=0;a<rows.length;a++)
 			{
+				// lets do some stuff here.
+
 				tbl += "<tr>";
 				tbl += "<td>"+xss(rows[a].match)+"</td>";
 				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
@@ -392,6 +414,61 @@ jQuery.fn.highlight = function (words, options) {
 				}
 
 			}
+
+			// its charting time
+			var maxs = 0;
+			var mins = 1000000000;
+
+			for(var key in teams)
+			{
+				for(var i=0;i<teams[key].scores.length;i++)
+				{
+					console.log(teams[key].scores[i]);
+					if(parseInt(teams[key].scores[i]) > maxs) maxs = parseInt(teams[key].scores[i]);
+					if(parseInt(teams[key].scores[i]) < mins) mins = parseInt(teams[key].scores[i]);
+				}
+			}
+
+			var steps = 10;
+			var spr = Math.ceil((maxs)/(steps));
+			var amts = [0,0,0,0,0,0,0,0,0,0];
+			for(var key in teams)
+			{
+				for(var i=0;i<teams[key].scores.length;i++)
+				{
+					amts[Math.floor(teams[key].scores[i]/spr)]+= 0.5;
+				}
+			}
+
+			var maxrep = 0;
+			for(var i=0;i<amts.length;i++)
+			{
+				if(amts[i] > maxrep) maxrep = amts[i];
+			}
+
+			var height = $("#spread").height();
+			var htick = height/maxrep;
+			var width = $("#spread").width();
+			var wtick = width/steps;
+
+			for(var i=0;i<steps;i++)
+			{
+				d3.select("#axis").append("line")
+				.attr("x1", wtick*i)
+				.attr("x2", wtick*i)
+				.attr("y1", 0)
+				.attr("y2", height)
+				.stroke("black");
+			}
+
+			console.log(maxs);
+			console.log(spr*10);
+			console.log(amts);
+
+
+
+
+
 
 
 			var min = 999999999;
@@ -507,6 +584,8 @@ jQuery.fn.highlight = function (words, options) {
 		$("document").ready(function() {
 
 
+			$("#spread").css("height", $("#spread").width());
+
 			<?php if(isset($_POST['message'])) echo "Growl.growl({'title':'Action Successful','message':'".$_POST['message']."'});"; ?>
 
 			$("#comp").attr("value", comp());
@@ -521,6 +600,8 @@ jQuery.fn.highlight = function (words, options) {
 				$("#type").text(type);
                 
                 rowsdata = data.rows;
+
+                setrows(data.rows);
                 
 				unconfs();
 
