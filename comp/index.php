@@ -118,7 +118,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<!--<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
   				<div class="panel-heading">
@@ -135,7 +135,7 @@
   				</div>
   			</div>
   		</div>
-  	</div>
+  	</div>-->
 
 
 
@@ -414,7 +414,7 @@ jQuery.fn.highlight = function (words, options) {
 				}
 
 			}
-
+/*
 			// its charting time
 			var maxs = 0;
 			var mins = 1000000000;
@@ -466,7 +466,7 @@ jQuery.fn.highlight = function (words, options) {
 			console.log(amts);
 
 
-
+*/
 
 
 

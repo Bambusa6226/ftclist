@@ -144,7 +144,7 @@ foreach($keys as $key)
 	  						{
 	  							echo "<div class='comp'>";
 	  							echo "<a style='font-size: 12pt' href='../region?".$region->handle."'>".xss($region->name)."</a>";
-	  							echo "<div><strong>Super Region:</strong> ".xss($region->super)."</div>";
+	  							echo "<div><strong>Super Region:</strong> ".xss($region->superregion)."</div>";
 	  							echo "";
 	  							echo "</div>";
 	  							echo "<hr/>";
