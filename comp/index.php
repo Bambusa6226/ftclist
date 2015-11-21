@@ -128,8 +128,8 @@
   				</div>
   				<div class="panel-body">
   					<svg id="spread" style="width: 100%;">
+  						<text font-size="11px" x="10" y="11">frequency</text>
   						<g id="axis">
-  							<line x1="0" x2="10000" y1="0" y2="10000" stroke="black" />
   						</g>
   					</svg>
   				</div>
@@ -431,7 +431,8 @@ jQuery.fn.highlight = function (words, options) {
 
 			var steps = 10;
 			var spr = Math.ceil((maxs)/(steps));
-			var amts = [0,0,0,0,0,0,0,0,0,0];
+			var amts = [];
+			for(i=0;i<steps;i++) amts[i] = 0;
 			for(var key in teams)
 			{
 				for(var i=0;i<teams[key].scores.length;i++)
@@ -447,19 +448,64 @@ jQuery.fn.highlight = function (words, options) {
 			}
 
 			var height = $("#spread").height();
-			var htick = height/maxrep;
+			var hoffset = 30;
+			var htick = (height-(hoffset*2))/maxrep;
 			var width = $("#spread").width();
-			var wtick = width/steps;
+			var wtick = width/(steps+1);
+			var woffset = Math.floor(wtick);
+
+			d3.select("#axis").append("text")
+			.text("score ranges")
+			.attr("font-size", "11px")
+			.attr("y", height-4)
+			.attr("x", width/2-20);
+
+			for(var i=0;i<maxrep+1;i++)
+			{
+				d3.select("#axis").append("line")
+				.attr("y1", off(htick*i)+hoffset)
+				.attr("y2", off(htick*i)+hoffset)
+				.attr("x1", 0)
+				.attr("x2", width)
+				.attr("stroke", "black")
+				.attr("stroke-width", "0.1");
+
+				d3.select("#axis").append("text")
+				.text(maxrep - i)
+				.attr("y", off(htick*i)-2+hoffset)
+				.attr("x", 20)
+				.attr("font-size", "11px");
+			}
 
 			for(var i=0;i<steps;i++)
 			{
-				d3.select("#axis").append("line")
-				.attr("x1", wtick*i)
-				.attr("x2", wtick*i)
+				/*d3.select("#axis").append("line")
+				.attr("x1", woffset+off(wtick*i))
+				.attr("x2", woffset+off(wtick*i))
 				.attr("y1", 0)
 				.attr("y2", height)
-				.stroke("black");
+				.attr("stroke", "black");*/
+
+				d3.select("#axis").append("rect")
+				.attr("fill", "dodgerblue")
+				.attr("x", Math.floor(wtick*i)+woffset)
+				.attr("width", Math.floor(wtick/2))
+				.attr("y", Math.floor((height-hoffset)-(htick*(amts[i])))+1)
+				.attr("height", Math.floor(htick*amts[i]));
+
+				d3.select("#axis").append("text")
+				.text(spr*i + "-" + (spr*(i+1)))
+				.attr("y", height-hoffset+12)
+				.attr("x", woffset+off(wtick*i))
+				.attr("text-anchor", "center")
+				.attr("font-size", "11px")
+				.attr("width", wtick);
+
 			}
+
+			
+
+			
 
 			console.log(maxs);
 			console.log(spr*10);
@@ -645,6 +691,11 @@ jQuery.fn.highlight = function (words, options) {
                 	})
                 }
 			});
+		}
+
+		function off(num)
+		{
+			return Math.floor(num)+0.5;
 		}
     
         setInterval(unconfs, 10000);
