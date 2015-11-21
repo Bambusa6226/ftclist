@@ -104,7 +104,7 @@
 								<th>Matches</th>
 								<th>QP</th>
 								<th>RP</th>
-								<th>Reliability</th>
+								<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../rel'>Learn More</a>" data-placement="top" data-html='true'></span></th>
 								<!--<th>avg</th>
 								<th>dev</th>
 								<th>weight</th>-->
@@ -118,7 +118,7 @@
 			</div>
 		</div>
 	</div>
-	<!--<div class="row">
+	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
   				<div class="panel-heading">
@@ -135,7 +135,7 @@
   				</div>
   			</div>
   		</div>
-  	</div>-->
+  	</div>
 
 
 
@@ -186,10 +186,10 @@
 	</div><!-- /.modal -->
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="../jquery.growl.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../jquery.growl.js" type="text/javascript"></script>
 <script src="../common.js"></script>
 
 
@@ -414,7 +414,7 @@ jQuery.fn.highlight = function (words, options) {
 				}
 
 			}
-/*
+
 			// its charting time
 			var maxs = 0;
 			var mins = 1000000000;
@@ -512,7 +512,7 @@ jQuery.fn.highlight = function (words, options) {
 			console.log(amts);
 
 
-*/
+
 
 
 
@@ -629,7 +629,7 @@ jQuery.fn.highlight = function (words, options) {
 		var fst = true;
 		$("document").ready(function() {
 
-
+			 $('[data-toggle="popover"]').popover()
 			$("#spread").css("height", $("#spread").width());
 
 			<?php if(isset($_POST['message'])) echo "Growl.growl({'title':'Action Successful','message':'".$_POST['message']."'});"; ?>
