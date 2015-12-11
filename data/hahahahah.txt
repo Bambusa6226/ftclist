@@ -1,0 +1,22 @@
+A
+C
+D
+A
+B
+C
+D
+D
+A
+B
+B
+A
+C
+
+Yes
+No
+probably
+not likely
+I doubt it
+3.2
+eight times
+yolo.
