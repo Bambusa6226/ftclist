@@ -100,17 +100,17 @@
 	  					<dl>
 	  						<div class="row">
 	  							<div class="col-md-6">
-			  						<dt>Robot Description</dt>
+			  						<dt>Capabilities</dt>
 			  						<dd class="des"></dd>
 			  							<br/>
-			  						<dt>Autonomous Abilities</dt>
+			  						<dt>Strategies</dt>
 			  						<dd class="auto"></dd>
 	  							</div>
 	  							<div class="col-md-6">
-			  						<dt>TeleOp Abilities</dt>
+			  						<dt>Performance</dt>
 			  						<dd class="teleop"></dd>
 			  							<br/>
-			  						<dt>Endgame Abilities</dt>
+			  						<dt>Autonomous</dt>
 			  						<dd class="endgame"></dd>
 			  					</div>
 			  				</div>
@@ -224,20 +224,27 @@
       			<div class="modal-body">
       				<form method="POST" action="../teamdata.php">
 						<div class="form-group">
-							<label for="des">Robot Description</label>
+							<label for="des">Capabilities</label>
 							<textarea class="form-control" name="des" id="des"></textarea>
+							<div class="help-block">What can Your Robot/Team do and what does it not do?</div>
 						</div>
+						<hr/>
 						<div class="form-group">
-							<label for="auto">Autonomous Abilities</label>
+							<label for="auto">Strategies</label>
 							<textarea class="form-control" name="auto" id="auto"></textarea>
+							<div class="help-block">what does your Robot / Team do during the Match? How does your Team play the game?</div>
 						</div>
+						<hr/>
 						<div class="form-group">
-							<label for="teleop">TeleOp Abilities</label>
+							<label for="teleop">Performance</label>
 							<textarea class="form-control" name="teleop" id="teleop"></textarea>
+							<div class="help-block">How well does your Robot / Team do what it attempts? What are your Robot's strengths and weaknesses?</div>
 						</div>
+						<hr/>
 						<div class="form-group">
-							<label for="endgame">Endgame Abilities</label>
+							<label for="endgame">Autonomous</label>
 							<textarea class="form-control" name="endgame" id="endgame"></textarea>
+							<div class="help-block">what does your Robot do in autonomous mode? Does your Team have multiple program options?</div>
 						</div>
         		</div>
       			<div class="modal-footer">

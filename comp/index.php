@@ -345,7 +345,12 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red1].score += Number(rows[a].redscore);
-				teams[rows[a].red1].rp += Number(rows[a].bluescore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].red1].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].red1].rp += Number(rows[a].redscore);
+
 				teams[rows[a].red1].alliance.push(rows[a].red2);
 				teams[rows[a].red1].scores.push(rows[a].redscore);
 
@@ -361,7 +366,12 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red2].score += Number(rows[a].redscore);
-				teams[rows[a].red2].rp += Number(rows[a].bluescore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].red2].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].red2].rp += Number(rows[a].redscore);
+
 				teams[rows[a].red2].alliance.push(rows[a].red1);
 				teams[rows[a].red2].scores.push(rows[a].redscore);
 
@@ -376,7 +386,12 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue1].scores = []
 				}
 				teams[rows[a].blue1].score += Number(rows[a].bluescore);
-				teams[rows[a].blue1].rp += Number(rows[a].redscore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].blue1].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].blue1].rp += Number(rows[a].redscore);
+
 				teams[rows[a].blue1].alliance.push(rows[a].blue2);
 				teams[rows[a].blue1].scores.push(rows[a].bluescore);
 
@@ -391,7 +406,12 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue2].scores = []
 				}
 				teams[rows[a].blue2].score += Number(rows[a].bluescore);
-				teams[rows[a].blue2].rp += Number(rows[a].redscore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].blue2].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].blue2].rp += Number(rows[a].redscore);
+
 				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 				teams[rows[a].blue2].scores.push(rows[a].bluescore);
 
@@ -574,7 +594,7 @@ jQuery.fn.highlight = function (words, options) {
 				tlb += "<td>"+teams[key].scores.length+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
-								if(teams[key].scores.length == 1)
+				if(teams[key].scores.length == 1)
 					tlb += "<td data-order='0'>0*</td>";
 				else
 					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+"</td>";

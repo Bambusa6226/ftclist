@@ -109,7 +109,7 @@ $pwd->region = $regionname;
 
 file_put_contents("./data/passwd/".$_POST['team'].".json", json_encode($pwd));
 
-chmod("./data/passwd/".$_POST['team'].".json", 700);
+//chmod("./data/passwd/".$_POST['team'].".json", 700);
 
 $team->number = $_POST['team'];
 $team->name = $_POST['tn'];
