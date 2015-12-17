@@ -26,7 +26,7 @@
 
 	<div class="row">
 
-		<div class="col-md-5">	
+		<div class="col-md-6">	
 			<div class="panel panel-default">
   				<div class="panel-heading">
     				<h3 class="panel-title">
@@ -49,7 +49,7 @@
   				</div>
 			</div>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<div class="panel panel-default">
   				<div class="panel-heading">
     				<h3 class="panel-title">
@@ -278,6 +278,7 @@ jQuery.fn.highlight = function (words, options) {
 				
 				tbl += "</tr>";*/
 
+				
 				if(teams[rows[a].red1] == undefined)
 				{
 					teams[rows[a].red1] = {};
@@ -290,7 +291,12 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red1].score += Number(rows[a].redscore);
-				teams[rows[a].red1].rp += Number(rows[a].bluescore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].red1].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].red1].rp += Number(rows[a].redscore);
+
 				teams[rows[a].red1].alliance.push(rows[a].red2);
 				teams[rows[a].red1].scores.push(rows[a].redscore);
 
@@ -306,7 +312,12 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red2].score += Number(rows[a].redscore);
-				teams[rows[a].red2].rp += Number(rows[a].bluescore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].red2].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].red2].rp += Number(rows[a].redscore);
+
 				teams[rows[a].red2].alliance.push(rows[a].red1);
 				teams[rows[a].red2].scores.push(rows[a].redscore);
 
@@ -321,7 +332,12 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue1].scores = []
 				}
 				teams[rows[a].blue1].score += Number(rows[a].bluescore);
-				teams[rows[a].blue1].rp += Number(rows[a].redscore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].blue1].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].blue1].rp += Number(rows[a].redscore);
+
 				teams[rows[a].blue1].alliance.push(rows[a].blue2);
 				teams[rows[a].blue1].scores.push(rows[a].bluescore);
 
@@ -336,7 +352,12 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue2].scores = []
 				}
 				teams[rows[a].blue2].score += Number(rows[a].bluescore);
-				teams[rows[a].blue2].rp += Number(rows[a].redscore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].blue2].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].blue2].rp += Number(rows[a].redscore);
+
 				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 				teams[rows[a].blue2].scores.push(rows[a].bluescore);
 
@@ -360,7 +381,8 @@ jQuery.fn.highlight = function (words, options) {
 
 			}
 
-
+			
+			
 			var min = 999999999;
 			var max = 0;
 			var favg = 0;

@@ -109,6 +109,8 @@ $pwd->region = $regionname;
 
 file_put_contents("./data/passwd/".$_POST['team'].".json", json_encode($pwd));
 
+//chmod("./data/passwd/".$_POST['team'].".json", 700);
+
 $team->number = $_POST['team'];
 $team->name = $_POST['tn'];
 $team->email = $_POST['email'];
@@ -144,8 +146,8 @@ setcookie("region", $regionname);
 
 // ok, thats easy enough...
 
-echo "sucessfully logged in";
-//echo "<script>window.location='./team?".$_POST['team']."#first';</script>";
+//echo "sucessfully logged in";
+echo "<script>window.location='./team?".$_POST['team']."#first';</script>";
 
 
 ?>

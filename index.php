@@ -43,6 +43,12 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.css"/>
 	<link rel="stylesheet" href="./common.css"/> 
 
+	<style>
+		.logoimg:hover {
+			cursor: pointer;
+		}
+	</style>
+
 </head>
 <body>
 	<?php 
@@ -50,9 +56,19 @@
 	?>
 	<div class="jumbotron">
 		<div class="container">
-			<h1>FTCList</h1>
-			<p>The easiest way to stay up to date on FTC robotics teams and competitions.</p>
-			<a href="./register" class="btn btn-primary btn-lg">Register</a>
+			<div class="row">
+				<div class="col-md-7">
+					<h1>FTCList</h1>
+					<p>Realtime match data and analysis for FTC robotics competitions.</p>
+					<a href="./register" class="btn btn-primary btn-lg">Register</a>
+				</div>
+				<div class="col-md-5" style="margin-top: 30px;">
+					<div><strong>Brought to you by:</strong></div>
+					<div class="img-responsive" style="margin-top: 3px;">
+						<img onclick="window.location='./about';" class="logoimg" src="./data/img/logo.png" alt="Team 6226 Bambusa"/>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -118,6 +134,15 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="./common.js"></script>
 	<script>
+
+	var which = readtop();
+
+	if(which != undefined && which != "")
+	{
+		if(which.length == 6) window.location = "./comp?"+which;
+		else window.location = "./team?"+which;
+	}
+
 
 	Array.prototype.insert = function (index, item) {
   		this.splice(index, 0, item);

@@ -104,7 +104,7 @@
 								<th>Matches</th>
 								<th>QP</th>
 								<th>RP</th>
-								<th>Reliability</th>
+								<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
 								<!--<th>avg</th>
 								<th>dev</th>
 								<th>weight</th>-->
@@ -175,6 +175,7 @@
 								<input class="form-control" type="text" name="redscore" placeholder="Score"><br/>
 							</div>
 						</div>
+						<div class='help-block'>Please put an asterisk (*) after the number of a team whos score doesn't count in the case of surrogate matches.</div>
       			</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -186,10 +187,10 @@
 	</div><!-- /.modal -->
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="../jquery.growl.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../jquery.growl.js" type="text/javascript"></script>
 <script src="../common.js"></script>
 
 
@@ -297,6 +298,7 @@ jQuery.fn.highlight = function (words, options) {
 			var tbl = "";
 			var tlb = "";
 			var teams = {};
+
 			for(var a=0;a<rows.length;a++)
 			{
 				// lets do some stuff here.
@@ -345,7 +347,12 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red1].score += Number(rows[a].redscore);
-				teams[rows[a].red1].rp += Number(rows[a].bluescore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].red1].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].red1].rp += Number(rows[a].redscore);
+
 				teams[rows[a].red1].alliance.push(rows[a].red2);
 				teams[rows[a].red1].scores.push(rows[a].redscore);
 
@@ -361,7 +368,12 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red2].score += Number(rows[a].redscore);
-				teams[rows[a].red2].rp += Number(rows[a].bluescore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].red2].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].red2].rp += Number(rows[a].redscore);
+
 				teams[rows[a].red2].alliance.push(rows[a].red1);
 				teams[rows[a].red2].scores.push(rows[a].redscore);
 
@@ -376,7 +388,12 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue1].scores = []
 				}
 				teams[rows[a].blue1].score += Number(rows[a].bluescore);
-				teams[rows[a].blue1].rp += Number(rows[a].redscore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].blue1].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].blue1].rp += Number(rows[a].redscore);
+
 				teams[rows[a].blue1].alliance.push(rows[a].blue2);
 				teams[rows[a].blue1].scores.push(rows[a].bluescore);
 
@@ -391,7 +408,12 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue2].scores = []
 				}
 				teams[rows[a].blue2].score += Number(rows[a].bluescore);
-				teams[rows[a].blue2].rp += Number(rows[a].redscore);
+
+				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+					teams[rows[a].blue2].rp += Number(rows[a].bluescore);
+				else 
+					teams[rows[a].blue2].rp += Number(rows[a].redscore);
+
 				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 				teams[rows[a].blue2].scores.push(rows[a].bluescore);
 
@@ -423,7 +445,6 @@ jQuery.fn.highlight = function (words, options) {
 			{
 				for(var i=0;i<teams[key].scores.length;i++)
 				{
-					console.log(teams[key].scores[i]);
 					if(parseInt(teams[key].scores[i]) > maxs) maxs = parseInt(teams[key].scores[i]);
 					if(parseInt(teams[key].scores[i]) < mins) mins = parseInt(teams[key].scores[i]);
 				}
@@ -515,6 +536,7 @@ jQuery.fn.highlight = function (words, options) {
 
 
 
+			
 
 
 			var min = 999999999;
@@ -530,6 +552,8 @@ jQuery.fn.highlight = function (words, options) {
 				cnt++;
 			}
 			favg /= cnt;
+
+			console.log(favg);
 
 			var spread = (max - min);
 			var midzone = spread/2;
@@ -563,6 +587,7 @@ jQuery.fn.highlight = function (words, options) {
 					//console.log(key+": "+weights+" - "+alscore);
 				}
 				teams[key].weight = weights/(teams[key].scores.length);
+				console.log(teams[key].weight);
 				teams[key].dv = Math.abs(sd/teams[key].scores.length);
 				teams[key].rel = Math.round(teams[key].avg - teams[key].dv + teams[key].weight);
 			}
@@ -574,7 +599,7 @@ jQuery.fn.highlight = function (words, options) {
 				tlb += "<td>"+teams[key].scores.length+"</td>";
 				tlb += "<td>"+teams[key].qp+"</td>";
 				tlb += "<td>"+teams[key].rp+"</td>";
-								if(teams[key].scores.length == 1)
+				if(teams[key].scores.length == 1)
 					tlb += "<td data-order='0'>0*</td>";
 				else
 					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+"</td>";
@@ -629,7 +654,7 @@ jQuery.fn.highlight = function (words, options) {
 		var fst = true;
 		$("document").ready(function() {
 
-
+			 $('[data-toggle="popover"]').popover()
 			$("#spread").css("height", $("#spread").width());
 
 			<?php if(isset($_POST['message'])) echo "Growl.growl({'title':'Action Successful','message':'".$_POST['message']."'});"; ?>

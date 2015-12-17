@@ -33,7 +33,7 @@ setcookie("region", $pwd->region);
 
 // ok, thats easy enough...
 
-echo "sucessfully logged in";
+//echo "sucessfully logged in";
 echo "<script>window.location='./team?".$_POST['team']."';</script>";
 
 ?>
