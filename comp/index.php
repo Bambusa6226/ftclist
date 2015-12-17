@@ -104,7 +104,7 @@
 								<th>Matches</th>
 								<th>QP</th>
 								<th>RP</th>
-								<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../rel'>Learn More</a>" data-placement="top" data-html='true'></span></th>
+								<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
 								<!--<th>avg</th>
 								<th>dev</th>
 								<th>weight</th>-->
@@ -175,6 +175,7 @@
 								<input class="form-control" type="text" name="redscore" placeholder="Score"><br/>
 							</div>
 						</div>
+						<div class='help-block'>Please put an asterisk (*) after the number of a team whos score doesn't count in the case of surrogate matches.</div>
       			</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -297,6 +298,7 @@ jQuery.fn.highlight = function (words, options) {
 			var tbl = "";
 			var tlb = "";
 			var teams = {};
+
 			for(var a=0;a<rows.length;a++)
 			{
 				// lets do some stuff here.
@@ -443,7 +445,6 @@ jQuery.fn.highlight = function (words, options) {
 			{
 				for(var i=0;i<teams[key].scores.length;i++)
 				{
-					console.log(teams[key].scores[i]);
 					if(parseInt(teams[key].scores[i]) > maxs) maxs = parseInt(teams[key].scores[i]);
 					if(parseInt(teams[key].scores[i]) < mins) mins = parseInt(teams[key].scores[i]);
 				}
@@ -535,6 +536,7 @@ jQuery.fn.highlight = function (words, options) {
 
 
 
+			
 
 
 			var min = 999999999;
@@ -550,6 +552,8 @@ jQuery.fn.highlight = function (words, options) {
 				cnt++;
 			}
 			favg /= cnt;
+
+			console.log(favg);
 
 			var spread = (max - min);
 			var midzone = spread/2;
@@ -583,6 +587,7 @@ jQuery.fn.highlight = function (words, options) {
 					//console.log(key+": "+weights+" - "+alscore);
 				}
 				teams[key].weight = weights/(teams[key].scores.length);
+				console.log(teams[key].weight);
 				teams[key].dv = Math.abs(sd/teams[key].scores.length);
 				teams[key].rel = Math.round(teams[key].avg - teams[key].dv + teams[key].weight);
 			}

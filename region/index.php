@@ -26,7 +26,7 @@
 
 	<div class="row">
 
-		<div class="col-md-5">	
+		<div class="col-md-6">	
 			<div class="panel panel-default">
   				<div class="panel-heading">
     				<h3 class="panel-title">
@@ -49,7 +49,7 @@
   				</div>
 			</div>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<div class="panel panel-default">
   				<div class="panel-heading">
     				<h3 class="panel-title">
@@ -381,7 +381,8 @@ jQuery.fn.highlight = function (words, options) {
 
 			}
 
-
+			
+			
 			var min = 999999999;
 			var max = 0;
 			var favg = 0;
