@@ -1,1 +1,1 @@
-{"comps":[],"number":"1234","name":"aoeu","email":"a@b.c","superregion":"west","region":"San Diego","contribution":10,"isSet":true}
+{"comps":[],"number":"1234","name":"aoeu","email":"a@b.c","superregion":"west","region":"San Diego","contribution":12,"isSet":true,"games":[{"comp":"test","match":"21","red1":"1111","red2":"4444","redscore":"20","blue1":"1234","blue2":"4321","bluescore":"100","contrib":"1234","bluepenalty":"10","redpenalty":"0"}]}

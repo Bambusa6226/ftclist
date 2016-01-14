@@ -59,85 +59,107 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6">	
-			<div class="panel panel-default">
-  				<div class="panel-heading">
-    				<h3 class="panel-title">
-    					Matches
-    					<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Match</button>
-    				</h3>
-  				</div>
-  				<div class="panel-body">
-  					<table id="rows" class="table table-hover">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Red</th>
-								<th>Red</th>
-								<th>Score</th>
-								<th>Blue</th>
-								<th>Blue</th>
-								<th>Score</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-					 <div class="help-block">
-	  	            	Tables update automatically as new matches are added.
-	  	            </div>
-  				</div>
-			</div>
-		</div>
 		<div class="col-md-6">
-			<div class="panel panel-default">
-  				<div class="panel-heading">
-    				<h3 class="panel-title">
-    					Teams
-    				</h3>
-  				</div>
-  				<div class="panel-body">
-					<table id="teams" class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>Team</th>
-								<th>Matches</th>
-								<th>QP</th>
-								<th>RP</th>
-								<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
-								<!--<th>avg</th>
-								<th>dev</th>
-								<th>weight</th>-->
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-					<div class="help-block">* Reliability index requires a team to have at least two matches in the competition.</div>
+			<div class="col-md-12">	
+				<div class="panel panel-default">
+	  				<div class="panel-heading">
+	    				<h3 class="panel-title">
+	    					Matches
+	    					<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Match</button>
+	    				</h3>
+	  				</div>
+	  				<div class="panel-body">
+	  					<table id="rows" class="table table-hover">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Red</th>
+									<th>Red</th>
+									<th>Score</th>
+									<th>Blue</th>
+									<th>Blue</th>
+									<th>Score</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						 <div class="help-block">
+		  	            	* Surrogate match, score does not count for this team.<br/>
+		  	            	(penalty points added to this teams score in parenthesis)
+		  	            </div>
+	  				</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="panel panel-default">
-  				<div class="panel-heading">
-    				<h3 class="panel-title">
-    					Score Spread
-    				</h3>
-  				</div>
-  				<div class="panel-body">
-  					<svg id="spread" style="width: 100%;">
-  						<text font-size="11px" x="10" y="11">frequency</text>
-  						<g id="axis">
-  						</g>
-  					</svg>
-  				</div>
-  			</div>
+			<div class="col-md-12">
+				<div class="panel panel-default">
+	  				<div class="panel-heading">
+	    				<h3 class="panel-title">
+	    					Score Spread
+	    				</h3>
+	  				</div>
+	  				<div class="panel-body">
+	  					<svg id="spread" style="width: 100%;">
+	  						<text font-size="11px" x="10" y="11">frequency</text>
+	  						<g id="axis">
+	  						</g>
+	  					</svg>
+	  				</div>
+	  			</div>
+	  		</div>
   		</div>
-  	</div>
 
-
+  		<div class="col-md-6">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+	  				<div class="panel-heading">
+	    				<h3 class="panel-title">
+	    					Teams
+	    				</h3>
+	  				</div>
+	  				<div class="panel-body">
+						<table id="teams" class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Team</th>
+									<th>Matches</th>
+									<th>QP</th>
+									<th>RP</th>
+									<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
+									<!--<th>avg</th>
+									<th>dev</th>
+									<th>weight</th>-->
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						<div class="help-block">* Reliability index requires a team to have at least two matches in the competition.</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+	  			<div class="panel panel-default">
+	  				<div class="panel-heading">
+	  					<h3 class="panel-title">
+	  						Message Board
+	  						<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Message</button>
+	  					</h3>
+	  				</div>
+	  				<div class="panel-body">
+	  					<div class="msg">
+	  						<div class="msgteam">
+	  							6226 - Bambusa
+	  						</div>
+	  						<div class="msgtext">
+	  							this is message, it is here...
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+  		</div>
+	</div>
 
 	<div class="modal fade" id="modal_match">
   		<div class="modal-dialog">
@@ -152,30 +174,36 @@
 						<br/><input type='hidden' name='comp' id="comp">
 						<label>Blue Alliance</label>
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<input class="form-control" type="text" name="blue1" placeholder="Team Number">
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<input class="form-control" type="text" name="blue2" placeholder="Team Number">
 							</div>
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="bluescore" placeholder="Score"><br/>
+							<div class="col-md-3">
+								<input class="form-control" type="text" name="bluescore" placeholder="Match Score"><br/>
+							</div>
+							<div class="col-md-3">
+								<input class="form-control" type="text" name="bluepenalty" placeholder="Penalty Points"><br/>
 							</div>
 						</div>
 
 						<label>Red Alliance</label>
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<input class="form-control" type="text" name="red1" placeholder="Team Number">
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<input class="form-control" type="text" name="red2" placeholder="Team Number">
 							</div>
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="redscore" placeholder="Score"><br/>
+							<div class="col-md-3">
+								<input class="form-control" type="text" name="redscore" placeholder="Match Score"><br/>
+							</div>
+							<div class="col-md-3">
+								<input class="form-control" type="text" name="redpenalty" placeholder="Penalty Points"><br/>
 							</div>
 						</div>
-						<div class='help-block'>Please put an asterisk (*) after the number of a team whos score doesn't count in the case of surrogate matches.</div>
+						<div class='help-block'>Surrogate Matches: Please put an asterisk (*) after the number of a team whos score doesn't count.</div>
       			</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -309,28 +337,58 @@ jQuery.fn.highlight = function (words, options) {
 				{
 					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
 					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
-					tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
+					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+					{
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
 					tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
-					tbl += "<td class='info'>"+xss(rows[a].bluescore)+"</td>";
+					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+					{
+						tbl += "<td class='info'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='info'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
 				{
 					tbl += "<td class='danger'>"+xss(rows[a].red1)+"</td>";
 					tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
-					tbl += "<td class='danger'>"+xss(rows[a].redscore)+"</td>"; 
+					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+					{
+						tbl += "<td class='danger'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='danger'>"+xss(rows[a].redscore)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
+					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+					{
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				else
 				{
 					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
 					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
-					tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
+					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+					{
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
+					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+					{
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				
 				tbl += "</tr>";
@@ -347,14 +405,22 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red1].score += Number(rows[a].redscore);
+				if(rows[a].redpenalty != undefined) teams[rows[a].red1].score -= Number(rows[a].redpenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].red1].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].red1].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].red1].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].red1].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].red1].alliance.push(rows[a].red2);
 				teams[rows[a].red1].scores.push(rows[a].redscore);
+				teams[rows[a].red1].alliance.push(rows[a].red2);
+
 
 				if(teams[rows[a].red2] == undefined)
 				{
@@ -368,14 +434,22 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red2].score += Number(rows[a].redscore);
+				if(rows[a].redpenalty != undefined) teams[rows[a].red2].score -= Number(rows[a].redpenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].red2].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].red2].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].red2].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].red2].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].red2].alliance.push(rows[a].red1);
 				teams[rows[a].red2].scores.push(rows[a].redscore);
+				teams[rows[a].red2].alliance.push(rows[a].red1);
+
 
 				if(teams[rows[a].blue1] == undefined)
 				{
@@ -388,14 +462,21 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue1].scores = []
 				}
 				teams[rows[a].blue1].score += Number(rows[a].bluescore);
+				if(rows[a].bluepenalty != undefined) teams[rows[a].blue1].score -= Number(rows[a].bluepenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].blue1].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].blue1].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].blue1].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].blue1].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].blue1].alliance.push(rows[a].blue2);
 				teams[rows[a].blue1].scores.push(rows[a].bluescore);
+				teams[rows[a].blue1].alliance.push(rows[a].blue2);
 
 				if(teams[rows[a].blue2] == undefined)
 				{
@@ -408,14 +489,21 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue2].scores = []
 				}
 				teams[rows[a].blue2].score += Number(rows[a].bluescore);
+				if(rows[a].bluepenalty != undefined) teams[rows[a].blue2].score -= Number(rows[a].bluepenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].blue2].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].blue2].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].blue2].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].blue2].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 				teams[rows[a].blue2].scores.push(rows[a].bluescore);
+				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 
 				if(parseInt(rows[a].bluescore) > parseInt(rows[a].redscore))
 				{
@@ -524,20 +612,9 @@ jQuery.fn.highlight = function (words, options) {
 
 			}
 
-			
-
-			
-
 			console.log(maxs);
 			console.log(spr*10);
 			console.log(amts);
-
-
-
-
-
-			
-
 
 			var min = 999999999;
 			var max = 0;
@@ -594,6 +671,8 @@ jQuery.fn.highlight = function (words, options) {
 
 			for(var key in teams)
 			{
+				if(key.indexOf("*") != -1) continue;
+
 				tlb += "<tr>";
 				tlb += "<td> <a href='../team?"+xss(key)+"'>"+xss(key)+"</a></td>";
 				tlb += "<td>"+teams[key].scores.length+"</td>";

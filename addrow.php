@@ -90,6 +90,16 @@ $obj = new STDClass();
 	$obj->bluescore = $_POST['bluescore'];
 	$obj->contrib = $_COOKIE['team'];
 
+	if(isset($_POST['bluepenalty']) && strlen($_POST['bluepenalty']) != 0) 
+		$obj->bluepenalty = $_POST['bluepenalty'];
+	else 
+		$obj->bluepenalty = "0";
+
+	if(isset($_POST['redpenalty']) && strlen($_POST['redpenalty']) != 0) 
+		$obj->redpenalty = $_POST['redpenalty'];
+	else
+		$obj->redpenalty = "0"; 
+
 $found = false;
 foreach($unconf->rows as $row)
 {
@@ -100,7 +110,9 @@ foreach($unconf->rows as $row)
 			&& ($row->redscore == $_POST['redscore'])
 			&& (($row->blue1 == $_POST['blue1'] && $row->blue2 == $_POST['blue2'])
 			|| ($row->blue1 == $_POST['blue2'] && $row->blue2 == $_POST['blue1']))
-			&& ($row->bluescore == $_POST['bluescore']))
+			&& ($row->bluescore == $_POST['bluescore'])
+			&& ($row->bluepenalty == $obj->bluepenalty)
+			&& ($row->redpenalty == $obj->redpenalty))
 		{
 			// this is a match, move it to confirmed and remove from unconf, and check off on confed list.
 			if($row->contrib == $_COOKIE['team'])
