@@ -445,34 +445,53 @@ $("document").ready(function() {
 					}
 					comps[c.comp].num ++;
 
-					if(c.red1 == me || c.red2 == me)
+					if(c.redscore < c.bluescore)
+					{
+						comps[c.comp].RP += parseInt(c.redscore);
+					}
+					else
 					{
 						comps[c.comp].RP += parseInt(c.bluescore);
-						if(c.redscore > c.bluescore)
+					}
+
+					if(c.red1 == me || c.red2 == me)
+					{
+						if(parseInt(c.redscore) > parseInt(c.bluescore))
 						{
 							comps[c.comp].QP += 2;
 							wins ++;
 						}
-						else losses ++;
+						else if(parseInt(c.redscore) < parseInt(c.bluescore))
+						{
+							losses ++;
+						}
+						else
+						{
+							comps[c.comp].QP ++;
+							wins += 0.5;
+							losses += 0.5
+						}
 						sv += Math.pow((c.redscore - avg), 2);
 					}
 					else
 					{
-						comps[c.comp].RP += parseInt(c.redscore);
 						if(parseInt(c.redscore) < parseInt(c.bluescore)) 
 						{
 							comps[c.comp].QP += 2;
 							wins ++;
 						}
-						else losses ++;
+						else if(parseInt(c.redscore) > parseInt(c.bluescore))
+						{
+							losses ++;
+						}
+						else
+						{
+							comps[c.comp].QP ++;
+							wins += 0.5;
+							losses += 0.5;
+						}
 						sv += Math.pow((c.bluescore - avg), 2);
 					}
-					if(parseInt(c.redscore) == parseInt(c.bluescore))
-					{
-						comps[c.comp].QP ++;
-						ties ++;
-						sv += Math.pow((c.bluescore - avg), 2);
-					} 
 				}
 				sv = Math.sqrt(sv/team.games.length);
 
@@ -482,7 +501,6 @@ $("document").ready(function() {
 				$("#stddev").text(parseInt(sv));
 				$("#wins").text(wins);
 				$("#losses").text(losses);
-				$("#ties").text(ties);
 				$("#winrate").text((wins/losses).toFixed(2));
 				$("#contrib").text(team.contribution);
 

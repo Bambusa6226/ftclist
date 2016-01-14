@@ -291,14 +291,22 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red1].score += Number(rows[a].redscore);
+				if(rows[a].redpenalty != undefined) teams[rows[a].red1].score -= Number(rows[a].redpenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].red1].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].red1].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].red1].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].red1].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].red1].alliance.push(rows[a].red2);
 				teams[rows[a].red1].scores.push(rows[a].redscore);
+				teams[rows[a].red1].alliance.push(rows[a].red2);
+
 
 				if(teams[rows[a].red2] == undefined)
 				{
@@ -312,14 +320,22 @@ jQuery.fn.highlight = function (words, options) {
 
 				}
 				teams[rows[a].red2].score += Number(rows[a].redscore);
+				if(rows[a].redpenalty != undefined) teams[rows[a].red2].score -= Number(rows[a].redpenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].red2].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].red2].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].red2].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].red2].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].red2].alliance.push(rows[a].red1);
 				teams[rows[a].red2].scores.push(rows[a].redscore);
+				teams[rows[a].red2].alliance.push(rows[a].red1);
+
 
 				if(teams[rows[a].blue1] == undefined)
 				{
@@ -332,14 +348,21 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue1].scores = []
 				}
 				teams[rows[a].blue1].score += Number(rows[a].bluescore);
+				if(rows[a].bluepenalty != undefined) teams[rows[a].blue1].score -= Number(rows[a].bluepenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].blue1].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].blue1].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].blue1].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].blue1].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].blue1].alliance.push(rows[a].blue2);
 				teams[rows[a].blue1].scores.push(rows[a].bluescore);
+				teams[rows[a].blue1].alliance.push(rows[a].blue2);
 
 				if(teams[rows[a].blue2] == undefined)
 				{
@@ -352,14 +375,21 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue2].scores = []
 				}
 				teams[rows[a].blue2].score += Number(rows[a].bluescore);
+				if(rows[a].bluepenalty != undefined) teams[rows[a].blue2].score -= Number(rows[a].bluepenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
+				{
 					teams[rows[a].blue2].rp += Number(rows[a].bluescore);
-				else 
+					if(rows[a].bluepenalty != undefined) teams[rows[a].blue2].rp -= Number(rows[a].bluepenalty);
+				}
+				else
+				{
 					teams[rows[a].blue2].rp += Number(rows[a].redscore);
+					if(rows[a].redpenalty != undefined) teams[rows[a].blue2].rp -= Number(rows[a].redpenalty); 
+				}
 
-				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 				teams[rows[a].blue2].scores.push(rows[a].bluescore);
+				teams[rows[a].blue2].alliance.push(rows[a].blue1);
 
 				if(parseInt(rows[a].bluescore) > parseInt(rows[a].redscore))
 				{
@@ -380,7 +410,6 @@ jQuery.fn.highlight = function (words, options) {
 				}
 
 			}
-
 			
 			
 			var min = 999999999;

@@ -61,3 +61,16 @@ body {
 .jumbotron p {
 	font-weight: normal;
 }
+
+.msg {
+	border-bottom: 1px solid #EEE;
+}
+
+.msgteam {
+	font-weight: bold;
+	font-size: 14pt;
+}
+
+.msgtext {
+	margin-bottom: 8px;
+}
