@@ -60,85 +60,91 @@
 	</div>
 	<div class="row">
 		<div class="col-md-6">
-			<div class="col-md-12">	
-				<div class="panel panel-default">
-	  				<div class="panel-heading">
-	    				<h3 class="panel-title">
-	    					Matches
-	    					<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Match</button>
-	    				</h3>
-	  				</div>
-	  				<div class="panel-body">
-	  					<table id="rows" class="table table-hover">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Red</th>
-									<th>Red</th>
-									<th>Score</th>
-									<th>Blue</th>
-									<th>Blue</th>
-									<th>Score</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-						 <div class="help-block">
-		  	            	* Surrogate match, score does not count for this team.<br/>
-		  	            	(penalty points added to this teams score in parenthesis)
-		  	            </div>
-	  				</div>
+			<div class="row">
+				<div class="col-md-12">	
+					<div class="panel panel-default">
+		  				<div class="panel-heading">
+		    				<h3 class="panel-title">
+		    					Matches
+		    					<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Match</button>
+		    				</h3>
+		  				</div>
+		  				<div class="panel-body">
+		  					<table id="rows" class="table table-hover">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Red</th>
+										<th>Red</th>
+										<th>Score</th>
+										<th>Blue</th>
+										<th>Blue</th>
+										<th>Score</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+							 <div class="help-block">
+			  	            	* Surrogate match, score does not count for this team.<br/>
+			  	            	(penalty points added to this teams score in parenthesis)
+			  	            </div>
+		  				</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-12">
-				<div class="panel panel-default">
-	  				<div class="panel-heading">
-	    				<h3 class="panel-title">
-	    					Score Spread
-	    				</h3>
-	  				</div>
-	  				<div class="panel-body">
-	  					<svg id="spread" style="width: 100%;">
-	  						<text font-size="11px" x="10" y="11">frequency</text>
-	  						<g id="axis">
-	  						</g>
-	  					</svg>
-	  				</div>
-	  			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+		  				<div class="panel-heading">
+		    				<h3 class="panel-title">
+		    					Score Spread
+		    				</h3>
+		  				</div>
+		  				<div class="panel-body">
+		  					<svg id="spread" style="width: 100%;">
+		  						<text font-size="11px" x="10" y="11">frequency</text>
+		  						<g id="axis">
+		  						</g>
+		  					</svg>
+		  				</div>
+		  			</div>
+		  		</div>
 	  		</div>
   		</div>
 
   		<div class="col-md-6">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-	  				<div class="panel-heading">
-	    				<h3 class="panel-title">
-	    					Teams
-	    				</h3>
-	  				</div>
-	  				<div class="panel-body">
-						<table id="teams" class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th>Team</th>
-									<th>Matches</th>
-									<th>QP</th>
-									<th>RP</th>
-									<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
-									<!--<th>avg</th>
-									<th>dev</th>
-									<th>weight</th>-->
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-						<div class="help-block">* Reliability index requires a team to have at least two matches in the competition.</div>
+  			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+		  				<div class="panel-heading">
+		    				<h3 class="panel-title">
+		    					Teams
+		    				</h3>
+		  				</div>
+		  				<div class="panel-body">
+							<table id="teams" class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Team</th>
+										<th>Matches</th>
+										<th>QP</th>
+										<th>RP</th>
+										<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
+										<!--<th>avg</th>
+										<th>dev</th>
+										<th>weight</th>-->
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+							<div class="help-block">* Reliability index requires a team to have at least two matches in the competition.</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12">
+			<!--<div class="col-md-12">
 	  			<div class="panel panel-default">
 	  				<div class="panel-heading">
 	  					<h3 class="panel-title">
@@ -157,7 +163,7 @@
 	  					</div>
 	  				</div>
 	  			</div>
-	  		</div>
+	  		</div>-->
   		</div>
 	</div>
 
@@ -393,6 +399,8 @@ jQuery.fn.highlight = function (words, options) {
 				
 				tbl += "</tr>";
 
+
+				//if(rows[a].red1.search("*")) rows[a].red1.substring(0, rows[a].red1.length-1);
 				if(teams[rows[a].red1] == undefined)
 				{
 					teams[rows[a].red1] = {};
@@ -404,6 +412,7 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].red1].scores = [];
 
 				}
+
 				teams[rows[a].red1].score += Number(rows[a].redscore);
 				if(rows[a].redpenalty != undefined) teams[rows[a].red1].score -= Number(rows[a].redpenalty);
 
@@ -433,6 +442,7 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].red2].scores = []
 
 				}
+
 				teams[rows[a].red2].score += Number(rows[a].redscore);
 				if(rows[a].redpenalty != undefined) teams[rows[a].red2].score -= Number(rows[a].redpenalty);
 
@@ -620,6 +630,8 @@ jQuery.fn.highlight = function (words, options) {
 			var max = 0;
 			var favg = 0;
 			var cnt = 0;
+			var glob = {};
+
 			for(var key in teams)
 			{
 				teams[key].avg = teams[key].score / teams[key].alliance.length;
@@ -627,47 +639,41 @@ jQuery.fn.highlight = function (words, options) {
 				if(teams[key].avg > max) max = teams[key].avg;
 				favg += teams[key].avg;
 				cnt++;
+				teams[key].nummatch = teams[key].alliance.length;
 			}
 			favg /= cnt;
 
-			console.log(favg);
-
-			var spread = (max - min);
-			var midzone = spread/2;
-
 			for(var key in teams)
 			{
-				var sd = 0;
-				var weights = 0;
+				sd = 0;
 				for(var a=0;a<teams[key].alliance.length;a++)
 				{
-					if(teams[teams[key].alliance[a]].scores.length == 1)
-					{
-						var alscore = teams[teams[key].alliance[a]].score;
-					}
-					else
-					{
-						var alscore = (teams[teams[key].alliance[a]].score - teams[key].scores[a])/(teams[teams[key].alliance[a]].alliance.length-1);
-					}
-					if(teams[key].scores.length == 1)
-					{
-						var myscore = teams[key].score;
-					}
-					else
-					{
-						var myscore = (teams[key].score - teams[key].scores[a])/(teams[key].alliance.length);
-					}
-
-					sd += Math.abs((teams[key].scores[a]-teams[key].avg));
-
-					weights += -(alscore-favg);
-					//console.log(key+": "+weights+" - "+alscore);
+					sd += Math.pow((teams[key].scores[a]-teams[key].avg), 2);
 				}
-				teams[key].weight = weights/(teams[key].scores.length);
-				console.log(teams[key].weight);
-				teams[key].dv = Math.abs(sd/teams[key].scores.length);
-				teams[key].rel = Math.round(teams[key].avg - teams[key].dv + teams[key].weight);
+				teams[key].dv = Math.sqrt(sd/(teams[key].scores.length-1));
 			}
+			
+			for(key in teams)
+			{
+				var err = 0;
+				teams[key].errors = [];
+				for(var a=0;a<teams[key].alliance.length;a++)
+				{
+					var er = teams[teams[key].alliance[a]].dv/(Math.sqrt(teams[key].nummatch)*teams[teams[key].alliance[a]].avg);
+					teams[key].errors.push(er);
+					err += 1/er;
+				}
+				teams[key].weight = 1/err;
+				teams[key].error = teams[key].dv/(Math.sqrt(teams[key].nummatch)*teams[key].avg);
+			}
+
+			for(key in teams)
+			{
+				//teams[key].qp = teams[key].qp;
+				teams[key].rp = teams[key].weight;
+				teams[key].rel = Math.round(jspstep(key, teams, favg, 3))+"  ("+Math.round(teams[key].error*100)+"%)";
+			}
+			
 
 			for(var key in teams)
 			{
@@ -763,6 +769,26 @@ jQuery.fn.highlight = function (words, options) {
 		});
         var rowsdata = [];
 		var confs = [];
+
+		function jspstep(team, teams, avg, depth)
+		{
+			var counter = 0;
+			if(depth == 0) 
+			{
+				return teams[team].avg / 2;
+			}
+
+			for(var i=0; i < teams[team].alliance.length; i++)
+			{
+				var msc = (teams[team].scores[i] - jspstep(teams[team].alliance[i], teams, avg, depth-1));
+				console.log(teams[team].weight*(1/teams[team].errors[i]))
+				msc *= teams[team].weight*(1/teams[team].errors[i]);
+				counter += msc;
+			}
+			return counter;
+		}
+
+
 		function unconfs() {
 			$("#unconfs").text("No Unconfirmed Matches");
 			$.getJSON("../data/unconf/"+comp()+".json",function(data) {
