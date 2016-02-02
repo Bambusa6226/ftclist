@@ -699,18 +699,21 @@ jQuery.fn.highlight = function (words, options) {
 			var max = 0;
 			var favg = 0;
 			var cnt = 0;
-			var glob = {};
 
 			for(var key in teams)
 			{
+				if(key.indexOf("*") != -1) continue;
 				teams[key].avg = teams[key].score / teams[key].alliance.length;
 				if(teams[key].avg < min) min = teams[key].avg;
 				if(teams[key].avg > max) max = teams[key].avg;
 				favg += teams[key].avg;
+				console.log(key+ " "+ teams[key].avg)
 				cnt++;
 				teams[key].nummatch = teams[key].alliance.length;
 			}
 			favg /= cnt;
+
+			console.log(favg);
 
 			for(var key in teams)
 			{
@@ -733,14 +736,31 @@ jQuery.fn.highlight = function (words, options) {
 					err += 1/er;
 				}
 				teams[key].weight = 1/err;
-				teams[key].error = teams[key].dv/(Math.sqrt(teams[key].nummatch)*teams[key].avg);
+				//teams[key].error = teams[key].dv/(Math.sqrt(teams[key].nummatch));
 			}
 
 			for(key in teams)
 			{
-				//teams[key].qp = teams[key].qp;
-				teams[key].rp = teams[key].weight;
-				teams[key].rel = Math.round(jspstep(key, teams, favg, 3))+"  ("+Math.round(teams[key].error*100)+"%)";
+				teams[key].adj = [];
+				var counter = 0;
+				for(var i=0; i < teams[key].alliance.length; i++)
+				{
+					console.log(favg)
+					var sco = teams[key].scores[i]*sigmoid((teams[teams[key].alliance[i]].avg-favg)*1);
+					counter += sco;
+					teams[key].adj.push(sco);
+				}
+				teams[key].rel = Math.round(counter/teams[key].scores.length);
+
+				var aavg = 0;
+
+				var sd = 0;
+				for(var i=0;i<teams[key].alliance.length;i++)
+				{
+					sd += Math.pow((teams[key].adj[a]-teams[key].rel), 2);
+				}
+				teams[key].error = 1.96*Math.sqrt(sd/(teams[key].scores.length-1))/Math.sqrt(teams[key].alliance.length);
+				
 			}
 			
 
@@ -756,7 +776,7 @@ jQuery.fn.highlight = function (words, options) {
 				if(teams[key].scores.length == 1)
 					tlb += "<td data-order='0'>0*</td>";
 				else
-					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+"</td>";
+					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+" ± "+Math.round(teams[key].error)+" </td>";
 
 				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
 				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
@@ -844,16 +864,30 @@ jQuery.fn.highlight = function (words, options) {
 			var counter = 0;
 			if(depth == 0) 
 			{
-				return teams[team].avg / 2;
+				for(var i=0; i < teams[team].alliance.length; i++)
+				{
+					var msc = teams[team].scores[i] - (teams[teams[team].alliance[i]].avg/2);
+					//msc *= teams[team].weight*(1/teams[team].errors[i]);
+
+					counter += msc;
+				}
+				return counter/teams[team].scores.length;
 			}
 
 			for(var i=0; i < teams[team].alliance.length; i++)
 			{
-				var msc = (teams[team].scores[i] - jspstep(teams[team].alliance[i], teams, avg, depth-1));
-				msc *= teams[team].weight*(1/teams[team].errors[i]);
+				var msc = teams[team].scores[i] - (teams[teams[team].alliance[i]].avg - (jspstep(teams[team].alliance[i], teams, avg, depth-1)/2));
+				//msc *= teams[team].weight*(1/teams[team].errors[i]);
+
 				counter += msc;
 			}
-			return counter;
+			return counter/teams[team].scores.length;
+		}
+
+		function sigmoid(n)
+		{
+			console.log(n+ " " + 1/(1+Math.pow(2.71828, -n)));
+			return 1/(1+Math.pow(2.71828, -n));
 		}
 
 
