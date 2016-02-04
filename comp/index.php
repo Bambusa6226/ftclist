@@ -230,6 +230,14 @@
 
 <script>
 
+// cool constants bro (hyperparameters)
+			var n = 1;
+			var k = 40;
+			var e = 2.71828;
+
+
+
+
 // highlight plugin
 jQuery.extend({
     highlight: function (node, re, nodeName, className) {
@@ -707,13 +715,11 @@ jQuery.fn.highlight = function (words, options) {
 				if(teams[key].avg < min) min = teams[key].avg;
 				if(teams[key].avg > max) max = teams[key].avg;
 				favg += teams[key].avg;
-				console.log(key+ " "+ teams[key].avg)
 				cnt++;
 				teams[key].nummatch = teams[key].alliance.length;
 			}
 			favg /= cnt;
 
-			console.log(favg);
 
 			for(var key in teams)
 			{
@@ -745,8 +751,7 @@ jQuery.fn.highlight = function (words, options) {
 				var counter = 0;
 				for(var i=0; i < teams[key].alliance.length; i++)
 				{
-					console.log(favg)
-					var sco = teams[key].scores[i]*sigmoid((teams[teams[key].alliance[i]].avg-favg)*1);
+					var sco = teams[key].scores[i]*sigmoid((sigstep(key, teams, n)-sigstep(teams[key].alliance[i], teams, n))/k);
 					counter += sco;
 					teams[key].adj.push(sco);
 				}
@@ -759,8 +764,56 @@ jQuery.fn.highlight = function (words, options) {
 				{
 					sd += Math.pow((teams[key].adj[a]-teams[key].rel), 2);
 				}
-				teams[key].error = 1.96*Math.sqrt(sd/(teams[key].scores.length-1))/Math.sqrt(teams[key].alliance.length);
+				teams[key].sd = sd;
+				teams[key].error = 1.98*Math.sqrt(sd/(teams[key].scores.length-1))/Math.sqrt(teams[key].alliance.length);
 				
+			}
+
+
+			// lets do some sampling.......
+			var smp = [];
+			for(key in teams)
+			{
+				smp.push({"team":key,"mean":teams[key].rel,"std":teams[key].sd});
+			}
+
+			for(var i=0;i<10000;i++)
+			{
+				var tms = [];
+				for(var j=0;j<4;j++)
+				{
+					var rng = Math.floor(Math.random()*smp.length);
+					var good = true;
+					for(var k=0;k<tms.length;k++)
+					{
+						if(tms[k].team == smp[rng].team)
+						{
+							good = false;
+						}
+					}
+					if(!good)
+					{
+						j--;
+						continue;
+					}
+					tms.push(smp[rng]);
+				}
+
+				// have four teams...
+				var a1m = tms[0].mean+tms[1].mean;
+				var a1v = Math.pow(tms[0].sd,2)+Math.pow(tms[1].sd,2);
+
+				var a2m = tms[2].mean+tms[3].mean;
+				var a2v = Math.pow(tms[2].sd,2)+Math.pow(tms[3].sd,2);
+double sampleNormal() {
+    double u = ((double) rand() / (RAND_MAX)) * 2 - 1;
+    double v = ((double) rand() / (RAND_MAX)) * 2 - 1;
+    double r = u * u + v * v;
+    if (r == 0 || r > 1) return sampleNormal();
+    double c = sqrt(-2 * log(r) / r);
+    return u * c;
+}
+
 			}
 			
 
@@ -884,10 +937,25 @@ jQuery.fn.highlight = function (words, options) {
 			return counter/teams[team].scores.length;
 		}
 
-		function sigmoid(n)
+		function sigstep(key, teams, depth)
 		{
-			console.log(n+ " " + 1/(1+Math.pow(2.71828, -n)));
-			return 1/(1+Math.pow(2.71828, -n));
+			if(depth == 0)
+			{
+				return teams[key].avg/2;
+			}
+
+			var counter = 0;
+			for(var i=0; i < teams[key].alliance.length; i++)
+			{
+				counter += teams[key].scores[i]*sigmoid((sigstep(key, teams, depth-1)-sigstep(teams[key].alliance[i], teams, depth-1))/k);
+			}
+			return counter/teams[key].alliance.length;
+		}
+
+		function sigmoid(v)
+		{
+			console.log(v+ " " + 1/(1+Math.pow(e, -v)));
+			return 1/(1+Math.pow(e, -v));
 		}
 
 
