@@ -131,8 +131,8 @@
 										<th>QP</th>
 										<th>RP</th>
 										<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
-										<!--<th>avg</th>
-										<th>dev</th>
+										<th>wins</th>
+										<!--<th>dev</th>
 										<th>weight</th>-->
 									</tr>
 								</thead>
@@ -232,7 +232,7 @@
 
 // cool constants bro (hyperparameters)
 			var n = 1;
-			var k = 40;
+			var k = 20;
 			var e = 2.71828;
 
 
@@ -744,31 +744,33 @@ jQuery.fn.highlight = function (words, options) {
 				teams[key].weight = 1/err;
 				//teams[key].error = teams[key].dv/(Math.sqrt(teams[key].nummatch));
 			}
-
+			var k = favg*(1);
+			console.log(k);
 			for(key in teams)
 			{
 				teams[key].adj = [];
 				var counter = 0;
 				for(var i=0; i < teams[key].alliance.length; i++)
 				{
-					console.log(teams[key]);
-					var sco = teams[key].scores[i]*Number(sigmoid(Number(Number(teams[key].avg)-Number(teams[teams[key].alliance[i]].avg))/k));
-					console.log(sco);
+					var sco = teams[key].scores[i]*sigmoid((teams[key].avg-teams[teams[key].alliance[i]].avg)/k);
 					counter += sco;
 					teams[key].adj.push(sco);
 				}
 				teams[key].rel = Math.round(counter/teams[key].scores.length);
+				console.log(teams[key].rel);
 
 				var aavg = 0;
 
 				var sd = 0;
 				for(var i=0;i<teams[key].alliance.length;i++)
 				{
-					sd += Math.pow((teams[key].adj[a]-teams[key].rel), 2);
+					sd += Math.pow((teams[key].adj[i]-teams[key].rel), 2);
 				}
-				teams[key].sd = sd;
+				teams[key].sd = Math.sqrt(sd/teams[key].scores.length-1);
+				console.log(teams[key].sd);
 				teams[key].error = 1.98*Math.sqrt(sd/(teams[key].scores.length-1))/Math.sqrt(teams[key].alliance.length);
 				teams[key].wins = 0;
+				teams[key].plays = 0;
 			}
 
 
@@ -779,7 +781,7 @@ jQuery.fn.highlight = function (words, options) {
 				smp.push({"team":key,"mean":teams[key].rel,"std":teams[key].sd,"wins":0});
 			}
 
-			for(var i=0;i<1000;i++)
+			for(var i=0;i<1000000;i++)
 			{
 				var tms = [];
 				for(var j=0;j<4;j++)
@@ -801,14 +803,20 @@ jQuery.fn.highlight = function (words, options) {
 					tms.push(smp[rng]);
 				}
 
+				//Φ((μX – μY)/√(σX2 + σY2))
+
 				// have four teams...
 				var a1m = tms[0].mean+tms[1].mean;
-				var a1v = Math.pow(tms[0].sd,2)+Math.pow(tms[1].sd,2);
+				var a1v = Math.sqrt(Math.pow(tms[0].std,2)+Math.pow(tms[1].std,2));
 
 				var a2m = tms[2].mean+tms[3].mean;
-				var a2v = Math.pow(tms[2].sd,2)+Math.pow(tms[3].sd,2);
+				var a2v = Math.sqrt(Math.pow(tms[2].std,2)+Math.pow(tms[3].std,2));
 
-				
+				for(var j=0;j<4;j++)
+				{
+					teams[tms[j].team].plays++;
+				}
+
 				if(a1m + grand()*a1v > a2m + grand()*a2v)
 				{
 					teams[tms[0].team].wins++;
@@ -835,6 +843,8 @@ jQuery.fn.highlight = function (words, options) {
 					tlb += "<td data-order='0'>0*</td>";
 				else
 					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+" ± "+Math.round(teams[key].error)+" </td>";
+
+				tlb+= "<td>"+((teams[key].wins/teams[key].plays)*(teams[key].alliance.length*2)).toFixed(2)+"</td>";
 
 				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
 				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
@@ -969,7 +979,6 @@ jQuery.fn.highlight = function (words, options) {
 
 		function sigmoid(v)
 		{
-			console.log(v+ " " + 1/(1+Math.pow(e, -v)));
 			return 1/(1+Math.pow(e, -v));
 		}
 
