@@ -751,7 +751,9 @@ jQuery.fn.highlight = function (words, options) {
 				var counter = 0;
 				for(var i=0; i < teams[key].alliance.length; i++)
 				{
-					var sco = teams[key].scores[i]*sigmoid((sigstep(key, teams, n)-sigstep(teams[key].alliance[i], teams, n))/k);
+					console.log(teams[key]);
+					var sco = teams[key].scores[i]*Number(sigmoid(Number(Number(teams[key].avg)-Number(teams[teams[key].alliance[i]].avg))/k));
+					console.log(sco);
 					counter += sco;
 					teams[key].adj.push(sco);
 				}
@@ -766,18 +768,18 @@ jQuery.fn.highlight = function (words, options) {
 				}
 				teams[key].sd = sd;
 				teams[key].error = 1.98*Math.sqrt(sd/(teams[key].scores.length-1))/Math.sqrt(teams[key].alliance.length);
-				
+				teams[key].wins = 0;
 			}
 
 
 			// lets do some sampling.......
 			var smp = [];
 			for(key in teams)
-			{
-				smp.push({"team":key,"mean":teams[key].rel,"std":teams[key].sd});
+	 		{
+				smp.push({"team":key,"mean":teams[key].rel,"std":teams[key].sd,"wins":0});
 			}
 
-			for(var i=0;i<10000;i++)
+			for(var i=0;i<1000;i++)
 			{
 				var tms = [];
 				for(var j=0;j<4;j++)
@@ -805,15 +807,18 @@ jQuery.fn.highlight = function (words, options) {
 
 				var a2m = tms[2].mean+tms[3].mean;
 				var a2v = Math.pow(tms[2].sd,2)+Math.pow(tms[3].sd,2);
-double sampleNormal() {
-    double u = ((double) rand() / (RAND_MAX)) * 2 - 1;
-    double v = ((double) rand() / (RAND_MAX)) * 2 - 1;
-    double r = u * u + v * v;
-    if (r == 0 || r > 1) return sampleNormal();
-    double c = sqrt(-2 * log(r) / r);
-    return u * c;
-}
 
+				
+				if(a1m + grand()*a1v > a2m + grand()*a2v)
+				{
+					teams[tms[0].team].wins++;
+					teams[tms[1].team].wins++;
+				}
+				else
+				{
+					teams[tms[2].team].wins++;
+					teams[tms[3].team].wins++;
+				}
 			}
 			
 
@@ -911,6 +916,16 @@ double sampleNormal() {
 		});
         var rowsdata = [];
 		var confs = [];
+
+		function grand()
+		{
+		do {
+					var u = Math.random() * 2 - 1;
+					var v = Math.random() * 2 - 1;
+					var r = u*u+v*v;
+				} while (r >= 1);
+			return  u * Math.sqrt(-2 * Math.log(r) / r);
+		}
 
 		function jspstep(team, teams, avg, depth)
 		{
