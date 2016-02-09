@@ -80,6 +80,7 @@
 										<th>Blue</th>
 										<th>Blue</th>
 										<th>Score</th>
+										<th>Prob</td>
 									</tr>
 								</thead>
 								<tbody>
@@ -344,71 +345,7 @@ jQuery.fn.highlight = function (words, options) {
 			{
 				// lets do some stuff here.
 
-				tbl += "<tr>";
-				tbl += "<td>"+xss(rows[a].match)+"</td>";
-				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
-				{
-					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
-					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
-					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
-					{
-						tbl += "<td class='redwin'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
-					}
-					else
-						tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
-					tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
-					tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
-					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
-					{
-						tbl += "<td class='info'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
-					}
-					else
-						tbl += "<td class='info'>"+xss(rows[a].bluescore)+"</td>";
-				}
-				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
-				{
-					tbl += "<td class='danger'>"+xss(rows[a].red1)+"</td>";
-					tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
-					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
-					{
-						tbl += "<td class='danger'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
-					}
-					else
-						tbl += "<td class='danger'>"+xss(rows[a].redscore)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
-					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
-					{
-						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
-					}
-					else
-						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
-				}
-				else
-				{
-					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
-					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
-					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
-					{
-						tbl += "<td class='redwin'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
-					}
-					else
-						tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
-					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
-					{
-						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
-					}
-					else
-						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
-				}
 				
-				tbl += "</tr>";
-
-				
-
-
 				
 				if(teams[rows[a].red1] == undefined)
 				{
@@ -780,6 +717,79 @@ jQuery.fn.highlight = function (words, options) {
 				smp.push({"team":key,"mean":teams[key].rel,"std":teams[key].sd,"wins":0});
 			}
 
+			tbl = "";
+			for(var a=0;a<rows.length;a++)
+			{
+				tbl += "<tr>";
+				tbl += "<td>"+xss(rows[a].match)+"</td>";
+				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
+				{
+					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+					{
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
+					tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
+					tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
+					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+					{
+						tbl += "<td class='info'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='info'>"+xss(rows[a].bluescore)+"</td>";
+				}
+				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
+				{
+					tbl += "<td class='danger'>"+xss(rows[a].red1)+"</td>";
+					tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
+					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+					{
+						tbl += "<td class='danger'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='danger'>"+xss(rows[a].redscore)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+					{
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
+				}
+				else
+				{
+					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+					{
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='redwin'>"+xss(rows[a].redscore)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+					{
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+					}
+					else
+						tbl += "<td class='bluewin'>"+xss(rows[a].bluescore)+"</td>";
+				}
+				
+				tbl += calcOdds(rows[a], teams);
+
+				tbl += "</tr>";
+
+				
+			}
+
+
+
+
 			for(var i=0;i<100000;i++)
 			{
 				var tms = [];
@@ -934,6 +944,26 @@ jQuery.fn.highlight = function (words, options) {
 		});
         var rowsdata = [];
 		var confs = [];
+
+		function calcOdds(data, smp)
+		{
+			var wins = 0;
+			for(var a=0;a<10000;a++)
+			{
+				var a1m = smp[data.red1].avg+smp[data.red2].avg;
+				var a1v = smp[data.red1].sd+smp[data.red2].sd;
+
+				var a2m = smp[data.blue1].avg+smp[data.blue2].avg;
+				var a2v = smp[data.blue1].sd+smp[data.blue2].sd;
+
+				if(a1m + grand()*a1v > a2m + grand()*a2v)
+				{
+					wins++;
+				}
+			}
+			return "<td>"+Math.round(wins/10)/10+"%</td>";
+		}
+
 
 		function grand()
 		{
