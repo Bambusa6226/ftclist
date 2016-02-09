@@ -123,17 +123,16 @@
 		    				</h3>
 		  				</div>
 		  				<div class="panel-body">
-							<table id="teams" class="table table-striped table-hover">
+							<table id="teams" class="display">
 								<thead>
-									<tr>
+									<tr style='text-align: right;'>
 										<th>Team</th>
 										<th>Matches</th>
 										<th>QP</th>
 										<th>RP</th>
-										<th>Reliability <span id="aboutr" class='glyphicon glyphicon-question-sign' data-toggle="popover" title="Reliability Index" data-content="This is a measure of how reliably a team can score points in a match when their alliance partner is factored out. <a href='../jri.pdf'>Learn More</a>" data-placement="top" data-html='true'></span></th>
-										<th>wins</th>
-										<!--<th>dev</th>
-										<th>weight</th>-->
+										<th>Proj Score (% Err)</th>
+										<th>Long Run QP</th>
+										<th>QP Diff</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -744,7 +743,7 @@ jQuery.fn.highlight = function (words, options) {
 				teams[key].weight = 1/err;
 				//teams[key].error = teams[key].dv/(Math.sqrt(teams[key].nummatch));
 			}
-			var k = favg*(1);
+			var k = favg*(2/5);
 			console.log(k);
 			for(key in teams)
 			{
@@ -768,7 +767,7 @@ jQuery.fn.highlight = function (words, options) {
 				}
 				teams[key].sd = Math.sqrt(sd/teams[key].scores.length-1);
 				console.log(teams[key].sd);
-				teams[key].error = 1.98*Math.sqrt(sd/(teams[key].scores.length-1))/Math.sqrt(teams[key].alliance.length);
+				teams[key].error = 1.98*Math.sqrt(sd/(teams[key].scores.length-1))/(Math.sqrt(teams[key].alliance.length)*teams[key].avg);
 				teams[key].wins = 0;
 				teams[key].plays = 0;
 			}
@@ -781,7 +780,7 @@ jQuery.fn.highlight = function (words, options) {
 				smp.push({"team":key,"mean":teams[key].rel,"std":teams[key].sd,"wins":0});
 			}
 
-			for(var i=0;i<1000000;i++)
+			for(var i=0;i<100000;i++)
 			{
 				var tms = [];
 				for(var j=0;j<4;j++)
@@ -807,10 +806,10 @@ jQuery.fn.highlight = function (words, options) {
 
 				// have four teams...
 				var a1m = tms[0].mean+tms[1].mean;
-				var a1v = Math.sqrt(Math.pow(tms[0].std,2)+Math.pow(tms[1].std,2));
+				var a1v = tms[0].std+tms[1].std;
 
 				var a2m = tms[2].mean+tms[3].mean;
-				var a2v = Math.sqrt(Math.pow(tms[2].std,2)+Math.pow(tms[3].std,2));
+				var a2v = tms[2].std+tms[3].std;
 
 				for(var j=0;j<4;j++)
 				{
@@ -842,9 +841,18 @@ jQuery.fn.highlight = function (words, options) {
 				if(teams[key].scores.length == 1)
 					tlb += "<td data-order='0'>0*</td>";
 				else
-					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+" ± "+Math.round(teams[key].error)+" </td>";
-
-				tlb+= "<td>"+((teams[key].wins/teams[key].plays)*(teams[key].alliance.length*2)).toFixed(2)+"</td>";
+					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+" ("+Math.round((teams[key].error)*100)+"%) </td>";
+				var pqp = ((teams[key].wins/teams[key].plays)*(teams[key].alliance.length*2)).toFixed(2)
+				tlb+= "<td>"+pqp+"</td>";
+				var def = (pqp-teams[key].qp).toFixed(2);
+				if(def >= 0)
+				{
+					tlb += "<td style='color: #00CC00;'>+"+def+"</td>";
+				}
+				else
+				{
+					tlb += "<td style='color: #FF0000;'>"+def+"</td>";
+				}				
 
 				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
 				//tlb += "<td>"+Math.round(teams[key].dv)+"</td>";
