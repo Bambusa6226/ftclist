@@ -10,10 +10,10 @@
 <html>
 <head>
 		<title>Comp - COMPNAME</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../bootstrap.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../datatables.css"/>
 	<link href="../jquery.growl.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="../common.css"/>
 </head>
@@ -24,7 +24,7 @@
 	<h1 class="page-header">Comp - </h1>
 
 	<div class="row">
-		<div class="col-md-12">	
+		<div class="col-lg-12">	
 			<div class="panel panel-default">
   				<div class="panel-heading">
     				<h3 class="panel-title">
@@ -34,7 +34,7 @@
   				<div class="panel-body">
   					<dl id="aboutlist">
 	  					<div class="row">
-                            <div class="col-md-6">
+                            <div class="col-lg-6">
 			  					<dt>Date</dt>
                                 <dd id="date"></dd>
 
@@ -44,7 +44,7 @@
                                 <dt>Unconfirmed Matches</dt>
                                 <dd id="unconfs"></dd>
 			  			    </div>
-			  			    <div class="col-md-6">
+			  			    <div class="col-lg-6">
 			  			        <dt>Region</dt>
                                 <dd id="region"></dd>
 
@@ -59,9 +59,9 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-lg-6">
 			<div class="row">
-				<div class="col-md-12">	
+				<div class="col-lg-12">	
 					<div class="panel panel-default">
 		  				<div class="panel-heading">
 		    				<h3 class="panel-title">
@@ -95,7 +95,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-lg-12">
 					<div class="panel panel-default">
 		  				<div class="panel-heading">
 		    				<h3 class="panel-title">
@@ -114,9 +114,9 @@
 	  		</div>
   		</div>
 
-  		<div class="col-md-6">
+  		<div class="col-lg-6">
   			<div class="row">
-				<div class="col-md-12">
+				<div class="col-lg-12">
 					<div class="panel panel-default">
 		  				<div class="panel-heading">
 		    				<h3 class="panel-title">
@@ -144,26 +144,27 @@
 					</div>
 				</div>
 			</div>
-			<!--<div class="col-md-12">
+			<div class="col-md-12">
 	  			<div class="panel panel-default">
 	  				<div class="panel-heading">
 	  					<h3 class="panel-title">
-	  						Message Board
-	  						<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Message</button>
+	  						Match Odds Prediction
 	  					</h3>
 	  				</div>
 	  				<div class="panel-body">
-	  					<div class="msg">
-	  						<div class="msgteam">
-	  							6226 - Bambusa
+	  					<div class="row">
+	  						<div class="col-md-6">
+	  							<input type="text" class="form-control" id="pred1" placeholder="Red Team"/> <br/>
+	  							<input type="text" class="form-control" id="pred2" placeholder="Red Team"/>
 	  						</div>
-	  						<div class="msgtext">
-	  							this is message, it is here...
+							<div class="col-md-6">
+	  							<input type="text" class="form-control" id="pblue1" placeholder="Blue Team"/> <br/>
+	  							<input type="text" class="form-control" id="pblue2" placeholder="Blue Team"/>
 	  						</div>
-	  					</div>
+	  						<h2 id="podds"></h2>
 	  				</div>
 	  			</div>
-	  		</div>-->
+	  		</div>
   		</div>
 	</div>
 
@@ -220,10 +221,10 @@
   		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.js"></script>
-<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../jquery.js"></script>
+<script type="text/javascript" src="../datatables.js"></script>
+<script src="../d3.js" charset="utf-8"></script>
+<script src="../bootstrap.js"></script>
 <script src="../jquery.growl.js" type="text/javascript"></script>
 <script src="../common.js"></script>
 
@@ -334,12 +335,13 @@ jQuery.fn.highlight = function (words, options) {
 		}
 
 
+		var teams = {};
 		var teamstbl, rowstbl;
 		function setrows(rows)
 		{
 			var tbl = "";
 			var tlb = "";
-			var teams = {};
+			teams = {};
 
 			for(var a=0;a<rows.length;a++)
 			{
@@ -961,7 +963,7 @@ jQuery.fn.highlight = function (words, options) {
 					wins++;
 				}
 			}
-			return "<td>"+Math.round(wins/10)/10+"%</td>";
+			return ""+Math.round(wins/10)/10+"%";
 		}
 
 
@@ -1061,6 +1063,25 @@ jQuery.fn.highlight = function (words, options) {
 		}
     
         setInterval(unconfs, 10000);
+
+
+        $("#pred1, #pred2, #pblue1, #pblue2").on("input propertychange", function() {
+        	console.log(teams[$("#pred1").val().toString()]);
+        	if(teams[$("#pred1").val().toString()] != undefined && teams[$("#pred1").val().toString()] != undefined && teams[$("#pblue1").val().toString()] != undefined && teams[$("#pblue2").val().toString()] != undefined)
+        	{
+        		var rw = {};
+        		rw.red1 = $("#pred1").val();
+        		rw.red2 = $("#pred2").val();
+        		rw.blue1 = $("#pblue1").val();
+        		rw.blue2 = $("#pblue2").val();
+        		$("#podds").text(calcOdds(rw, teams));
+        	}
+        	if(teams[$("#pred1").val()] != undefined && teams[$("#pblue1").val()] != undefined)
+        	{
+
+        	}
+
+        })
 
 	</script>
 </body>
