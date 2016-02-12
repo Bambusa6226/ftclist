@@ -818,7 +818,7 @@ jQuery.fn.highlight = function (words, options) {
 
 
 
-			for(var i=0;i<100000;i++)
+			for(var i=0;i<200000;i++)
 			{
 				var tms = [];
 				for(var j=0;j<4;j++)
