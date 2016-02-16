@@ -11,7 +11,6 @@
 <head>
 		<title>Comp - COMPNAME</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.css"/>
 	<link href="../jquery.growl.css" rel="stylesheet" type="text/css" />
@@ -59,14 +58,13 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-lg-7">
 			<div class="row">
 				<div class="col-lg-12">	
 					<div class="panel panel-default">
 		  				<div class="panel-heading">
 		    				<h3 class="panel-title">
 		    					Matches
-		    					<button class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#modal_match">Add Match</button>
 		    				</h3>
 		  				</div>
 		  				<div class="panel-body">
@@ -77,11 +75,10 @@
 										<th>Red</th>
 										<th>Red</th>
 										<th>Score</th>
-										<th>Win %</th>
 										<th>Blue</th>
 										<th>Blue</th>
 										<th>Score</th>
-										<th>Win %</td>
+										<th title='Simulated Win Percentage'><em>Sim. Win %</em></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -96,27 +93,6 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-default">
-		  				<div class="panel-heading">
-		    				<h3 class="panel-title">
-		    					Score Spread
-		    				</h3>
-		  				</div>
-		  				<div class="panel-body">
-		  					<svg id="spread" style="width: 100%;">
-		  						<text font-size="11px" x="10" y="11">frequency</text>
-		  						<g id="axis">
-		  						</g>
-		  					</svg>
-		  				</div>
-		  			</div>
-		  		</div>
-	  		</div>
-  		</div>
-
-  		<div class="col-lg-8">
-  			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 		  				<div class="panel-heading">
@@ -145,6 +121,109 @@
 					</div>
 				</div>
 			</div>
+			
+  		</div>
+
+  		<div class="col-lg-5">
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<div class="panel panel-default">
+		  				<div class="panel-heading">
+		    				<h3 class="panel-title">
+		    					Add Match Data
+		    				</h3>
+		  				</div>
+		  				<div class="panel-body">
+		  					<!-- Nav tabs -->
+						 	<ul class="nav nav-tabs" role="tablist" id="scoring">
+						    	<li role="presentation" class="active"><a href="#tms" aria-controls="tms" role="tab" data-toggle="tab">Teams</a></li>
+						    	<li role="presentation"><a href="#scores" aria-controls="scores" role="tab" data-toggle="tab">Scores</a></li>
+						  	</ul><br/>
+
+						  <!-- Tab panes -->
+							<div class="tab-content">
+							 	<div role="tabpanel" class="tab-pane active" id="tms">
+							    	<div class="row">
+							    		<div class="col-md-8">
+							    			<input type='text' class="form-control" placeholder="Match Number" />
+							    		</div>
+							    		<div class="col-md-4">
+							    			<button type='button' class='btn btn-primary btn-block'>Submit</button>
+							    		</div>
+							    	</div><hr/>
+							    	<div class="row">
+							    		<div class="col-md-5">
+				  							<input type="text" class="form-control" id="pred1" placeholder="Red Team"/> <br/>
+				  							<input type="text" class="form-control" id="pred2" placeholder="Red Team"/> <br/>
+				  						</div>
+				  						<div class="col-md-2">
+				  							<br/><br/>
+				  							<div style="text-align:center;font-size: 14pt;">VS</div>
+				  						</div>
+										<div class="col-md-5">
+				  							<input type="text" class="form-control" id="pblue1" placeholder="Blue Team"/> <br/>
+				  							<input type="text" class="form-control" id="pblue2" placeholder="Blue Team"/> <br/>
+				  						</div>
+							    	</div>
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="scores">
+							    	<div class="row">
+							    		<div class="col-md-12">
+									    	<div class="form-horizontal">
+									    		<div class='form-group'>
+											    	<label for="smatchnum" class='control-label col-md-2'>Match</label>
+											    	<div class="col-md-6">
+												    	<select class="form-control" id="smatchnum">
+												    		<option>1</option>
+												    		<option>2</option>
+												    	</select>
+												    </div>
+												    <div class="col-md-4">
+												    	<button type="button" class="btn btn-block btn-primary">Submit</button>
+												    </div>
+											    </div>
+									    	</div>
+									    </div>
+									</div><hr/>
+									<div class="row">
+										<div class="col-md-6"> 
+											<div class="teams">6226</div>
+											<div class="teams">5015</div>
+											<input type="text" class="form-control" placeholder="Red Score"/><br/>
+											<input type="text" class="form-control" placeholder="Red Penalty"/>
+										</div>
+										<div class="col-md-6">
+											<div class="teams">6226</div>
+											<div class="teams">5015</div>
+											<input type="text" class="form-control" placeholder="Blue Score"/><br/>
+											<input type="text" class="form-control" placeholder="Blue Penalty"/>
+										</div>
+									</div>
+							    </div>
+							</div>
+						</div>
+		  			</div>
+  				</div>
+  			</div>
+  			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+		  				<div class="panel-heading">
+		    				<h3 class="panel-title">
+		    					Score Spread
+		    				</h3>
+		  				</div>
+		  				<div class="panel-body">
+		  					<p>Shows the amount of matches that have had scores within each range.</p>
+		  					<svg id="spread" style="width: 100%;">
+		  						<text font-size="11px" x="10" y="11">frequency</text>
+		  						<g id="axis">
+		  						</g>
+		  					</svg>
+		  				</div>
+		  			</div>
+		  		</div>
+	  		</div>
 			<div class="row">
 				<div class="col-md-12">
 		  			<div class="panel panel-default">
@@ -246,7 +325,6 @@
 			var n = 1;
 			var k = 20;
 			var e = 2.71828;
-
 
 
 
@@ -385,7 +463,6 @@ jQuery.fn.highlight = function (words, options) {
 				if(rows[a].red1.indexOf("*") != -1)
 				{
 					rows[a].red1 = rows[a].red1.substring(0, rows[a].red1.length-1);
-					console.log(rows[a].red1);
 					if(teams[rows[a].red1] == undefined)
 					{
 						teams[rows[a].red1] = {};
@@ -433,7 +510,6 @@ jQuery.fn.highlight = function (words, options) {
 				if(rows[a].red2.indexOf("*") != -1)
 				{
 					rows[a].red2 = rows[a].red2.substring(0, rows[a].red2.length-1);
-					console.log(rows[a].red2);
 					if(teams[rows[a].red2] == undefined)
 					{
 						teams[rows[a].red2] = {};
@@ -463,8 +539,6 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue1].alliance = [];
 					teams[rows[a].blue1].scores = []
 				}
-				teams[rows[a].blue1].score += Number(rows[a].bluescore);
-				if(rows[a].bluepenalty != undefined) teams[rows[a].blue1].score -= Number(rows[a].bluepenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
 				{
@@ -480,7 +554,6 @@ jQuery.fn.highlight = function (words, options) {
 				if(rows[a].blue1.indexOf("*") != -1)
 				{
 					rows[a].blue1 = rows[a].blue1.substring(0, rows[a].blue1.length-1);
-					console.log(rows[a].blue1);
 					if(teams[rows[a].blue1] == undefined)
 					{
 						teams[rows[a].blue1] = {};
@@ -509,8 +582,6 @@ jQuery.fn.highlight = function (words, options) {
 					teams[rows[a].blue2].alliance = [];
 					teams[rows[a].blue2].scores = []
 				}
-				teams[rows[a].blue2].score += Number(rows[a].bluescore);
-				if(rows[a].bluepenalty != undefined) teams[rows[a].blue2].score -= Number(rows[a].bluepenalty);
 
 				if(Number(rows[a].bluescore) < Number(rows[a].redscore))
 				{
@@ -526,7 +597,6 @@ jQuery.fn.highlight = function (words, options) {
 				if(rows[a].blue2.indexOf("*") != -1)
 				{
 					rows[a].blue2 = rows[a].blue2.substring(0, rows[a].blue2.length-1);
-					console.log(rows[a].blue2);
 					if(teams[rows[a].blue2] == undefined)
 					{
 						teams[rows[a].blue2] = {};
@@ -586,7 +656,7 @@ jQuery.fn.highlight = function (words, options) {
 			{
 				for(var i=0;i<teams[key].scores.length;i++)
 				{
-					amts[Math.floor(teams[key].scores[i]/spr)]+= 0.5;
+					amts[Math.floor(teams[key].scores[i]/spr)] += 0.5;
 				}
 			}
 
@@ -664,10 +734,14 @@ jQuery.fn.highlight = function (words, options) {
 				if(teams[key].avg < min) min = teams[key].avg;
 				if(teams[key].avg > max) max = teams[key].avg;
 				favg += teams[key].avg;
-				cnt++;
+				cnt ++;
+				console.log(key + ": "+teams[key].score+ ", "+teams[key].avg);
 				teams[key].nummatch = teams[key].alliance.length;
 			}
+			console.log(favg);
+			console.log(cnt);
 			favg /= cnt;
+
 
 
 			for(var key in teams)
@@ -684,6 +758,7 @@ jQuery.fn.highlight = function (words, options) {
 			{
 				var err = 0;
 				teams[key].errors = [];
+				var abc = ""
 				for(var a=0;a<teams[key].alliance.length;a++)
 				{
 					var er = teams[teams[key].alliance[a]].dv/(Math.sqrt(teams[key].nummatch)*teams[teams[key].alliance[a]].avg);
@@ -693,8 +768,8 @@ jQuery.fn.highlight = function (words, options) {
 				teams[key].weight = 1/err;
 				//teams[key].error = teams[key].dv/(Math.sqrt(teams[key].nummatch));
 			}
-			var k = favg*(2/5);
-			console.log(k);
+			var k = favg/1;
+			console.log(favg);
 			for(key in teams)
 			{
 				teams[key].adj = [];
@@ -706,7 +781,6 @@ jQuery.fn.highlight = function (words, options) {
 					teams[key].adj.push(sco);
 				}
 				teams[key].rel = Math.round(counter/teams[key].scores.length);
-				console.log(teams[key].rel);
 
 				var aavg = 0;
 
@@ -716,8 +790,7 @@ jQuery.fn.highlight = function (words, options) {
 					sd += Math.pow((teams[key].adj[i]-teams[key].rel), 2);
 				}
 				teams[key].sd = Math.sqrt(sd/teams[key].scores.length-1);
-				console.log(teams[key].sd);
-				teams[key].error = 1.98*Math.sqrt(sd/(teams[key].scores.length-1))/(Math.sqrt(teams[key].alliance.length)*teams[key].avg);
+				teams[key].error = Math.sqrt(sd/(teams[key].scores.length-1))/(Math.sqrt(teams[key].alliance.length)*teams[key].rel);
 				teams[key].wins = 0;
 				teams[key].plays = 0;
 			}
@@ -749,7 +822,6 @@ jQuery.fn.highlight = function (words, options) {
 					}
 					else
 						tbl += "<td class='redwin' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
-					tbl += "<td class='redwin' data-order='"+clc+"'><em>"+clc+"%</em></td>";
 
 					tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
@@ -759,7 +831,6 @@ jQuery.fn.highlight = function (words, options) {
 					}
 					else
 						tbl += "<td class='info' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
-					tbl += "<td class='info' data-order='"+(100-clc)+"'><em>"+(100-clc).toFixed(0)+"%</em></td>";
 
 				}
 				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
@@ -772,7 +843,6 @@ jQuery.fn.highlight = function (words, options) {
 					}
 					else
 						tbl += "<td class='danger' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
-					tbl += "<td class='danger' data-order='"+(clc)+"'><em>"+clc+"%</em></td>";
 
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
@@ -782,7 +852,6 @@ jQuery.fn.highlight = function (words, options) {
 					}
 					else
 						tbl += "<td class='bluewin' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
-					tbl += "<td class='bluewin' data-order='"+(100-clc)+"'><em>"+(100-clc).toFixed(0)+"%</em></td>";
 				}
 				else
 				{
@@ -794,7 +863,6 @@ jQuery.fn.highlight = function (words, options) {
 					}
 					else
 						tbl += "<td class='redwin' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
-					tbl += "<td class='redwin' data-order='"+(clc)+"'><em>"+clc+"%</em></td>";
 
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
@@ -804,10 +872,9 @@ jQuery.fn.highlight = function (words, options) {
 					}
 					else
 						tbl += "<td class='bluewin' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
-					tbl += "<td class='bluewin' data-order='"+(100-clc)+"'><em>"+(100-clc).toFixed(0)+"%</em></td>";
 				}
 				
-				var clc = calcOdds(rows[a], teams, 10000);
+				tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
 
 
 				tbl += "</tr>";
@@ -818,7 +885,7 @@ jQuery.fn.highlight = function (words, options) {
 
 
 
-			for(var i=0;i<200000;i++)
+			for(var i=0;i<100000;i++)
 			{
 				var tms = [];
 				for(var j=0;j<4;j++)
@@ -841,20 +908,16 @@ jQuery.fn.highlight = function (words, options) {
 				}
 
 				//Φ((μX – μY)/√(σX2 + σY2))
-
 				// have four teams...
-				var a1m = tms[0].mean+tms[1].mean;
-				var a1v = tms[0].std+tms[1].std;
-
-				var a2m = tms[2].mean+tms[3].mean;
-				var a2v = tms[2].std+tms[3].std;
+				var t1 = (tms[0].mean+(grand()*tms[0].std))+(tms[1].mean+(grand()*tms[1].std));
+				var t2 = (tms[2].mean+(grand()*tms[2].std))+(tms[3].mean+(grand()*tms[3].std));
 
 				for(var j=0;j<4;j++)
 				{
 					teams[tms[j].team].plays++;
 				}
 
-				if(a1m + grand()*a1v > a2m + grand()*a2v)
+				if(t1 > t2)
 				{
 					teams[tms[0].team].wins++;
 					teams[tms[1].team].wins++;
@@ -865,8 +928,83 @@ jQuery.fn.highlight = function (words, options) {
 					teams[tms[3].team].wins++;
 				}
 			}
-			
 
+			for(key in teams)
+			{
+				teams[key].wr = teams[key].wins/teams[key].plays;
+			}
+
+			// for testing purposes...
+			/*for(var a=0;a<1000;a++)
+			{
+				var cm = 0;
+				for(var b=0;b<100;b++)
+				{
+					for(key in teams)
+					{
+						teams[key].plays = 0;
+						teams[key].wins = 0;
+					}
+					for(var i=0;i<a;i++)
+					{
+						var tms = [];
+						for(var j=0;j<4;j++)
+						{
+							var rng = Math.floor(Math.random()*smp.length);
+							var good = true;
+							for(var k=0;k<tms.length;k++)
+							{
+								if(tms[k].team == smp[rng].team)
+								{
+									good = false;
+								}
+							}
+							if(!good)
+							{
+								j--;
+								continue;
+							}
+							tms.push(smp[rng]);
+						}
+
+						//Φ((μX – μY)/√(σX2 + σY2))
+						// have four teams...
+						var t1 = (tms[0].mean+(grand()*tms[0].std))+(tms[1].mean+(grand()*tms[1].std));
+						var t2 = (tms[2].mean+(grand()*tms[2].std))+(tms[3].mean+(grand()*tms[3].std));
+
+						for(var j=0;j<4;j++)
+						{
+							teams[tms[j].team].plays++;
+						}
+
+						if(t1 > t2)
+						{
+							teams[tms[0].team].wins++;
+							teams[tms[1].team].wins++;
+						}
+						else
+						{
+							teams[tms[2].team].wins++;
+							teams[tms[3].team].wins++;
+						}
+					}
+					var dv = 0;
+					var cnt = 0;
+					for(key in teams)
+					{	
+						if(teams[key].plays == 0) wr = 0.5;
+						else var wr = teams[key].wins/teams[key].plays;
+						dv += Math.pow(Number(wr)-Number(teams[key].wr), 2);
+						cnt++;
+					}
+					dv = Math.sqrt(dv/cnt);
+					cm += dv;
+				}
+				cm /= 1000;
+				console.log(cm);
+			}*/
+
+			
 			for(var key in teams)
 			{
 				if(key.indexOf("*") != -1) continue;
@@ -978,13 +1116,18 @@ jQuery.fn.highlight = function (words, options) {
 			var wins = 0;
 			for(var a=0;a<amt;a++)
 			{
-				var a1m = smp[data.red1].avg+smp[data.red2].avg;
-				var a1v = smp[data.red1].sd+smp[data.red2].sd;
+				if(data.red2 == "NA")
+				{
+					var t1 = smp[data.red1].rel+(grand()*smp[data.red1].sd);
+					var t2 = smp[data.blue1].rel+(grand()*smp[data.blue1].sd);
+				}
+				else
+				{
+					var t1 = (smp[data.red1].rel+(grand()*smp[data.red1].sd))+(smp[data.red2].rel+(grand()*smp[data.red2].sd));
+					var t2 = (smp[data.blue1].rel+(grand()*smp[data.blue1].sd))+(smp[data.blue2].rel+(grand()*smp[data.blue2].sd));
+				}
 
-				var a2m = smp[data.blue1].avg+smp[data.blue2].avg;
-				var a2v = smp[data.blue1].sd+smp[data.blue2].sd;
-
-				if(a1m + grand()*a1v > a2m + grand()*a2v)
+				if(t1 > t2)
 				{
 					wins++;
 				}
@@ -1071,7 +1214,6 @@ jQuery.fn.highlight = function (words, options) {
 				}
 				if(unc == "") unc = "No Unconfirmed Matches";
 				$("#unconfs").text(unc);
-				console.log("rechecking");
                 
                 if(JSON.stringify(data.confed) != JSON.stringify(confs))
                 {
@@ -1092,7 +1234,6 @@ jQuery.fn.highlight = function (words, options) {
 
 
         $("#pred1, #pred2, #pblue1, #pblue2").on("input propertychange", function() {
-        	console.log(teams[$("#pred1").val().toString()]);
         	if(teams[$("#pred1").val().toString()] != undefined && teams[$("#pred1").val().toString()] != undefined && teams[$("#pblue1").val().toString()] != undefined && teams[$("#pblue2").val().toString()] != undefined)
         	{
         		var rw = {};
@@ -1104,13 +1245,13 @@ jQuery.fn.highlight = function (words, options) {
         		$("#podds").text(odds+"%");
         		$("#poddsb").text((100-odds).toFixed(1)+"%");
         	}
-        	else if(teams[$("#pred1").val()] != undefined && teams[$("#pblue1").val()] != undefined)
+        	else if(teams[$("#pred1").val()] != undefined && teams[$("#pblue1").val()] != undefined && $("#pred2").val() == "" && $("#pblue2").val() == "")
         	{
         		var rw = {}
         		rw.red1 = $("#pred1").val();
-        		rw.red2 = $("#pred1").val();
+        		rw.red2 = "NA";
         		rw.blue1 = $("#pblue1").val();
-        		rw.blue2 = $("#pred1").val();
+        		rw.blue2 = "NA";
         		var odds = calcOdds(rw, teams, 1000000);
         		$("#podds").text(odds+"%");
         		$("#poddsb").text((100-odds).toFixed(1)+"%");
