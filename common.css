@@ -74,3 +74,19 @@ body {
 .msgtext {
 	margin-bottom: 8px;
 }
+
+.rtms {
+	font-size: 14pt;
+	color: #FF3333;
+	margin-bottom: 10px;
+	text-align: center;
+	width: 100%;
+}
+
+.btms {
+	font-size: 14pt;
+	color: #3333FF;
+	margin-bottom: 10px;
+	text-align: center;
+	width: 100%;
+}

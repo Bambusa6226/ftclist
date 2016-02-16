@@ -103,12 +103,12 @@
 		  				<div class="panel-body">
 							<table id="teams" class="display">
 								<thead>
-									<tr style='text-align: right;'>
+									<tr>
 										<th>Team</th>
-										<th>Matches</th>
+										<th>Games</th>
 										<th>QP</th>
 										<th>RP</th>
-										<th title='Jones Score Prediction'>JSP (%Err)</th>
+										<th title='Jones Score Prediction'>JSP</th>
 										<th title='Simulated QP'>Sim. QP</th>
 										<th title='QP Difference'>QP Diff.</th>
 									</tr>
@@ -145,59 +145,59 @@
 							 	<div role="tabpanel" class="tab-pane active" id="tms">
 							    	<div class="row">
 							    		<div class="col-md-8">
-							    			<input type='text' class="form-control" placeholder="Match Number" />
+							    			<input id="mnum" type='text' class="form-control" placeholder="Match Number" />
 							    		</div>
 							    		<div class="col-md-4">
-							    			<button type='button' class='btn btn-primary btn-block'>Submit</button>
+							    			<button id="msub" type='button' class='btn btn-primary btn-block'>Submit</button>
 							    		</div>
 							    	</div><hr/>
 							    	<div class="row">
 							    		<div class="col-md-5">
-				  							<input type="text" class="form-control" id="pred1" placeholder="Red Team"/> <br/>
-				  							<input type="text" class="form-control" id="pred2" placeholder="Red Team"/> <br/>
+				  							<input id="mrt1" type="text" class="form-control" placeholder="Red Team"/> <br/>
+				  							<input id="mtr2" type="text" class="form-control" placeholder="Red Team"/>
 				  						</div>
 				  						<div class="col-md-2">
-				  							<br/><br/>
-				  							<div style="text-align:center;font-size: 14pt;">VS</div>
+				  							
+				  							<div style="text-align:center;font-size: 14pt;margin-top: 30px;">VS</div>
 				  						</div>
 										<div class="col-md-5">
-				  							<input type="text" class="form-control" id="pblue1" placeholder="Blue Team"/> <br/>
-				  							<input type="text" class="form-control" id="pblue2" placeholder="Blue Team"/> <br/>
+				  							<input id="mbt1" type="text" class="form-control" placeholder="Blue Team"/> <br/>
+				  							<input id="mbt2" type="text" class="form-control" placeholder="Blue Team"/>
 				  						</div>
+							    	</div>
+							    	<div class="help-block">
+							    		Place an asterisk (*) after teams in surrogate matches.
 							    	</div>
 							    </div>
 							    <div role="tabpanel" class="tab-pane" id="scores">
-							    	<div class="row">
-							    		<div class="col-md-12">
-									    	<div class="form-horizontal">
-									    		<div class='form-group'>
-											    	<label for="smatchnum" class='control-label col-md-2'>Match</label>
-											    	<div class="col-md-6">
-												    	<select class="form-control" id="smatchnum">
-												    		<option>1</option>
-												    		<option>2</option>
-												    	</select>
-												    </div>
-												    <div class="col-md-4">
-												    	<button type="button" class="btn btn-block btn-primary">Submit</button>
-												    </div>
-											    </div>
-									    	</div>
+								 	<div class="form-horizontal">
+									   	<div class='form-group'>
+										 	<label for="smatchnum" class='control-label col-md-2'>Match</label>
+									    	<div class="col-md-6">
+										    	<select class="form-control" id="smatchnum">
+										    		<option>1</option>
+										    		<option>2</option>
+										    	</select>
+										    </div>
+										    <div class="col-md-4">
+										    	<button type="button" class="btn btn-block btn-primary">Submit</button>
+										    </div>
 									    </div>
 									</div><hr/>
 									<div class="row">
 										<div class="col-md-6"> 
-											<div class="teams">6226</div>
-											<div class="teams">5015</div>
+											<div class="rtms">1234 / 1222</div>
 											<input type="text" class="form-control" placeholder="Red Score"/><br/>
 											<input type="text" class="form-control" placeholder="Red Penalty"/>
 										</div>
 										<div class="col-md-6">
-											<div class="teams">6226</div>
-											<div class="teams">5015</div>
+											<div class="btms">6226 / 5015</div>
 											<input type="text" class="form-control" placeholder="Blue Score"/><br/>
 											<input type="text" class="form-control" placeholder="Blue Penalty"/>
 										</div>
+									</div>
+									<div class="help-block">
+										Penalties should be entered on the side that is gaining the points.
 									</div>
 							    </div>
 							</div>
@@ -391,9 +391,6 @@ jQuery.fn.highlight = function (words, options) {
         jQuery.highlight(this, re, settings.element, settings.className);
     });
 };
-
-
-
 
 
 
@@ -818,19 +815,19 @@ jQuery.fn.highlight = function (words, options) {
 					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
 					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
 					{
-						tbl += "<td class='redwin' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
 					}
 					else
-						tbl += "<td class='redwin' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
 
 					tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
 					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
 					{
-						tbl += "<td class='info' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+						tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
 					}
 					else
-						tbl += "<td class='info' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+						tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
 
 				}
 				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
@@ -839,19 +836,19 @@ jQuery.fn.highlight = function (words, options) {
 					tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
 					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
 					{
-						tbl += "<td class='danger' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+						tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
 					}
 					else
-						tbl += "<td class='danger' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+						tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
 
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
 					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
 					{
-						tbl += "<td class='bluewin' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
 					}
 					else
-						tbl += "<td class='bluewin' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				else
 				{
@@ -859,19 +856,19 @@ jQuery.fn.highlight = function (words, options) {
 					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
 					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
 					{
-						tbl += "<td class='redwin' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore+" ("+rows[a].redpenalty+")")+"</td>";
+						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
 					}
 					else
-						tbl += "<td class='redwin' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
 
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
 					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
 					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
 					{
-						tbl += "<td class='bluewin' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore+" ("+rows[a].bluepenalty+")")+"</td>";
+						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
 					}
 					else
-						tbl += "<td class='bluewin' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
 				}
 				
 				tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
@@ -1011,23 +1008,23 @@ jQuery.fn.highlight = function (words, options) {
 
 				tlb += "<tr>";
 				tlb += "<td> <a href='../team?"+xss(key)+"'>"+xss(key)+"</a></td>";
-				tlb += "<td>"+teams[key].scores.length+"</td>";
-				tlb += "<td>"+teams[key].qp+"</td>";
-				tlb += "<td>"+teams[key].rp+"</td>";
+				tlb += "<td style='text-align: right;'>"+teams[key].scores.length+"</td>";
+				tlb += "<td style='text-align: right;'>"+teams[key].qp+"</td>";
+				tlb += "<td style='text-align: right;'>"+teams[key].rp+"</td>";
 				if(teams[key].scores.length == 1)
-					tlb += "<td data-order='0'>0*</td>";
+					tlb += "<td style='text-align: right;' data-order='0'>0*</td>";
 				else
-					tlb += "<td data-order='"+teams[key].rel+"'>"+teams[key].rel+" ("+Math.round((teams[key].error)*100)+"%) </td>";
+					tlb += "<td style='text-align: right;' data-order='"+teams[key].rel+"' title='"+teams[key].rel+" ("+(teams[key].error*100).toFixed(0)+"%)'>"+teams[key].rel+"</td>";
 				var pqp = ((teams[key].wins/teams[key].plays)*(teams[key].alliance.length*2)).toFixed(2)
-				tlb+= "<td>"+pqp+"</td>";
+				tlb+= "<td style='text-align: right;'>"+pqp+"</td>";
 				var def = (pqp-teams[key].qp).toFixed(2);
 				if(def >= 0)
 				{
-					tlb += "<td style='color: #00CC00;'>+"+def+"</td>";
+					tlb += "<td style='color: #33CC33;text-align: right;'>+"+def+"</td>";
 				}
 				else
 				{
-					tlb += "<td style='color: #FF0000;'>"+def+"</td>";
+					tlb += "<td style='color: #FF3333;text-align: right;'>"+def+"</td>";
 				}				
 
 				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
@@ -1106,7 +1103,57 @@ jQuery.fn.highlight = function (words, options) {
 				$("title").text("Competition - "+data.name+" - FTCList");
 				//setrows(data.rows);
 		
+			});
+
+
+			$("#msub").click(function() {
+				var obj = {};
+				obj.type = "match";
+				obj.match = $("#mnum").val();
+				obj.red1 = $("#mrt1").val();
+				obj.red2 = $("#mrt2").val();
+				obj.blue1 = $("#mbt1").val();
+				obj.blue2 = $("#mbt2").val();
+
+				$.post("../newadd.php", obj, function(result) {
+					Growl.growl(JSON.parse(result));
+				});
 			})
+
+
+
+
+			$("#pred1, #pred2, #pblue1, #pblue2").on("input propertychange", function() {
+        	if(teams[$("#pred1").val().toString()] != undefined && teams[$("#pred1").val().toString()] != undefined && teams[$("#pblue1").val().toString()] != undefined && teams[$("#pblue2").val().toString()] != undefined)
+        	{
+        		var rw = {};
+        		rw.red1 = $("#pred1").val();
+        		rw.red2 = $("#pred2").val();
+        		rw.blue1 = $("#pblue1").val();
+        		rw.blue2 = $("#pblue2").val();
+        		var odds = calcOdds(rw, teams, 1000000);
+        		$("#podds").text(odds+"%");
+        		$("#poddsb").text((100-odds).toFixed(1)+"%");
+        	}
+        	else if(teams[$("#pred1").val()] != undefined && teams[$("#pblue1").val()] != undefined && $("#pred2").val() == "" && $("#pblue2").val() == "")
+        	{
+        		var rw = {}
+        		rw.red1 = $("#pred1").val();
+        		rw.red2 = "NA";
+        		rw.blue1 = $("#pblue1").val();
+        		rw.blue2 = "NA";
+        		var odds = calcOdds(rw, teams, 1000000);
+        		$("#podds").text(odds+"%");
+        		$("#poddsb").text((100-odds).toFixed(1)+"%");
+
+        	}
+        	else
+        	{
+        		$("#podds").text("N/A");
+        		$("#poddsb").text("N/A");
+        	}
+
+        })
 		});
         var rowsdata = [];
 		var confs = [];
@@ -1233,37 +1280,7 @@ jQuery.fn.highlight = function (words, options) {
         setInterval(unconfs, 10000);
 
 
-        $("#pred1, #pred2, #pblue1, #pblue2").on("input propertychange", function() {
-        	if(teams[$("#pred1").val().toString()] != undefined && teams[$("#pred1").val().toString()] != undefined && teams[$("#pblue1").val().toString()] != undefined && teams[$("#pblue2").val().toString()] != undefined)
-        	{
-        		var rw = {};
-        		rw.red1 = $("#pred1").val();
-        		rw.red2 = $("#pred2").val();
-        		rw.blue1 = $("#pblue1").val();
-        		rw.blue2 = $("#pblue2").val();
-        		var odds = calcOdds(rw, teams, 1000000);
-        		$("#podds").text(odds+"%");
-        		$("#poddsb").text((100-odds).toFixed(1)+"%");
-        	}
-        	else if(teams[$("#pred1").val()] != undefined && teams[$("#pblue1").val()] != undefined && $("#pred2").val() == "" && $("#pblue2").val() == "")
-        	{
-        		var rw = {}
-        		rw.red1 = $("#pred1").val();
-        		rw.red2 = "NA";
-        		rw.blue1 = $("#pblue1").val();
-        		rw.blue2 = "NA";
-        		var odds = calcOdds(rw, teams, 1000000);
-        		$("#podds").text(odds+"%");
-        		$("#poddsb").text((100-odds).toFixed(1)+"%");
-
-        	}
-        	else
-        	{
-        		$("#podds").text("N/A");
-        		$("#poddsb").text("N/A");
-        	}
-
-        })
+        
 
 	</script>
 </body>
