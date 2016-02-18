@@ -39,9 +39,6 @@
 
 			  			        <dt>Location</dt>
 			  			        <dd id="location"></dd>
-
-                                <dt>Unconfirmed Matches</dt>
-                                <dd id="unconfs"></dd>
 			  			    </div>
 			  			    <div class="col-lg-6">
 			  			        <dt>Region</dt>
@@ -104,13 +101,14 @@
 							<table id="teams" class="display">
 								<thead>
 									<tr>
+										<th>#</th>
 										<th>Team</th>
 										<th>Games</th>
 										<th>QP</th>
 										<th>RP</th>
-										<th title='Jones Score Prediction'>JSP</th>
-										<th title='Simulated QP'>Sim. QP</th>
-										<th title='QP Difference'>QP Diff.</th>
+										<th title='Jones Score Prediction'><em>JSP</em></th>
+										<th title='Simulated QP'><em>Sim. QP</em></th>
+										<th title='QP Difference'><em>QP Diff.</em></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -143,28 +141,31 @@
 						  <!-- Tab panes -->
 							<div class="tab-content">
 							 	<div role="tabpanel" class="tab-pane active" id="tms">
+							 		<form>
 							    	<div class="row">
 							    		<div class="col-md-8">
-							    			<input id="mnum" type='text' class="form-control" placeholder="Match Number" />
+							    			<input tabindex="1" id="mnum" type='text' class="form-control" placeholder="Match Number" />
 							    		</div>
 							    		<div class="col-md-4">
-							    			<button id="msub" type='button' class='btn btn-primary btn-block'>Submit</button>
+							    			<button tabindex="6" id="msub" type='button' class='btn btn-primary btn-block'>Submit</button>
 							    		</div>
 							    	</div><hr/>
 							    	<div class="row">
 							    		<div class="col-md-5">
-				  							<input id="mrt1" type="text" class="form-control" placeholder="Red Team"/> <br/>
-				  							<input id="mtr2" type="text" class="form-control" placeholder="Red Team"/>
+				  							<input tabindex="2" id="mrt1" type="text" class="form-control" placeholder="Red Team"/> <br/>
+				  							<input tabindex="3" id="mrt2" type="text" class="form-control" placeholder="Red Team"/>
 				  						</div>
 				  						<div class="col-md-2">
 				  							
 				  							<div style="text-align:center;font-size: 14pt;margin-top: 30px;">VS</div>
 				  						</div>
 										<div class="col-md-5">
-				  							<input id="mbt1" type="text" class="form-control" placeholder="Blue Team"/> <br/>
-				  							<input id="mbt2" type="text" class="form-control" placeholder="Blue Team"/>
+				  							<input tabindex="4" id="mbt1" type="text" class="form-control" placeholder="Blue Team"/> <br/>
+				  							<input tabindex="5" id="mbt2" type="text" class="form-control" placeholder="Blue Team"/>
 				  						</div>
 							    	</div>
+							    	<div class="tabblocker1" tabindex="6"></div>
+							    	</form>
 							    	<div class="help-block">
 							    		Place an asterisk (*) after teams in surrogate matches.
 							    	</div>
@@ -236,17 +237,16 @@
 		  					<p>Enter 2 or 4 teams to calculate odds of victory.</p>
 		  					<div class="row">
 		  						<div class="col-md-5">
-		  							<input type="text" class="form-control" id="pred1" placeholder="Red Team"/> <br/>
-		  							<input type="text" class="form-control" id="pred2" placeholder="Red Team"/> <br/>
+		  							<input type="text" class="form-control" id="pred1" placeholder="Red Team"> <br/>
+		  							<input type="text" class="form-control" id="pred2" placeholder="Red Team"> <br/>
 		  							<div style='text-align: center;font-size: 14pt;' id="podds">N/A</div>
 		  						</div>
 		  						<div class="col-md-2">
-		  							<br/><br/>
-		  							<div style="text-align:center;font-size: 14pt;">VS</div>
+				  					<div style="text-align:center;font-size: 14pt;margin-top: 30px;">VS</div>
 		  						</div>
 								<div class="col-md-5">
-		  							<input type="text" class="form-control" id="pblue1" placeholder="Blue Team"/> <br/>
-		  							<input type="text" class="form-control" id="pblue2" placeholder="Blue Team"/> <br/>
+		  							<input type="text" class="form-control" id="pblue1" placeholder="Blue Team"> <br/>
+		  							<input type="text" class="form-control" id="pblue2" placeholder="Blue Team"> <br/>
 		  							<div style='text-align: center;font-size: 14pt;' id="poddsb">N/A</div>
 
 		  						</div>
@@ -1001,30 +1001,32 @@ jQuery.fn.highlight = function (words, options) {
 				console.log(cm);
 			}*/
 
-			
-			for(var key in teams)
+			var ntms = rsort(teams);
+	
+			for(var i=0;i<ntms.length;i++)
 			{
-				if(key.indexOf("*") != -1) continue;
+				if(ntms[i].key.indexOf("*") != -1) continue;
 
 				tlb += "<tr>";
-				tlb += "<td> <a href='../team?"+xss(key)+"'>"+xss(key)+"</a></td>";
-				tlb += "<td style='text-align: right;'>"+teams[key].scores.length+"</td>";
-				tlb += "<td style='text-align: right;'>"+teams[key].qp+"</td>";
-				tlb += "<td style='text-align: right;'>"+teams[key].rp+"</td>";
-				if(teams[key].scores.length == 1)
-					tlb += "<td style='text-align: right;' data-order='0'>0*</td>";
+				tlb += "<td>"+(i+1)+"</td>";
+				tlb += "<td> <a href='../team?"+xss(ntms[i].key)+"'>"+xss(ntms[i].key)+"</a></td>";
+				tlb += "<td style='text-align: right;'>"+ntms[i].scores.length+"</td>";
+				tlb += "<td style='text-align: right;'>"+ntms[i].qp+"</td>";
+				tlb += "<td style='text-align: right;'>"+ntms[i].rp+"</td>";
+				if(ntms[i].scores.length == 1)
+					tlb += "<td style='text-align: right;' data-order='0'><em>0*</em></td>";
 				else
-					tlb += "<td style='text-align: right;' data-order='"+teams[key].rel+"' title='"+teams[key].rel+" ("+(teams[key].error*100).toFixed(0)+"%)'>"+teams[key].rel+"</td>";
-				var pqp = ((teams[key].wins/teams[key].plays)*(teams[key].alliance.length*2)).toFixed(2)
-				tlb+= "<td style='text-align: right;'>"+pqp+"</td>";
-				var def = (pqp-teams[key].qp).toFixed(2);
+					tlb += "<td style='text-align: right;' data-order='"+ntms[i].rel+"' title='"+ntms[i].rel+" ("+(ntms[i].error*100).toFixed(0)+"%)'><em>"+ntms[i].rel+"</em></td>";
+				var pqp = ((ntms[i].wins/ntms[i].plays)*(ntms[i].alliance.length*2)).toFixed(2)
+				tlb+= "<td style='text-align: right;'><em>"+pqp+"</em></td>";
+				var def = (pqp-ntms[i].qp).toFixed(2);
 				if(def >= 0)
 				{
-					tlb += "<td style='color: #33CC33;text-align: right;'>+"+def+"</td>";
+					tlb += "<td style='color: #33CC33;text-align: right;'><em>+"+def+"</em></td>";
 				}
 				else
 				{
-					tlb += "<td style='color: #FF3333;text-align: right;'>"+def+"</td>";
+					tlb += "<td style='color: #FF3333;text-align: right;'><em>"+def+"</em></td>";
 				}				
 
 				//tlb += "<td>"+Math.round(teams[key].avg)+"</td>";
@@ -1061,7 +1063,7 @@ jQuery.fn.highlight = function (words, options) {
 	    		});
 
 				teamstbl = $("#teams").DataTable({
-					"order": [[ 2, 'desc' ], [ 3, 'desc' ]]
+					"order": [[ 3, 'desc' ], [ 4, 'desc' ]]
 				});
 
 				teamstbl.on( 'draw', function () {
@@ -1112,10 +1114,20 @@ jQuery.fn.highlight = function (words, options) {
 				obj.match = $("#mnum").val();
 				obj.red1 = $("#mrt1").val();
 				obj.red2 = $("#mrt2").val();
+				console.log($("#mrt2").val());
+
 				obj.blue1 = $("#mbt1").val();
 				obj.blue2 = $("#mbt2").val();
 
 				$.post("../newadd.php", obj, function(result) {
+					if(JSON.parse(result).title != "Error")
+					{
+						$("#mnum").val(Number($("#mnum").val())+1);
+						$("#mrt1").val("");
+						$("#mrt2").val("");
+						$("#mbt1").val("");
+						$("#mbt2").val("");
+					}
 					Growl.growl(JSON.parse(result));
 				});
 			})
@@ -1154,6 +1166,11 @@ jQuery.fn.highlight = function (words, options) {
         	}
 
         })
+
+			$(".tabblocker1").on("focus", function() {
+				$("input[tabindex=1]").focus();
+			})
+
 		});
         var rowsdata = [];
 		var confs = [];
@@ -1236,6 +1253,54 @@ jQuery.fn.highlight = function (words, options) {
 		function sigmoid(v)
 		{
 			return 1/(1+Math.pow(e, -v));
+		}
+
+		function rsort(teams)
+		{
+			var output = [];
+
+			for(key in teams)
+			{
+				teams[key].key = key;
+				output.push(teams[key]);
+			}
+			var sieve = {};
+
+			for(var i=0;i<4;i++)
+			{
+				for(var j=0;j<output.length;j++)
+				{
+					var group = (Math.floor(output[j].rp/Math.pow(10, i))%10).toString();
+					if(sieve[group] == undefined) sieve[group] = [];
+					sieve[group].push(output[j]);
+				}
+				output = join(sieve);
+				sieve = {};
+			}
+
+			for(var i=0;i<2;i++)
+			{
+				for(var j=0;j<output.length;j++)
+				{
+					var group = (Math.floor(output[j].qp/Math.pow(10, i))%10).toString();
+					if(sieve[group] == undefined) sieve[group] = [];
+					sieve[group].push(output[j]);
+				}
+				output = join(sieve);
+				sieve = {};
+			}
+			return output.reverse();
+		}
+
+		function join(sieve)
+		{
+			var output = [];
+			for(var i=0;i<10;i++)
+			{
+				if(sieve[i.toString()] != undefined)
+					output = output.concat(sieve[i.toString()]);
+			}
+			return output;
 		}
 
 

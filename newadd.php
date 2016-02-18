@@ -48,12 +48,15 @@ if($check != $pwd->hash)
 
 if($_POST['type'] == "match")
 {
-	if(!isset($_POST['match']) || !isset($_POST['red1']) || !isset($_POST['red2']) || !isset($_POST['blue1']) || !isset($_POST['blue2']))
+	if(!isset($_POST['match']) || !isset($_POST['red1']) || !isset($_POST['red2']) || !isset($_POST['blue1']) || !isset($_POST['blue2']) || $_POST['match'] == "" || $_POST['red1'] == "" || $_POST['red2'] == "" || $_POST['blue1'] == "" || $_POST['blue2'] == "")
 	{
 		echo '{"title":"Error","message":"Request missing one or more fields."}';
 		die;
 	}
 	// k now we check if this exists
+	echo '{"title":"Success","message":"Request missing one or more fields."}';
+	die;
+
 
 }
 else if($_POST['type'] == "score")
