@@ -423,7 +423,7 @@ jQuery.fn.highlight = function (words, options) {
 
 		var teams = {};
 		var teamstbl, rowstbl;
-		function setrows(rows)
+		function setrows(rows, ttms)
 		{
 			var tbl = "";
 			var tlb = "";
@@ -801,134 +801,234 @@ jQuery.fn.highlight = function (words, options) {
 			}
 
 			tbl = "";
-			for(var a=0;a<rows.length;a++)
+			if(ttms != undefined)
 			{
-				var clc = calcOdds(rows[a], teams, 10000).toFixed(0);
-				if(clc == 0) clc = 1;
-				else if(clc == 100) clc = 99;
-
-				tbl += "<tr>";
-				tbl += "<td>"+xss(rows[a].match)+"</td>";
-				if(Number(rows[a].redscore) > Number(rows[a].bluescore))
+				for(a in ttms)
 				{
-					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
-					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
-					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+					var issco = rows[a] != undefined;
+
+					var clc = calcOdds(ttms[a], teams, 10000).toFixed(0);
+					if(clc == 0) clc = 1;
+					else if(clc == 100) clc = 99;
+					
+
+					tbl += "<tr>";
+					if(issco)
 					{
-						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
-					}
-					else
-						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
-
-					tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
-					tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
-					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
-					{
-						tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
-					}
-					else
-						tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
-
-				}
-				else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
-				{
-					tbl += "<td class='danger'>"+xss(rows[a].red1)+"</td>";
-					tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
-					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
-					{
-						tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
-					}
-					else
-						tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
-
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
-					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
-					{
-						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
-					}
-					else
-						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
-				}
-				else
-				{
-					tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
-					tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
-					if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
-					{
-						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
-					}
-					else
-						tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
-
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
-					tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
-					if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
-					{
-						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
-					}
-					else
-						tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
-				}
-				
-				tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
-
-
-				tbl += "</tr>";
-
-				
-			}
-
-
-
-
-			for(var i=0;i<100000;i++)
-			{
-				var tms = [];
-				for(var j=0;j<4;j++)
-				{
-					var rng = Math.floor(Math.random()*smp.length);
-					var good = true;
-					for(var k=0;k<tms.length;k++)
-					{
-						if(tms[k].team == smp[rng].team)
+						tbl += "<td>"+xss(rows[a].match)+"</td>";
+						if(Number(rows[a].redscore) > Number(rows[a].bluescore))
 						{
-							good = false;
+							tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+							tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+							if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+							{
+								tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
+							}
+							else
+								tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+
+							tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
+							tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
+							if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+							{
+								tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
+							}
+							else
+								tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+
 						}
+						else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
+						{
+							tbl += "<td class='danger'>"+xss(rows[a].red1)+"</td>";
+							tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
+							if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+							{
+								tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
+							}
+							else
+								tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+
+							tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+							tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+							if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+							{
+								tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
+							}
+							else
+								tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+						}
+						else
+						{
+							tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+							tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+							if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+							{
+								tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
+							}
+							else
+								tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+
+							tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+							tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+							if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+							{
+								tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
+							}
+							else
+								tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+						}
+						
+						tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
 					}
-					if(!good)
+					else
 					{
-						j--;
-						continue;
+						tbl += "<td class='danger'>"+xss(ttms[a].red1)+"</td>";
+						tbl += "<td class='danger'>"+xss(ttms[a].red2)+"</td>";
+						
+						tbl += "<td class='danger' style='text-align: right;' data-order='0'>-</td>";
+
+						tbl += "<td class='info'>"+xss(ttms[a].blue1)+"</td>";
+						tbl += "<td class='info'>"+xss(ttms[a].blue2)+"</td>";
+
+						tbl += "<td class='info' style='text-align: right;' data-order='0'>-</td>";
+
+
 					}
-					tms.push(smp[rng]);
-				}
 
-				//Φ((μX – μY)/√(σX2 + σY2))
-				// have four teams...
-				var t1 = (tms[0].mean+(grand()*tms[0].std))+(tms[1].mean+(grand()*tms[1].std));
-				var t2 = (tms[2].mean+(grand()*tms[2].std))+(tms[3].mean+(grand()*tms[3].std));
-
-				for(var j=0;j<4;j++)
-				{
-					teams[tms[j].team].plays++;
+					tbl += "</tr>";
 				}
+			}
+			else
+			{
+				for(var a = 0;a<rows.length;a++)
+				{
 
-				if(t1 > t2)
-				{
-					teams[tms[0].team].wins++;
-					teams[tms[1].team].wins++;
-				}
-				else
-				{
-					teams[tms[2].team].wins++;
-					teams[tms[3].team].wins++;
+					var clc = calcOdds(rows[a], teams, 10000).toFixed(0);
+					if(clc == 0) clc = 1;
+					else if(clc == 100) clc = 99;
+					
+
+					tbl += "<tr>";
+
+					tbl += "<td>"+xss(rows[a].match)+"</td>";
+					if(Number(rows[a].redscore) > Number(rows[a].bluescore))
+					{
+						tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+						tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+						if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+						{
+							tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
+						}
+						else
+							tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+
+						tbl += "<td class='info'>"+xss(rows[a].blue1)+"</td>";
+						tbl += "<td class='info'>"+xss(rows[a].blue2)+"</td>";
+						if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+						{
+							tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
+						}
+						else
+							tbl += "<td class='info' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+
+					}
+					else if(Number(rows[a].redscore) < Number(rows[a].bluescore))
+					{
+						tbl += "<td class='danger'>"+xss(rows[a].red1)+"</td>";
+						tbl += "<td class='danger'>"+xss(rows[a].red2)+"</td>";
+						if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+						{
+							tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
+						}
+						else
+							tbl += "<td class='danger' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+
+						tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+						tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+						if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+						{
+							tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
+						}
+						else
+							tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+					}
+					else
+					{
+						tbl += "<td class='redwin'>"+xss(rows[a].red1)+"</td>";
+						tbl += "<td class='redwin'>"+xss(rows[a].red2)+"</td>";
+						if(rows[a].redpenalty != undefined && rows[a].redpenalty != 0)
+						{
+							tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss("("+rows[a].redpenalty+") "+rows[a].redscore)+"</td>";
+						}
+						else
+							tbl += "<td class='redwin' style='text-align: right;' data-order='"+rows[a].redscore+"'>"+xss(rows[a].redscore)+"</td>";
+
+						tbl += "<td class='bluewin'>"+xss(rows[a].blue1)+"</td>";
+						tbl += "<td class='bluewin'>"+xss(rows[a].blue2)+"</td>";
+						if(rows[a].bluepenalty != undefined && rows[a].bluepenalty != 0)
+						{
+							tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss("("+rows[a].bluepenalty+") "+rows[a].bluescore)+"</td>";
+						}
+						else
+							tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
+					}
+					
+					tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
+					tbl += "</tr>";
 				}
 			}
 
-			for(key in teams)
+
+			if(smp.length >= 4)
 			{
-				teams[key].wr = teams[key].wins/teams[key].plays;
+				for(var i=0;i<100000;i++)
+				{
+					var tms = [];
+					for(var j=0;j<4;j++)
+					{
+						var rng = Math.floor(Math.random()*smp.length);
+						var good = true;
+						for(var k=0;k<tms.length;k++)
+						{
+							if(tms[k].team == smp[rng].team)
+							{
+								good = false;
+							}
+						}
+						if(!good)
+						{
+							j--;
+							continue;
+						}
+						tms.push(smp[rng]);
+					}
+
+					//Φ((μX – μY)/√(σX2 + σY2))
+					// have four teams...
+					var t1 = (tms[0].mean+(grand()*tms[0].std))+(tms[1].mean+(grand()*tms[1].std));
+					var t2 = (tms[2].mean+(grand()*tms[2].std))+(tms[3].mean+(grand()*tms[3].std));
+
+					for(var j=0;j<4;j++)
+					{
+						teams[tms[j].team].plays++;
+					}
+
+					if(t1 > t2)
+					{
+						teams[tms[0].team].wins++;
+						teams[tms[1].team].wins++;
+					}
+					else
+					{
+						teams[tms[2].team].wins++;
+						teams[tms[3].team].wins++;
+					}
+				}
+
+				for(key in teams)
+				{
+					teams[key].wr = teams[key].wins/teams[key].plays;
+				}
 			}
 
 			// for testing purposes...
@@ -1095,9 +1195,19 @@ jQuery.fn.highlight = function (words, options) {
 				var type = data.type == "qual" ? "Qualifier" : data.type == "league" ? "League Meet" : data.type == "noncomp" ? "Practice/Scrimmage" : data.type == "region" ? "Regional" : type; 
 				$("#type").text(type);
                 
-                rowsdata = data.rows;
+                var teamsdata
+				if(data.rows != undefined)
+				{
+					rowsdata = data.rows;
+					teamsdata = undefined;
+				} 
+				else
+				{
+					rowsdata = data.scores;
+					teamsdata = data.teams;
+				}
 
-                setrows(data.rows);
+                setrows(rowsdata, teamsdata);
                 
 				unconfs();
 
@@ -1114,7 +1224,7 @@ jQuery.fn.highlight = function (words, options) {
 				obj.match = $("#mnum").val();
 				obj.red1 = $("#mrt1").val();
 				obj.red2 = $("#mrt2").val();
-				console.log($("#mrt2").val());
+				obj.comp = comp();
 
 				obj.blue1 = $("#mbt1").val();
 				obj.blue2 = $("#mbt2").val();
@@ -1307,6 +1417,11 @@ jQuery.fn.highlight = function (words, options) {
 		function unconfs() {
 			$("#unconfs").text("No Unconfirmed Matches");
 			$.getJSON("../data/unconf/"+comp()+".json",function(data) {
+				if(data.rows == undefined)
+				{
+					$("#unconfs").text("No Unconfirmed Matches");
+					return;
+				}
 				var rem = [];
 				var unc = "";
 				var first = true;
