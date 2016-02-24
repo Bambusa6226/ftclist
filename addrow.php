@@ -139,7 +139,10 @@ foreach($unconf->rows as $row)
 
 			array_push($unconf->confed, $_POST['match']);
 			$comp = json_decode(file_get_contents("./data/comps/".$_POST['comp'].".json"));
+			if(!isset($comp->rows)) $comp->rows = array();
 			array_push($comp->rows, $row);
+			$comp->rng = rand();
+
 			file_put_contents("./data/comps/".$_POST['comp'].".json", json_encode($comp));
 
 			saveteam($_POST['red1'], $obj);

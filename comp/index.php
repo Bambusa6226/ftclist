@@ -325,7 +325,7 @@
 			var n = 1;
 			var k = 20;
 			var e = 2.71828;
-
+			var oldrng = 0;
 
 
 // highlight plugin
@@ -669,6 +669,7 @@ jQuery.fn.highlight = function (words, options) {
 			var width = $("#spread").width();
 			var wtick = width/(steps+1);
 			var woffset = Math.floor(wtick);
+			$("#axis").empty();
 
 			d3.select("#axis").append("text")
 			.text("score ranges")
@@ -800,11 +801,15 @@ jQuery.fn.highlight = function (words, options) {
 				smp.push({"team":key,"mean":teams[key].rel,"std":teams[key].sd,"wins":0});
 			}
 
+			console.log(smp);
+
 			tbl = "";
+			console.log(ttms);
 			if(ttms != undefined)
 			{
 				for(a in ttms)
 				{
+					console.log("ahh");
 					var issco = rows[a] != undefined;
 
 					var clc = calcOdds(ttms[a], teams, 10000).toFixed(0);
@@ -877,11 +882,10 @@ jQuery.fn.highlight = function (words, options) {
 							else
 								tbl += "<td class='bluewin' style='text-align: right;' data-order='"+rows[a].bluescore+"'>"+xss(rows[a].bluescore)+"</td>";
 						}
-						
-						tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
 					}
 					else
 					{
+						tbl += "<td>"+xss(ttms[a].match)+"</td>";
 						tbl += "<td class='danger'>"+xss(ttms[a].red1)+"</td>";
 						tbl += "<td class='danger'>"+xss(ttms[a].red2)+"</td>";
 						
@@ -892,8 +896,11 @@ jQuery.fn.highlight = function (words, options) {
 
 						tbl += "<td class='info' style='text-align: right;' data-order='0'>-</td>";
 
-
 					}
+
+					if(clc != -1) tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
+					else tbl += "<td class='' data-order='50'><em>N/A</em></td>";
+
 
 					tbl += "</tr>";
 				}
@@ -979,7 +986,7 @@ jQuery.fn.highlight = function (words, options) {
 			}
 
 
-			if(smp.length >= 4)
+			if(smp.length >= 4 )
 			{
 				for(var i=0;i<100000;i++)
 				{
@@ -1195,16 +1202,21 @@ jQuery.fn.highlight = function (words, options) {
 				var type = data.type == "qual" ? "Qualifier" : data.type == "league" ? "League Meet" : data.type == "noncomp" ? "Practice/Scrimmage" : data.type == "region" ? "Regional" : type; 
 				$("#type").text(type);
                 
-                var teamsdata
-				if(data.rows != undefined)
+				oldrng = data.rng;
+
+                var teamsdata;
+                console.log(data.rows);
+				if(data.rows != undefined && data.rows.length > 0)
 				{
 					rowsdata = data.rows;
 					teamsdata = undefined;
 				} 
 				else
 				{
-					rowsdata = data.scores;
-					teamsdata = data.teams;
+					if(data.scores != undefined) rowsdata = data.scores;
+					else rowsdata = [];
+					if(data.teams != undefined) teamsdata = data.teams;
+					else teamsdata = [];
 				}
 
                 setrows(rowsdata, teamsdata);
@@ -1216,7 +1228,6 @@ jQuery.fn.highlight = function (words, options) {
 				//setrows(data.rows);
 		
 			});
-
 
 			$("#msub").click(function() {
 				var obj = {};
@@ -1239,6 +1250,7 @@ jQuery.fn.highlight = function (words, options) {
 						$("#mbt2").val("");
 					}
 					Growl.growl(JSON.parse(result));
+					update();
 				});
 			})
 
@@ -1288,6 +1300,12 @@ jQuery.fn.highlight = function (words, options) {
 		function calcOdds(data, smp, amt)
 		{
 			var wins = 0;
+			if(smp[data.red1] == undefined || smp[data.red2] == undefined || smp[data.blue1] == undefined || smp[data.blue2] == undefined)
+			{
+				return -1;
+			}
+
+
 			for(var a=0;a<amt;a++)
 			{
 				if(data.red2 == "NA")
@@ -1452,12 +1470,43 @@ jQuery.fn.highlight = function (words, options) {
 			});
 		}
 
+
+		function update() {
+			$.getJSON("../data/comps/"+comp()+".json", function(data) {
+				if(data.rng != oldrng) 
+				{
+					oldrng = data.rng;
+
+					var teamsdata;
+	                console.log(data.rows);
+					if(data.rows != undefined && data.rows.length > 0)
+					{
+						rowsdata = data.rows;
+						teamsdata = undefined;
+					} 
+					else
+					{
+						if(data.scores != undefined) rowsdata = data.scores;
+						else rowsdata = [];
+						if(data.teams != undefined) teamsdata = data.teams;
+						else teamsdata = [];
+					}
+
+	                setrows(rowsdata, teamsdata);	
+				}
+                
+
+            });
+		}
+		
+
+
 		function off(num)
 		{
 			return Math.floor(num)+0.5;
 		}
     
-        setInterval(unconfs, 10000);
+        setInterval(update, 10000);
 
 
         

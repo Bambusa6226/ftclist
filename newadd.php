@@ -93,13 +93,14 @@ if($_POST['type'] == "match")
 
 	if(!isset($unconf->teams)) $unconf->teams = array();
 
-	if($_POST['match'] > count($unconf->teams)+1)
+	if($_POST['match'] > count((array) $unconf->teams)+1)
 	{
-		echo '{"title":"Error","message":"Please enter match number ('.(count($unconf->teams)+1).') before later matches."}';
+		echo '{"title":"Error","message":"Please enter match number ('.(count((array) $unconf->teams)+1).') before later matches."}';
 		die;
 	}
-	$match = $_POST['match'];
-	if(!isset($unconf->teams->$match)
+
+	$match = (string)$_POST['match'];
+	if(!isset($unconf->teams->$match))
 	{
 		// we are adding for the first time
 		// just cat them to the file, put them in official, and credit the team.
@@ -112,13 +113,13 @@ if($_POST['type'] == "match")
 		$obj->match = $_POST['match'];
 		$obj->contrib = $_COOKIE['team'];
 
-		$unconf->teams[$obj->match] = array();
-		array_push($unconf->teams[$obj->match], $obj);
+		$unconf->teams->$match = array();
+		array_push($unconf->teams->$match, $obj);
 
 		$real = json_decode(file_get_contents("./data/comps/".$_POST['comp'].".json"));
 		if(!isset($real->teams)) $real->teams = array();
-
-		$real->teams[$obj->match] = $obj;
+		$real->teams->$match = $obj;
+		$real->rng = rand(); // for updators
 
 		file_put_contents($file, json_encode($unconf));
 		file_put_contents("./data/comps/".$_POST['comp'].".json", json_encode($real));
