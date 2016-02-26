@@ -75,7 +75,7 @@ body {
 	margin-bottom: 8px;
 }
 
-.rtms {
+#rtms {
 	font-size: 14pt;
 	color: #FF3333;
 	margin-bottom: 10px;
@@ -83,7 +83,7 @@ body {
 	width: 100%;
 }
 
-.btms {
+#btms {
 	font-size: 14pt;
 	color: #3333FF;
 	margin-bottom: 10px;

@@ -97,7 +97,7 @@ if($_POST['type'] == "match")
 	{
 		echo '{"title":"Error","message":"Please enter match number ('.(count((array) $unconf->teams)+1).') before later matches."}';
 		die;
-	}
+	} 
 
 	$match = (string)$_POST['match'];
 	if(!isset($unconf->teams->$match))
@@ -149,6 +149,37 @@ if($_POST['type'] == "match")
 }
 else if($_POST['type'] == "score")
 {
+	if(!isset($_POST['match']) || !isset($_POST['redscore']) || !isset($_POST['bluescore']) || !isset($_POST['comp'])
+		|| $_POST['match'] == "" || $_POST['redscore'] == "" || $_POST['bluescore'] == "" || $_POST['comp'] == "")
+	{
+		echo '{"title":"Error","message":"Request missing one or more fields."}';
+		die;
+	}
+
+	if(!isInteger($_POST['match']) 
+		|| (!isInteger($_POST['redscore'])) 
+		|| (!isInteger($_POST['bluescore'])) 
+		|| (!isInteger($_POST['redpenalty']) && $_POST['redpenalty'] != "") 
+		|| (!isInteger($_POST['bluepenalty']) && $_POST['bluepenalty'] != ""))
+	{
+		echo '{"title":"Error","message":"One or more fields are not Integers."}';
+		die;
+	}
+
+	// check to see if there is a valid comp for this match
+
+	$real = json_decode(file_get_contents("./data/comps/".$_POST['comp'].".json"));
+	$unconf = json_decode(file_get_contents("./data/comps/".$_POST['comp'].".json"));
+	$match = $_POST['match'];
+
+	if(!isset($real->teams->$match))
+	{
+		echo '{"title":"Error","message":"Teams have not been set for this match."}';
+		die;
+	}
+
+
+
 
 }
 else

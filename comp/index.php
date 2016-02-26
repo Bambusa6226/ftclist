@@ -10,9 +10,9 @@
 <html>
 <head>
 		<title>Comp - COMPNAME</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../bootstrap.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../datatables.css"/>
 	<link href="../jquery.growl.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="../common.css"/>
 </head>
@@ -164,7 +164,7 @@
 				  							<input tabindex="5" id="mbt2" type="text" class="form-control" placeholder="Blue Team"/>
 				  						</div>
 							    	</div>
-							    	<div class="tabblocker1" tabindex="6"></div>
+							    	<div class="tabblocker1" tabindex="7"></div>
 							    	</form>
 							    	<div class="help-block">
 							    		Place an asterisk (*) after teams in surrogate matches.
@@ -175,28 +175,28 @@
 									   	<div class='form-group'>
 										 	<label for="smatchnum" class='control-label col-md-2'>Match</label>
 									    	<div class="col-md-6">
-										    	<select class="form-control" id="smatchnum">
-										    		<option>1</option>
-										    		<option>2</option>
+										    	<select class="form-control" id="smatchnum" tabindex="8">
 										    	</select>
 										    </div>
 										    <div class="col-md-4">
-										    	<button type="button" class="btn btn-block btn-primary">Submit</button>
+										    	<button type="button" id="ssub" class="btn btn-block btn-primary" tabindex="13">Submit</button>
 										    </div>
 									    </div>
 									</div><hr/>
 									<div class="row">
 										<div class="col-md-6"> 
-											<div class="rtms">1234 / 1222</div>
-											<input type="text" class="form-control" placeholder="Red Score"/><br/>
-											<input type="text" class="form-control" placeholder="Red Penalty"/>
+											<div id="rtms">1234 / 1222</div>
+											<input type="text" id="srsco" class="form-control" placeholder="Red Score" tabindex="9"/><br/>
+											<input type="text" id="srpen" class="form-control" placeholder="Red Penalty" tabindex="10"/>
 										</div>
 										<div class="col-md-6">
-											<div class="btms">6226 / 5015</div>
-											<input type="text" class="form-control" placeholder="Blue Score"/><br/>
-											<input type="text" class="form-control" placeholder="Blue Penalty"/>
+											<div id="btms">6226 / 5015</div>
+											<input type="text" id="sbsco" class="form-control" placeholder="Blue Score" tabindex="11"/><br/>
+											<input type="text" id="sbpen" class="form-control" placeholder="Blue Penalty" tabindex="12"/>
 										</div>
 									</div>
+									<div class="tabblocker2" tabindex="14"></div>
+
 									<div class="help-block">
 										Penalties should be entered on the side that is gaining the points.
 									</div>
@@ -807,8 +807,12 @@ jQuery.fn.highlight = function (words, options) {
 			console.log(ttms);
 			if(ttms != undefined)
 			{
+				var scolist = "";
 				for(a in ttms)
 				{
+					scolist += "<option value='"+a+"'>"+a+"</option>";
+
+
 					console.log("ahh");
 					var issco = rows[a] != undefined;
 
@@ -901,6 +905,8 @@ jQuery.fn.highlight = function (words, options) {
 					if(clc != -1) tbl += "<td class='' data-order='"+(clc)+"'><em><span style='color:#ff6666;'>"+clc+"%</span> / <span style='color:#6666ff;'>"+(100-clc).toFixed(0)+"%</span></em></td>";
 					else tbl += "<td class='' data-order='50'><em>N/A</em></td>";
 
+					$("#smatchnum").html(scolist);
+					descoch();
 
 					tbl += "</tr>";
 				}
@@ -1184,6 +1190,7 @@ jQuery.fn.highlight = function (words, options) {
 	    		$('div.dataTables_filter input').addClass('form-control').attr("placeholder", "Search Table").css("font-weight", "400");
 		}
 		var fst = true;
+		var teamsdata;
 		$("document").ready(function() {
 
 			 $('[data-toggle="popover"]').popover()
@@ -1204,7 +1211,6 @@ jQuery.fn.highlight = function (words, options) {
                 
 				oldrng = data.rng;
 
-                var teamsdata;
                 console.log(data.rows);
 				if(data.rows != undefined && data.rows.length > 0)
 				{
@@ -1252,6 +1258,30 @@ jQuery.fn.highlight = function (words, options) {
 					Growl.growl(JSON.parse(result));
 					update();
 				});
+			});
+
+			$("#ssub").click(function() {
+				var obj = {};
+				obj.type = "score";
+				obj.match = $("#smatchnum").val();
+				obj.redscore = $("#srsco").val();
+				obj.redpenalty = $("#srpen").val();
+				obj.bluescore = $("#sbsco").val();
+				obj.bluepenalty = $("#sbpen").val();
+
+				obj.comp = comp();
+
+				$.post("../newadd.php", obj, function(result) {
+					if(JSON.parse(result).title != "Error")
+					{
+						$("#srsco").val("");
+						$("#srpen").val("");
+						$("#sbsco").val("");
+						$("#sbpen").val("");
+					}
+					Growl.growl(JSON.parse(result));
+					update();
+				})
 			})
 
 
@@ -1286,16 +1316,29 @@ jQuery.fn.highlight = function (words, options) {
         		$("#podds").text("N/A");
         		$("#poddsb").text("N/A");
         	}
-
         })
 
 			$(".tabblocker1").on("focus", function() {
 				$("input[tabindex=1]").focus();
 			})
 
+			$(".tabblocker2").on("focus", function() {
+				$("input[tabindex=9]").focus();
+			});
+
+			$("#smatchnum").on("input propertychange", descoch);
+
+
 		});
         var rowsdata = [];
 		var confs = [];
+
+		function descoch()
+		{
+			console.log("changed");
+			$("#rtms").text(teamsdata[$("#smatchnum").val()].red1 + " / " + teamsdata[$("#smatchnum").val()].red2);
+			$("#btms").text(teamsdata[$("#smatchnum").val()].blue1 + " / " + teamsdata[$("#smatchnum").val()].blue2);
+		}
 
 		function calcOdds(data, smp, amt)
 		{
