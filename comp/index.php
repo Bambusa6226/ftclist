@@ -10,9 +10,9 @@
 <html>
 <head>
 		<title>Comp - COMPNAME</title>
-	<link rel="stylesheet" href="../bootstrap.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="../datatables.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jqc-1.11.3,dt-1.10.9/datatables.min.css"/>
 	<link href="../jquery.growl.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="../common.css"/>
 </head>
@@ -114,7 +114,7 @@
 								<tbody>
 								</tbody>
 							</table>
-							<div class="help-block">* Reliability index requires a team to have at least two matches in the competition.</div>
+							<div class="help-block">* JSP requires at least 2 matches. <a href="http://ftclist.org/jsp.pdf">Learn more about JSP.</a></div>
 						</div>
 					</div>
 				</div>
@@ -185,12 +185,12 @@
 									</div><hr/>
 									<div class="row">
 										<div class="col-md-6"> 
-											<div id="rtms">1234 / 1222</div>
+											<div id="rtms"></div>
 											<input type="text" id="srsco" class="form-control" placeholder="Red Score" tabindex="9"/><br/>
 											<input type="text" id="srpen" class="form-control" placeholder="Red Penalty" tabindex="10"/>
 										</div>
 										<div class="col-md-6">
-											<div id="btms">6226 / 5015</div>
+											<div id="btms"></div>
 											<input type="text" id="sbsco" class="form-control" placeholder="Blue Score" tabindex="11"/><br/>
 											<input type="text" id="sbpen" class="form-control" placeholder="Blue Penalty" tabindex="12"/>
 										</div>
@@ -429,11 +429,11 @@ jQuery.fn.highlight = function (words, options) {
 			var tlb = "";
 			teams = {};
 
-			for(var a=0;a<rows.length;a++)
+			for(var a in rows)
 			{
 				// lets do some stuff here.
 
-				
+				console.log("haha");
 				
 				if(teams[rows[a].red1] == undefined)
 				{
@@ -812,8 +812,6 @@ jQuery.fn.highlight = function (words, options) {
 				{
 					scolist += "<option value='"+a+"'>"+a+"</option>";
 
-
-					console.log("ahh");
 					var issco = rows[a] != undefined;
 
 					var clc = calcOdds(ttms[a], teams, 10000).toFixed(0);
@@ -906,10 +904,11 @@ jQuery.fn.highlight = function (words, options) {
 					else tbl += "<td class='' data-order='50'><em>N/A</em></td>";
 
 					$("#smatchnum").html(scolist);
-					descoch();
 
 					tbl += "</tr>";
 				}
+				if(scolist != "") descoch();
+
 			}
 			else
 			{
@@ -1227,8 +1226,6 @@ jQuery.fn.highlight = function (words, options) {
 
                 setrows(rowsdata, teamsdata);
                 
-				unconfs();
-
 				$("h1").text(data.name);
 				$("title").text("Competition - "+data.name+" - FTCList");
 				//setrows(data.rows);
@@ -1343,7 +1340,7 @@ jQuery.fn.highlight = function (words, options) {
 		function calcOdds(data, smp, amt)
 		{
 			var wins = 0;
-			if(smp[data.red1] == undefined || smp[data.red2] == undefined || smp[data.blue1] == undefined || smp[data.blue2] == undefined)
+			if((smp[data.red1] == undefined || smp[data.red2] == undefined || smp[data.blue1] == undefined || smp[data.blue2] == undefined) && data.red2 != "NA")
 			{
 				return -1;
 			}
@@ -1519,9 +1516,6 @@ jQuery.fn.highlight = function (words, options) {
 				if(data.rng != oldrng) 
 				{
 					oldrng = data.rng;
-
-					var teamsdata;
-	                console.log(data.rows);
 					if(data.rows != undefined && data.rows.length > 0)
 					{
 						rowsdata = data.rows;

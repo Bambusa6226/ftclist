@@ -91,7 +91,7 @@ if($_POST['type'] == "match")
 		$unconf = new STDClass();
 	}
 
-	if(!isset($unconf->teams)) $unconf->teams = array();
+	if(!isset($unconf->teams) || count($unconf->teams) == 0) $unconf->teams = new STDClass();
 
 	if($_POST['match'] > count((array) $unconf->teams)+1)
 	{
@@ -117,7 +117,7 @@ if($_POST['type'] == "match")
 		array_push($unconf->teams->$match, $obj);
 
 		$real = json_decode(file_get_contents("./data/comps/".$_POST['comp'].".json"));
-		if(!isset($real->teams)) $real->teams = array();
+		if(!isset($real->teams) || count($real->teams) == 0) $real->teams = new STDClass();
 		$real->teams->$match = $obj;
 		$real->rng = rand(); // for updators
 
@@ -142,10 +142,6 @@ if($_POST['type'] == "match")
 		// its time to settle a dispute
 	}
 
-	echo '{"title":"Success","message":"Request missing one or more fields."}';
-	die;
-
-
 }
 else if($_POST['type'] == "score")
 {
@@ -169,13 +165,76 @@ else if($_POST['type'] == "score")
 	// check to see if there is a valid comp for this match
 
 	$real = json_decode(file_get_contents("./data/comps/".$_POST['comp'].".json"));
-	$unconf = json_decode(file_get_contents("./data/comps/".$_POST['comp'].".json"));
-	$match = $_POST['match'];
+	$unconf = json_decode(file_get_contents("./data/unconf/".$_POST['comp'].".json"));
+	$match = (string)$_POST['match'];
 
 	if(!isset($real->teams->$match))
 	{
 		echo '{"title":"Error","message":"Teams have not been set for this match."}';
 		die;
+	}
+
+	if(!isset($unconf->scores) || count($unconf->scores) == 0) $unconf->scores = new STDClass();
+
+	if(!isset($unconf->scores->$match))
+	{
+		// first time score..
+		$obj = new STDClass();
+		$obj->red1 = $real->teams->$match->red1;
+		$obj->red2 = $real->teams->$match->red2;
+		$obj->blue1 = $real->teams->$match->blue1;
+		$obj->blue2 = $real->teams->$match->blue2;
+		$obj->match = $_POST['match'];
+		$obj->contrib = $_COOKIE['team'];
+
+
+		$obj->redscore = (int)$_POST['redscore'];
+		$obj->bluescore = (int)$_POST['bluescore'];
+		if(!isset($_POST['redpenalty']) || $_POST['redpenalty'] == "")
+		{
+			$obj->redpenalty = 0;
+		}
+		else
+		{
+			$obj->redpenalty = (int)$_POST['redpenalty'];
+		}
+
+		if(!isset($_POST['bluepenalty']) || $_POST['bluepenalty'] == "")
+		{
+			$obj->bluepenalty = 0;
+		}
+		else
+		{
+			$obj->bluepenalty = (int)$_POST['bluepenalty'];
+		}
+
+		$unconf->scores->$match = array();
+		array_push($unconf->scores->$match, $obj);
+
+		if(!isset($real->scores)) $real->scores = new STDClass();
+		$real->scores->$match = $obj;
+		$real->rng = rand(); // for updators
+
+		file_put_contents("./data/unconf/".$_POST['comp'].".json", json_encode($unconf));
+		file_put_contents("./data/comps/".$_POST['comp'].".json", json_encode($real));
+
+		$supp = json_decode(file_get_contents("./data/teams/".$_COOKIE['team'].".json"));
+		$supp->contribution += 2;
+		file_put_contents("./data/teams/".$_COOKIE['team'].".json", json_encode($supp));
+
+		$contrib = json_decode(file_get_contents("./data/contrib.json"));
+		$onum = (string)$_COOKIE['team'];
+		$contrib->teams->$onum->pts += 2;
+		file_put_contents("./data/contrib.json", json_encode($contrib));
+
+		echo '{"title":"Success","message":"Match entered for the first time, added to tables."}';
+		die;
+
+
+	}
+	else
+	{
+		// settle dispute on score...
 	}
 
 
