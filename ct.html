@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Capture the Flag</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="../jquery.js"></script>
+	<script src="../jayex/d3.min.js"></script>
+
+	<script>
+
+	var mpd = 68.91;
+	var name = undefined;
+	var lat = 0;
+	var lon = 0;
+
+	$("document").ready(function() {
+
+		// check cookies
+		if(readCookie("name") != null)
+		{
+			$("#intro").css("display", "none");
+			$("#tap").css("display", "inline");
+			name = readCookie("name");
+
+		}
+		else
+		{
+		}
+
+		$("#send").click(function() {
+			createCookie("name", $("#name").val(), 30);
+			$("#intro").css("display", "none");
+			$("#tap").css("display", "inline");
+			name = $("#name").val();
+		});
+
+
+		$("#tap").click(function() {
+			navigator.geolocation.getCurrentPosition(
+     			processGeolocation,
+     			geolocationError,
+     			{enableHighAccuracy: true}
+     		);
+		})
+
+
+	});
+
+
+
+function processGeolocation(position) {
+	lat = position.coords.latitude;
+	lon = position.coords.longitude;
+	$.post("./backend.php", 
+		{
+			"name":readCookie("name"),
+			"latitude":position.coords.latitude,
+			"longitude": position.coords.longitude,
+			"timestamp": position.timestamp
+		}
+	, draw);
+}
+
+function draw(resp)
+{
+	resp = JSON.parse(resp);
+	console.log(resp);
+	$("#texts").empty();
+	$("#points").empty();
+	drawPoint(screen.width/2, screen.height/2, name);
+	for(var a=0;a<resp.length;a++)
+	{
+		if(resp[a].name == name) continue;
+		var magx = lon-resp[a].longitude;
+		var magy = lat-resp[a].latitude;
+		var mag = Math.sqrt((magx*magx)+(magy*magy));
+		var dir = Math.atan(magy/magx);
+		var xpos = (screen.width/2)+(Math.cos(dir)*100);
+		var ypos = (screen.height/2)+(Math.sin(dir)*100);
+		console.log(magx);
+		console.log(magy);
+		console.log((screen.width/2)-xpos);
+		console.log((screen.height/2)-ypos);
+		drawPoint(xpos, ypos, resp[a].name+"<br/>"+toDecimal((mag*mpd), 2)+" mi<br/>"+Math.round((unix()-(resp[a].timestamp/1000))/60)+" min");
+	}
+}
+
+
+function geolocationError(error)
+{
+	console.log(error);
+	document.write("ERR: "+JSON.stringify(error));
+}
+
+
+function drawPoint(xpos, ypos, data)
+{
+	d3.select("#points").append("circle").attr("cx", xpos).attr("cy", ypos).attr("r", 3).attr("fill", "black")
+	$("#texts").append("<p style='position:absolute;left:"+(xpos-20)+"px;top:"+(ypos)+"px;'>"+data+"</p>");
+}
+
+function unix()
+{
+	return Math.floor(Date.now() / 1000)
+}
+
+
+function createCookie(name, value, days) {
+    var expires;
+
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = encodeURIComponent(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
+}
+
+function toDecimal(number, dec)
+{
+	number *= Math.pow(10, dec);
+	number = Math.round(number);
+	number /= Math.pow(10, dec);
+	number = number.toString();
+	if(number.indexOf(".") === -1 && dec != 0)
+	{
+		number += ".";
+	}
+	while(number.indexOf(".")+dec >= number.length) number += "0";
+	if(number.indexOf(".")+dec > number.length) number = number.substring(0, number.indexOf(".")+dec);
+	return number;
+}
+
+
+	</script>
+	<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+svg {
+	z-index: -2;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#texts {
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+
+#texts p {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+}
+
+
+	</style>
+
+
+</head>
+<body>
+<div id="intro">
+Name: 	
+<input type="text" id="name"><button type="button" id="send">Begin</button>
+</div> 
+<button type="button" id="tap" style="display: none; position: absolute; top: 10px;right: 10px;">Get Location</button>
+<div id="texts">
+
+</div>
+<svg style="z-index: -1;">
+	<g id="points">
+
+	</g>
+</svg>
+
+</body>
+</html>

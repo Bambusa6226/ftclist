@@ -173,6 +173,7 @@ else if($_POST['type'] == "score")
 		echo '{"title":"Error","message":"Teams have not been set for this match."}';
 		die;
 	}
+<<<<<<< Updated upstream
 
 	if(!isset($unconf->scores) || count($unconf->scores) == 0) $unconf->scores = new STDClass();
 
@@ -240,6 +241,8 @@ else if($_POST['type'] == "score")
 
 
 
+=======
+>>>>>>> Stashed changes
 }
 else
 {
