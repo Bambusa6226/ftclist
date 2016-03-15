@@ -1,7 +1,7 @@
 <?php 
 
 	$POS = new STDClass();
-	$POS->PLC_N = {"NO ZERO", "Beacon Repair Zone", "In Floor Goal", "On Mountain Touching Floor", "On Mountain, Low Zone", "On Mountain, Mid Zone", "On Mountain, High Zone"};
+	$POS->PLC_N = {"Nowhere of Circumstance", "Beacon Repair Zone", "In Floor Goal", "On Mountain Touching Floor", "On Mountain, Low Zone", "On Mountain, Mid Zone", "On Mountain, High Zone"};
 	$POS->PLC_P = {0, 5, 5, 5, 10, 20, 40};
 	$POS->BCN = 20;
 	$POS->ACLM = 10;
@@ -19,16 +19,62 @@
 
 	function count_pts($i, $pre)
 	{
-		$aut = "Autonomous Period; ";
+		$aut = "Autonomous Period, ";
+		$dc = "Driver Controlled; ";
+		$eg = "End Game; ";
 
 		$o = new STDClass();
 		$pts = 0;
+		$pen = 0;
 		$o->p1aplc = $off[$pre.$aut."Robot 1 Placement"][$i];
 		$o->p1aplcn = $POS->PLC_N[$o->p1aplc];
 		$pts += $POS->PLC_P[$o->$p1aplc];
 
 		$o->p2aplc = $off[$pre.$aut."Robot 2 Placement"][$i];
-		$o->p2aplcn = $POS->
+		$o->p2aplcn = $POS->$POS->PLC_N[$o->p2aplc];
+		$pts += $POS->PLC_P[$o->p2aplc];
+
+		$o->bcn = $off[$pre.$aut."Rescue Beacons"][$i];
+		$pts += $POS->BCN*$o->bcn;
+
+		$o->aclm = $off[$pre.$aut."Climbers in Shelter"][$i];
+		$pts += $POS->ACLM*$o->aclm;
+
+		$o->p1plc = $off[$pre.$dc."Robot 1 Placement"][$i];
+		$o->p1plcn = $POS->PLC_N[$o->p1plc];
+		$pts += $POS->PLC_P[$o->p1plc];
+
+		$o->p2plc = $off[$pre.$dc."Robot 2 Placement"][$i];
+		$o->p2plcn = $POS->PLC_N[$o->p2plc];
+		$pts += $POS->PLC_N[$o->p2plc];
+
+		$o->flr = $off[$pre.$dc."Floor Goal"];
+		$pts += $POS->FLR*$o->flr;
+
+		$o->high = $off[$pre.$dc."High Goal"];
+		$pts += $POS->HIGH*$o->high;
+
+		$o->mid = $off[$pre.$dc."Mid Goal"];
+		$pts += $POS->MID*$o->mid;
+
+		$o->low = $off[$pre.$dc."Low Goal"];
+		$pts += $POS->LOW*$o->low;
+
+		$o->tclm = $off[$pre.$dc."Climbers in Shelter"];
+		$pts += $POS->TCLM*$o->tclm;
+
+		$o->zlc = $off[$pre.$dc."Zip Line"];
+		$pts += $POS->ZLC*$o->zlc;
+
+		$o->acs = $off[$pre.$eg."All Clear Signal"];
+		$pts += $POS->ACS*$o->acs;
+
+		$o->hang = $off[$pre.$eg."Robot on Pull Up Bar"];
+		$pts += $POS->HANG*$o->hang;
+
+		$o->major = $off[]
+
+
 	}
 
 
