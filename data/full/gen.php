@@ -1,8 +1,8 @@
 <?php 
 
 	$POS = new STDClass();
-	$POS->PLC_N = {"Nowhere of Circumstance", "Beacon Repair Zone", "In Floor Goal", "On Mountain Touching Floor", "On Mountain, Low Zone", "On Mountain, Mid Zone", "On Mountain, High Zone"};
-	$POS->PLC_P = {0, 5, 5, 5, 10, 20, 40};
+	$POS->PLC_N = ["Nowhere of Circumstance", "Beacon Repair Zone", "In Floor Goal", "On Mountain Touching Floor", "On Mountain, Low Zone", "On Mountain, Mid Zone", "On Mountain, High Zone"];
+	$POS->PLC_P = [0, 5, 5, 5, 10, 20, 40];
 	$POS->BCN = 20;
 	$POS->ACLM = 10;
 	$POS->FLR = 1;
@@ -16,9 +16,15 @@
 	$POS->MINOR = 10;
 	$POS->MAJOR = 40;
 
+	$off = json_decode(file_get_contents("./off.json"), true);
+
+
 
 	function count_pts($i, $pre)
 	{
+		global $POS;
+		global $off;
+
 		$aut = "Autonomous Period, ";
 		$dc = "Driver Controlled; ";
 		$eg = "End Game; ";
@@ -26,63 +32,71 @@
 		$o = new STDClass();
 		$pts = 0;
 		$pen = 0;
-		$o->p1aplc = $off[$pre.$aut."Robot 1 Placement"][$i];
-		$o->p1aplcn = $POS->PLC_N[$o->p1aplc];
-		$pts += $POS->PLC_P[$o->$p1aplc];
 
-		$o->p2aplc = $off[$pre.$aut."Robot 2 Placement"][$i];
-		$o->p2aplcn = $POS->$POS->PLC_N[$o->p2aplc];
+		$o->p1aplc = (int)$off[$pre.$aut."Robot 1 Placement"][$i];
+		$o->p1aplcn = $POS->PLC_N[$o->p1aplc];
+		$pts += $POS->PLC_P[$o->p1aplc];
+
+		$o->p2aplc = (int)$off[$pre.$aut."Robot 2 Placement"][$i];
+		$o->p2aplcn = $POS->PLC_N[$o->p2aplc];
 		$pts += $POS->PLC_P[$o->p2aplc];
 
-		$o->bcn = $off[$pre.$aut."Rescue Beacons"][$i];
+		$o->bcn = (int)$off[$pre.$aut."Rescue Beacons"][$i];
 		$pts += $POS->BCN*$o->bcn;
 
-		$o->aclm = $off[$pre.$aut."Climbers in Shelter"][$i];
+		$o->aclm = (int)$off[$pre.$aut."Climbers in Shelter"][$i];
 		$pts += $POS->ACLM*$o->aclm;
 
-		$o->p1plc = $off[$pre.$dc."Robot 1 Placement"][$i];
+		$o->p1plc = (int)$off[$pre.$dc."Robot 1 Placement"][$i];
 		$o->p1plcn = $POS->PLC_N[$o->p1plc];
 		$pts += $POS->PLC_P[$o->p1plc];
 
-		$o->p2plc = $off[$pre.$dc."Robot 2 Placement"][$i];
+		$o->p2plc = (int)$off[$pre.$dc."Robot 2 Placement"][$i];
 		$o->p2plcn = $POS->PLC_N[$o->p2plc];
 		$pts += $POS->PLC_N[$o->p2plc];
 
-		$o->flr = $off[$pre.$dc."Floor Goal"];
+		$o->flr = (int)$off[$pre.$dc."Floor Goal"];
 		$pts += $POS->FLR*$o->flr;
 
-		$o->high = $off[$pre.$dc."High Goal"];
+		$o->high = (int)$off[$pre.$dc."High Goal"];
 		$pts += $POS->HIGH*$o->high;
 
-		$o->mid = $off[$pre.$dc."Mid Goal"];
+		$o->mid = (int)$off[$pre.$dc."Mid Goal"];
 		$pts += $POS->MID*$o->mid;
 
-		$o->low = $off[$pre.$dc."Low Goal"];
+		$o->low = (int)$off[$pre.$dc."Low Goal"];
 		$pts += $POS->LOW*$o->low;
 
-		$o->tclm = $off[$pre.$dc."Climbers in Shelter"];
+		$o->tclm = (int)$off[$pre.$dc."Climbers in Shelter"];
 		$pts += $POS->TCLM*$o->tclm;
 
-		$o->zlc = $off[$pre.$dc."Zip Line"];
+		$o->zlc = (int)$off[$pre.$dc."Zip Line"];
 		$pts += $POS->ZLC*$o->zlc;
 
-		$o->acs = $off[$pre.$eg."All Clear Signal"];
+		$o->acs = (int)$off[$pre.$eg."All Clear Signal"];
 		$pts += $POS->ACS*$o->acs;
 
-		$o->hang = $off[$pre.$eg."Robot on Pull Up Bar"];
+		$o->hang = (int)$off[$pre.$eg."Robot on Pull Up Bar"];
 		$pts += $POS->HANG*$o->hang;
 
-		$o->major = $off[]
+		$o->minor = (int)$off[$pre."Minor Penalty Incurred"];
+		$o->major = (int)$off[$pre."Major Penalty Incurred"];
 
+		$pen += (int)$off[$pre."Minor Penalty Awarded"]*$POS->MINOR;
+		$pen += (int)$off[$pre."Major Penalty Awarded"]*$POS->MAJOR;
+		$pts += (int)$pen;
 
+		$o->score = $pts;
+		$o->penalties = $pen;
+
+		return $o;
 	}
 
 
 
-	$off = json_decode(file_get_contents("./off.json"));
-	$comps = new STDClass();
+	$comps = array();
 	$prevcomp = "";
-	for($i=0;$i<count($off->Date);$i++)
+	for($i=0;$i<count($off["Date"]);$i++)
 	{
 		if($prevcomp != $off["Event Name"][$i])
 		{
@@ -94,7 +108,8 @@
 			$comps[$prevcomp]->division = $off["Division"][$i];
 			$comps[$prevcomp]->rows = array();
 		}
-		if($off["Match Type"] != 1) continue; // deal with elim later.
+
+		if($off["Match Type"][$i] != 1) continue; // deal with elim later.
 
 		$row = new STDClass();
 
@@ -111,8 +126,18 @@
 		$retc = count_pts($i, "Red ");
 		$betc = count_pts($i, "Blue ");
 
+		$row->redscore = $retc->score;
+		$row->redpenalty = $retc->penalty;
+		$row->bluescore = $bect->score;
+		$row->bluepenalty = $bect->penalty;
 
+		$row->redetc = $retc;
+		$row->blueetc = $betc;
+
+		array_push($comps[$prevcomp]->rows, $row);
 	}
+
+	file_put_contents("full.json", json_encode($comps));
 
 
 ?>
