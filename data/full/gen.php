@@ -138,10 +138,10 @@
 
 		$row = new STDClass();
 
-		$row->red1 = $off["Red 1"][$i];
-		$row->red2 = $off["Red 2"][$i];
-		$row->blue1 = $off["Blue 1"][$i];
-		$row->blue2 = $off["Blue 2"][$i];
+		$row->red1 = (string) $off["Red 1"][$i];
+		$row->red2 = (string) $off["Red 2"][$i];
+		$row->blue1 = (string) $off["Blue 1"][$i];
+		$row->blue2 = (string) $off["Blue 2"][$i];
 
 		if($off["Red 1 Surrogate"] == 1) $row->red1 .= "*";
 		if($off["Red 2 Surrogate"] == 1) $row->red2 .= "*";

@@ -1,0 +1,324 @@
+division: Florida-qualifiers
+Neutrinos	10179	Turtles	143	5/5	10	100.0
+Neutrinos	10583	Robotic Gladiators	97	5/5	9	80.0
+Neutrinos	10413	Unknown	110	5/5	8	80.0
+Neutrinos	8859	Raider Tek	143	5/5	8	80.0
+Neutrinos	10497	Swampbots	211	5/5	8	80.0
+Neutrinos	9075	The Funky Bunch	211	5/5	7	60.0
+Neutrinos	10385	Titan Tech	97	5/5	7	60.0
+Neutrinos	10167	Catbots	93	5/5	6	60.0
+Neutrinos	9214	Rho Beta	97	5/5	6	60.0
+Neutrinos	10013	Master Builders	105	5/5	6	60.0
+Neutrinos	10768	Middleburg High School	87	5/5	5	40.0
+Neutrinos	10284	Team Robot	94	5/5	4	40.0
+Neutrinos	10670	Fatherboards	79	5/5	4	40.0
+Neutrinos	10277	Firewalls	82	5/5	4	40.0
+Neutrinos	8797	Avada Kedavra	58	5/5	4	40.0
+Neutrinos	8796	Blue Devil Bots	72	5/5	4	40.0
+Neutrinos	8798	Aluminati Industries	94	5/5	4	40.0
+Neutrinos	9932	Mechanical Eagles	33	5/5	3	20.0
+Neutrinos	10276	talknerdytome	92	5/5	3	20.0
+Neutrinos	10168	LJH Gatorbots	31	5/5	2	20.0
+Neutrinos	9937	Gamma-Rays	87	5/5	2	0.0
+Neutrinos	8799	Robo Tigers	41	5/5	2	20.0
+Neutrinos	9941	Ohana Robotica	80	5/5	2	20.0
+Neutrinos	9944	Mandarin High	72	5/5	2	20.0
+Neutrinos	1	9075 The Funky Bunch	10276 talknerdytome	9932 Mechanical Eagles	9937 Gamma-Rays	33	33
+Neutrinos	2	10284 Team Robot	10670 Fatherboards	10277 Firewalls	10583 Robotic Gladiators	35	80
+Neutrinos	3	9944 Mandarin High	10168 LJH Gatorbots	10013 Master Builders	10385 Titan Tech	31	97
+Neutrinos	4	10413 Unknown	10497 Swampbots	8796 Blue Devil Bots	8798 Aluminati Industries	43	28
+Neutrinos	5	10167 Catbots	10768 Middleburg High School	8799 Robo Tigers	9941 Ohana Robotica	69	41
+Neutrinos	6	9214 Rho Beta	8797 Avada Kedavra	8859 Raider Tek	10179 Tech Turtles	19	143
+Neutrinos	7	9932 Mechanical Eagles	10583 Robotic Gladiators	10013 Master Builders	8796 Blue Devil Bots	27	5
+Neutrinos	8	10413 Unknown	9944 Mandarin High	9075 The Funky Bunch	10284 Team Robot	26	33
+Neutrinos	9	9941 Ohana Robotica	10276 talknerdytome	8797 Avada Kedavra	10168 LJH Gatorbots	4	15
+Neutrinos	10	10768 Middleburg High School	8859 Raider Tek	10497 Swampbots	10670 Fatherboards	60	79
+Neutrinos	11	8799 Robo Tigers	9937 Gamma-Rays	9214 Rho Beta	8798 Aluminati Industries	7	55
+Neutrinos	12	10179 Tech Turtles	10167 Catbots	10277 Firewalls	10385 Titan Tech	93	82
+Neutrinos	13	10013 Master Builders	9941 Ohana Robotica	10413 Unknown	8859 Raider Tek	24	87
+Neutrinos	14	10583 Robotic Gladiators	9214 Rho Beta	9944 Mandarin High	10497 Swampbots	97	14
+Neutrinos	15	10385 Titan Tech	10276 talknerdytome	8799 Robo Tigers	10284 Team Robot	92	25
+Neutrinos	16	10670 Fatherboards	9075 The Funky Bunch	10167 Catbots	8797 Avada Kedavra	46	58
+Neutrinos	17	9932 Mechanical Eagles	8798 Aluminati Industries	10768 Middleburg High School	10179 Tech Turtles	3	84
+Neutrinos	18	10277 Firewalls	8796 Blue Devil Bots	10168 LJH Gatorbots	9937 Gamma-Rays	35	30
+Neutrinos	19	10583 Robotic Gladiators	8859 Raider Tek	10167 Catbots	10276 talknerdytome	69	38
+Neutrinos	20	10670 Fatherboards	10385 Titan Tech	8798 Aluminati Industries	9941 Ohana Robotica	61	33
+Neutrinos	21	10013 Master Builders	10179 Tech Turtles	9937 Gamma-Rays	10284 Team Robot	74	10
+Neutrinos	22	10277 Firewalls	9932 Mechanical Eagles	9214 Rho Beta	10413 Unknown	8	80
+Neutrinos	23	10168 LJH Gatorbots	8799 Robo Tigers	10497 Swampbots	9075 The Funky Bunch	31	211
+Neutrinos	24	8797 Avada Kedavra	10768 Middleburg High School	9944 Mandarin High	8796 Blue Devil Bots	34	72
+Neutrinos	25	10413 Unknown	10179 Tech Turtles	10276 talknerdytome	10670 Fatherboards	110	52
+Neutrinos	26	8798 Aluminati Industries	10284 Team Robot	10168 LJH Gatorbots	10167 Catbots	94	30
+Neutrinos	27	10385 Titan Tech	9937 Gamma-Rays	10583 Robotic Gladiators	10768 Middleburg High School	87	87
+Neutrinos	28	10013 Master Builders	10497 Swampbots	10277 Firewalls	8797 Avada Kedavra	105	33
+Neutrinos	29	9214 Rho Beta	8796 Blue Devil Bots	9941 Ohana Robotica	9075 The Funky Bunch	68	80
+Neutrinos	30	8799 Robo Tigers	8859 Raider Tek	9932 Mechanical Eagles	9944 Mandarin High	41	19
+Neutrinos	4997	Masquerade	436	11/11	22	100.0
+Neutrinos	3846	Maelstrom	436	11/11	22	100.0
+Neutrinos	7203	KNO3	221	10/10	12	60.0
+Neutrinos	7667	Stealth Tigers 2	226	11/11	12	54.5
+Neutrinos	2845	Duct Tape	226	11/11	10	45.5
+Neutrinos	10388	The Unscripted	231	7/7	8	57.1
+Neutrinos	7017	Legacy Robotics	332	7/7	8	57.1
+Neutrinos	10520	B.L.A.N.K.botics	226	9/9	8	44.4
+Neutrinos	3073	Massive D	337	9/9	6	33.3
+Neutrinos	8387	Biohazardous	126	7/7	6	42.9
+Neutrinos	6433	Neutrinos	379	9/9	6	33.3
+Neutrinos	2425	Hydra	193	7/7	6	42.9
+Neutrinos	9175	Warrior Bots	245	7/7	4	28.6
+Neutrinos	10204	The Robotic Bacon Eating Narwhales	79	7/7	4	28.6
+Neutrinos	7263	Technoknights	243	7/7	4	28.6
+Neutrinos	4960	Stealth Tigers	133	7/7	4	28.6
+Neutrinos	7719	Team RISE	168	7/7	2	14.3
+Neutrinos	1	10388 The Unscripted	4997 Masquerade	7017 Legacy Robotics	10520 B.L.A.N.K.botics	231	29
+Neutrinos	2	2425 Hydra	10204 The Robotic Bacon Eating Narwhales	3846 Maelstrom	4960 Stealth Tigers	12	98
+Neutrinos	3	7667 Stealth Tigers 2	9175 Warrior Bots	8387 Biohazardous	3073 Massive D	27	56
+Neutrinos	4	2845 Duct Tape	6433 Neutrinos	7263 Technoknights	7719 Team RISE	112	17
+Neutrinos	5	7203 KNO3	10520 B.L.A.N.K.botics	10204 The Robotic Bacon Eating Narwhales	7017 Legacy Robotics	146	25
+Neutrinos	6	3846 Maelstrom	7263 Technoknights	7719 Team RISE	3073 Massive D	83	3
+Neutrinos	7	7667 Stealth Tigers 2	2845 Duct Tape	9175 Warrior Bots	4997 Masquerade	187	245
+Neutrinos	8	8387 Biohazardous	4960 Stealth Tigers	10388 The Unscripted	7203 KNO3	18	161
+Neutrinos	9	2425 Hydra	7667 Stealth Tigers 2	6433 Neutrinos	10520 B.L.A.N.K.botics	49	4
+Neutrinos	10	7203 KNO3	3846 Maelstrom	7263 Technoknights	2845 Duct Tape	122	115
+Neutrinos	11	3073 Massive D	9175 Warrior Bots	4960 Stealth Tigers	10204 The Robotic Bacon Eating Narwhales	44	31
+Neutrinos	12	7017 Legacy Robotics	4997 Masquerade	8387 Biohazardous	2425 Hydra	332	12
+Neutrinos	13	7719 Team RISE	6433 Neutrinos	10388 The Unscripted	9175 Warrior Bots	168	41
+Neutrinos	14	3073 Massive D	7263 Technoknights	8387 Biohazardous	10520 B.L.A.N.K.botics	11	41
+Neutrinos	15	2425 Hydra	2845 Duct Tape	10204 The Robotic Bacon Eating Narwhales	10388 The Unscripted	51	77
+Neutrinos	16	4997 Masquerade	3846 Maelstrom	6433 Neutrinos	7203 KNO3	335	221
+Neutrinos	17	7719 Team RISE	4960 Stealth Tigers	7667 Stealth Tigers 2	7017 Legacy Robotics	42	53
+Neutrinos	18	3073 Massive D	2845 Duct Tape	2425 Hydra	7203 KNO3	164	193
+Neutrinos	19	7263 Technoknights	4997 Masquerade	9175 Warrior Bots	4960 Stealth Tigers	243	40
+Neutrinos	20	7719 Team RISE	8387 Biohazardous	10204 The Robotic Bacon Eating Narwhales	10520 B.L.A.N.K.botics	40	79
+Neutrinos	21	7017 Legacy Robotics	10388 The Unscripted	3846 Maelstrom	7667 Stealth Tigers 2	11	175
+Neutrinos	22	6433 Neutrinos	8387 Biohazardous	4960 Stealth Tigers	2845 Duct Tape	126	133
+Neutrinos	23	3846 Maelstrom	10520 B.L.A.N.K.botics	7203 KNO3	9175 Warrior Bots	226	117
+Neutrinos	24	7719 Team RISE	10388 The Unscripted	3073 Massive D	4997 Masquerade	33	337
+Neutrinos	25	2425 Hydra	7017 Legacy Robotics	7667 Stealth Tigers 2	7263 Technoknights	42	17
+Neutrinos	26	10204 The Robotic Bacon Eating Narwhales	3073 Massive D	6433 Neutrinos	4997 Masquerade	32	379
+Neutrinos	27	8387 Biohazardous	7203 KNO3	7719 Team RISE	2425 Hydra	118	33
+Neutrinos	28	4960 Stealth Tigers	10520 B.L.A.N.K.botics	2845 Duct Tape	3846 Maelstrom	37	216
+Neutrinos	29	7263 Technoknights	10204 The Robotic Bacon Eating Narwhales	10388 The Unscripted	7667 Stealth Tigers 2	27	121
+Neutrinos	30	6433 Neutrinos	9175 Warrior Bots	7017 Legacy Robotics	7203 KNO3	113	146
+Neutrinos	516	Gears of Fire	220	13/13	20	76.9
+Neutrinos	8908	Robo Mojo	260	11/11	18	81.8
+Neutrinos	6451	Tarpon Robotics	260	11/11	16	72.7
+Neutrinos	506	Pandara	220	13/13	14	53.8
+Neutrinos	10345	Tiny Tarps	175	11/11	10	45.5
+Neutrinos	409	Aluminati	242	11/11	10	45.5
+Neutrinos	3736	Serious Business	179	9/9	10	55.6
+Neutrinos	3830	Skynet	208	8/8	8	50.0
+Neutrinos	7524	Eiesenschrek	151	8/8	8	50.0
+Neutrinos	4163	RoboWarriors	122	8/8	6	37.5
+Neutrinos	3123	Spontaneous Combustion	170	8/8	6	37.5
+Neutrinos	3839	Fatal Error	189	8/8	6	37.5
+Neutrinos	6324	Twisted Circuits	129	8/8	6	37.5
+Neutrinos	7321	Charlotte Surge	179	9/9	4	22.2
+Neutrinos	3101	Boom Bots	109	8/8	2	12.5
+Neutrinos	1	4163 RoboWarriors	3101 Boom Bots	3736 Serious Business	10345 Tiny Tarps	51	63
+Neutrinos	2	7524 Eiesenschrek	3839 Fatal Error	6324 Twisted Circuits	506 Pandara	28	89
+Neutrinos	3	7321 Charlotte Surge	409 Aluminati	8908 Robo Mojo	3830 Skynet	87	208
+Neutrinos	4	516 Gears of Fire	6451 Tarpon Robotics	3123 Spontaneous Combustion	7524 Eiesenschrek	179	32
+Neutrinos	5	10345 Tiny Tarps	4163 RoboWarriors	3839 Fatal Error	506 Pandara	118	38
+Neutrinos	6	6324 Twisted Circuits	3830 Skynet	6451 Tarpon Robotics	8908 Robo Mojo	67	260
+Neutrinos	7	3101 Boom Bots	409 Aluminati	3123 Spontaneous Combustion	516 Gears of Fire	26	170
+Neutrinos	8	7321 Charlotte Surge	7524 Eiesenschrek	3736 Serious Business	6451 Tarpon Robotics	90	143
+Neutrinos	9	6324 Twisted Circuits	516 Gears of Fire	4163 RoboWarriors	3839 Fatal Error	129	57
+Neutrinos	10	3736 Serious Business	8908 Robo Mojo	10345 Tiny Tarps	3123 Spontaneous Combustion	111	102
+Neutrinos	11	506 Pandara	409 Aluminati	7321 Charlotte Surge	3101 Boom Bots	117	68
+Neutrinos	12	6324 Twisted Circuits	3123 Spontaneous Combustion	3830 Skynet	3736 Serious Business	17	45
+Neutrinos	13	7524 Eiesenschrek	506 Pandara	409 Aluminati	4163 RoboWarriors	129	91
+Neutrinos	14	10345 Tiny Tarps	3101 Boom Bots	6451 Tarpon Robotics	3830 Skynet	91	57
+Neutrinos	15	516 Gears of Fire	3839 Fatal Error	8908 Robo Mojo	7321 Charlotte Surge	189	123
+Neutrinos	16	3830 Skynet	3123 Spontaneous Combustion	4163 RoboWarriors	506 Pandara	14	60
+Neutrinos	17	3101 Boom Bots	8908 Robo Mojo	6324 Twisted Circuits	7524 Eiesenschrek	59	122
+Neutrinos	18	3839 Fatal Error	6451 Tarpon Robotics	409 Aluminati	3736 Serious Business	99	62
+Neutrinos	19	516 Gears of Fire	10345 Tiny Tarps	7321 Charlotte Surge	6324 Twisted Circuits	175	121
+Neutrinos	20	3123 Spontaneous Combustion	6451 Tarpon Robotics	3101 Boom Bots	3839 Fatal Error	118	58
+Neutrinos	21	3830 Skynet	7321 Charlotte Surge	4163 RoboWarriors	7524 Eiesenschrek	74	43
+Neutrinos	22	3736 Serious Business	506 Pandara	516 Gears of Fire	8908 Robo Mojo	81	210
+Neutrinos	23	409 Aluminati	7524 Eiesenschrek	10345 Tiny Tarps	6324 Twisted Circuits	151	83
+Neutrinos	24	4163 RoboWarriors	8908 Robo Mojo	3101 Boom Bots	6451 Tarpon Robotics	122	56
+Neutrinos	25	7321 Charlotte Surge	10345 Tiny Tarps	409 Aluminati	3123 Spontaneous Combustion	120	127
+Neutrinos	26	3830 Skynet	506 Pandara	516 Gears of Fire	3736 Serious Business	37	145
+Neutrinos	27	6324 Twisted Circuits	3101 Boom Bots	3839 Fatal Error	7321 Charlotte Surge	109	123
+Neutrinos	28	10345 Tiny Tarps	6451 Tarpon Robotics	506 Pandara	516 Gears of Fire	68	220
+Neutrinos	29	3839 Fatal Error	3123 Spontaneous Combustion	3830 Skynet	7524 Eiesenschrek	38	44
+Neutrinos	30	4163 RoboWarriors	3736 Serious Business	8908 Robo Mojo	409 Aluminati	55	242
+Neutrinos	619	Mecha Makos	223	11/11	22	100.0
+Neutrinos	6321	Roboraiders	223	11/11	20	90.9
+Neutrinos	10022	WiredCat Girls	116	10/10	14	70.0
+Neutrinos	10087	FatherBoards	231	9/9	14	77.8
+Neutrinos	7029	BOSCO's BOTS	137	11/11	12	54.5
+Neutrinos	9110	WiredCat Juniors	136	9/9	10	55.6
+Neutrinos	10366	WiredCats Future	231	9/9	8	44.4
+Neutrinos	7318	Phoenix Gears	102	7/7	6	42.9
+Neutrinos	7821	Reef Robotics	134	9/9	6	33.3
+Neutrinos	9987	Eaglebotics	75	7/7	4	28.6
+Neutrinos	10088	SharkBeta	116	7/7	4	28.6
+Neutrinos	6322	WiredCats	117	7/7	4	28.6
+Neutrinos	10130	Crown Joules	122	7/7	4	28.6
+Neutrinos	9986	NBPS EagleBotics 1	111	7/7	4	28.6
+Neutrinos	3888	Greased Lightning	114	7/7	2	14.3
+Neutrinos	5125	Raiderbots	73	7/7	2	14.3
+Neutrinos	1	10022 WiredCat Girls	9986 NBPS EagleBotics 1	9110 WiredCat Juniors	10087 FatherBoards	60	136
+Neutrinos	2	10130 Crown Joules	10088 SharkBeta	6322 WiredCats	5125 Raiderbots	56	40
+Neutrinos	3	7029 BOSCO's BOTS	3888 Greased Lightning	9987 Eaglebotics	10366 WiredCats Future	66	71
+Neutrinos	4	6321 Roboraiders	619 Mecha Makos	7318 Phoenix Gears	7821 Reef Robotics	142	38
+Neutrinos	5	3888 Greased Lightning	5125 Raiderbots	9110 WiredCat Juniors	6322 WiredCats	16	67
+Neutrinos	6	10366 WiredCats Future	10022 WiredCat Girls	619 Mecha Makos	7318 Phoenix Gears	95	102
+Neutrinos	7	10088 SharkBeta	7821 Reef Robotics	7029 BOSCO's BOTS	10087 FatherBoards	28	125
+Neutrinos	8	9987 Eaglebotics	10130 Crown Joules	6321 Roboraiders	9986 NBPS EagleBotics 1	53	54
+Neutrinos	9	9110 WiredCat Juniors	7821 Reef Robotics	7318 Phoenix Gears	10088 SharkBeta	134	51
+Neutrinos	10	10130 Crown Joules	6322 WiredCats	10366 WiredCats Future	10087 FatherBoards	33	231
+Neutrinos	11	5125 Raiderbots	9987 Eaglebotics	10022 WiredCat Girls	619 Mecha Makos	48	73
+Neutrinos	12	7029 BOSCO's BOTS	6321 Roboraiders	3888 Greased Lightning	9986 NBPS EagleBotics 1	137	33
+Neutrinos	13	6322 WiredCats	9987 Eaglebotics	10022 WiredCat Girls	9110 WiredCat Juniors	38	74
+Neutrinos	14	7029 BOSCO's BOTS	7318 Phoenix Gears	10130 Crown Joules	9986 NBPS EagleBotics 1	52	33
+Neutrinos	15	10088 SharkBeta	619 Mecha Makos	3888 Greased Lightning	6321 Roboraiders	116	114
+Neutrinos	16	10087 FatherBoards	7821 Reef Robotics	10366 WiredCats Future	5125 Raiderbots	124	28
+Neutrinos	17	619 Mecha Makos	9110 WiredCat Juniors	7029 BOSCO's BOTS	10130 Crown Joules	129	122
+Neutrinos	18	7318 Phoenix Gears	10022 WiredCat Girls	3888 Greased Lightning	10088 SharkBeta	64	33
+Neutrinos	19	10087 FatherBoards	6322 WiredCats	9987 Eaglebotics	7821 Reef Robotics	117	38
+Neutrinos	20	6321 Roboraiders	10366 WiredCats Future	9986 NBPS EagleBotics 1	5125 Raiderbots	63	2
+Neutrinos	21	10022 WiredCat Girls	3888 Greased Lightning	10130 Crown Joules	7821 Reef Robotics	74	66
+Neutrinos	22	9110 WiredCat Juniors	10366 WiredCats Future	10087 FatherBoards	6321 Roboraiders	70	137
+Neutrinos	23	7318 Phoenix Gears	5125 Raiderbots	7029 BOSCO's BOTS	9987 Eaglebotics	29	75
+Neutrinos	24	9986 NBPS EagleBotics 1	619 Mecha Makos	10088 SharkBeta	6322 WiredCats	111	36
+Neutrinos	25	10087 FatherBoards	5125 Raiderbots	7318 Phoenix Gears	3888 Greased Lightning	73	64
+Neutrinos	26	9987 Eaglebotics	10088 SharkBeta	10366 WiredCats Future	10130 Crown Joules	4	38
+Neutrinos	27	7029 BOSCO's BOTS	6322 WiredCats	10022 WiredCat Girls	6321 Roboraiders	64	116
+Neutrinos	28	9986 NBPS EagleBotics 1	9110 WiredCat Juniors	7821 Reef Robotics	619 Mecha Makos	16	111
+Neutrinos	4717	Mechromancers	423	10/10	18	90.0
+Neutrinos	7477	Super 7	423	10/10	18	90.0
+Neutrinos	6323	The Pink Team	432	10/10	16	80.0
+Neutrinos	8996	Pink Fluffy Bunnies	432	10/10	12	60.0
+Neutrinos	4227	Metal Morphosis	260	8/8	10	62.5
+Neutrinos	8945	Touch-Down!	275	8/8	10	62.5
+Neutrinos	7592	OHS Roarbots	270	8/8	8	50.0
+Neutrinos	10347	General Tech Andrew Jackson Middle School	260	6/6	6	50.0
+Neutrinos	9013	Merritt Island Matrix	271	6/6	6	50.0
+Neutrinos	8392	Lift-Off! Team 8392	182	6/6	4	33.3
+Neutrinos	9671	Tomahawk Technauts	186	6/6	4	33.3
+Neutrinos	10365	Pink Pelicans	205	5/5	2	20.0
+Neutrinos	7341	F.R.E.N.C.H. F.R.I.E.S.	151	8/8	2	12.5
+Neutrinos	10334	IfSpace Invaders	107	6/6	2	16.7
+Neutrinos	10379	General Mission Andrew Jackson Middle School	147	7/7	2	14.3
+Neutrinos	9800	HyperNovas	94	6/6	0	0.0
+Neutrinos	1	10347 General Tech Andrew Jackson Middle School	7477 Super 7	8392 Lift-Off! Team 8392	9800 HyperNovas	227	58
+Neutrinos	2	4717 Mechromancers	8945 Touch-Down!	9013 Merritt Island Matrix	10365 Pink Pelicans	197	97
+Neutrinos	3	10334 IfSpace Invaders	7341 F.R.E.N.C.H. F.R.I.E.S.	6323 The Pink Team	9671 Tomahawk Technauts	107	186
+Neutrinos	4	4227 Metal Morphosis	7592 OHS Roarbots	10379 General Mission Andrew Jackson Middle School	8996 Pink Fluffy Bunnies	84	80
+Neutrinos	5	7477 Super 7	6323 The Pink Team	4717 Mechromancers	10365 Pink Pelicans	380	205
+Neutrinos	6	10379 General Mission Andrew Jackson Middle School	4227 Metal Morphosis	7341 F.R.E.N.C.H. F.R.I.E.S.	9800 HyperNovas	147	39
+Neutrinos	7	8392 Lift-Off! Team 8392	10334 IfSpace Invaders	9013 Merritt Island Matrix	7592 OHS Roarbots	67	167
+Neutrinos	8	8996 Pink Fluffy Bunnies	8945 Touch-Down!	9671 Tomahawk Technauts	10347 General Tech Andrew Jackson Middle School	191	56
+Neutrinos	9	10334 IfSpace Invaders	10365 Pink Pelicans	9800 HyperNovas	10379 General Mission Andrew Jackson Middle School	64	39
+Neutrinos	10	8996 Pink Fluffy Bunnies	7341 F.R.E.N.C.H. F.R.I.E.S.	8392 Lift-Off! Team 8392	4717 Mechromancers	151	182
+Neutrinos	11	8945 Touch-Down!	9013 Merritt Island Matrix	4227 Metal Morphosis	7477 Super 7	38	260
+Neutrinos	12	9671 Tomahawk Technauts	7592 OHS Roarbots	6323 The Pink Team	10347 General Tech Andrew Jackson Middle School	125	203
+Neutrinos	13	8996 Pink Fluffy Bunnies	4227 Metal Morphosis	10334 IfSpace Invaders	7477 Super 7	243	95
+Neutrinos	14	9671 Tomahawk Technauts	9800 HyperNovas	7592 OHS Roarbots	4717 Mechromancers	65	270
+Neutrinos	15	10379 General Mission Andrew Jackson Middle School	8392 Lift-Off! Team 8392	6323 The Pink Team	8945 Touch-Down!	37	201
+Neutrinos	16	10347 General Tech Andrew Jackson Middle School	10365 Pink Pelicans	9013 Merritt Island Matrix	7341 F.R.E.N.C.H. F.R.I.E.S.	49	68
+Neutrinos	17	8392 Lift-Off! Team 8392	8945 Touch-Down!	10334 IfSpace Invaders	9800 HyperNovas	56	46
+Neutrinos	18	6323 The Pink Team	4717 Mechromancers	10347 General Tech Andrew Jackson Middle School	4227 Metal Morphosis	297	38
+Neutrinos	19	9013 Merritt Island Matrix	7477 Super 7	10379 General Mission Andrew Jackson Middle School	9671 Tomahawk Technauts	271	46
+Neutrinos	20	7341 F.R.E.N.C.H. F.R.I.E.S.	10379 General Mission Andrew Jackson Middle School	8996 Pink Fluffy Bunnies	7592 OHS Roarbots	63	185
+Neutrinos	21	4717 Mechromancers	10347 General Tech Andrew Jackson Middle School	10334 IfSpace Invaders	10379 General Mission Andrew Jackson Middle School	260	17
+Neutrinos	22	7341 F.R.E.N.C.H. F.R.I.E.S.	7592 OHS Roarbots	8945 Touch-Down!	7477 Super 7	110	275
+Neutrinos	23	4227 Metal Morphosis	9671 Tomahawk Technauts	10365 Pink Pelicans	8392 Lift-Off! Team 8392	184	92
+Neutrinos	24	9013 Merritt Island Matrix	9800 HyperNovas	6323 The Pink Team	8996 Pink Fluffy Bunnies	94	432
+Neutrinos	6364	Pulsatrix	167	12/12	22	91.7
+Neutrinos	5257	Eagle Robotics Xperience	167	12/12	18	75.0
+Neutrinos	6568	Jedi Knights	141	12/12	14	58.3
+Neutrinos	9498	Rover	103	10/10	12	60.0
+Neutrinos	10200	Team Titon	142	10/10	12	60.0
+Neutrinos	10743	Raptors	120	10/10	12	60.0
+Neutrinos	450	Children of the Swmap	107	10/10	10	50.0
+Neutrinos	9207	Skynet	134	12/12	8	33.3
+Neutrinos	9177	PRX	75	7/7	8	57.1
+Neutrinos	9497	RoboPotato	86	7/7	8	57.1
+Neutrinos	8551	Relentless	120	7/7	6	42.9
+Neutrinos	8754	Elektro	71	7/7	6	42.9
+Neutrinos	7509	Blazer Robotics	81	7/7	6	42.9
+Neutrinos	10745	Garage Girls	65	7/7	4	28.6
+Neutrinos	10746	Titan	78	7/7	4	28.6
+Neutrinos	10296	OTUS	95	7/7	4	28.6
+Neutrinos	10263	Scuderia Civetta	57	8/8	4	25.0
+Neutrinos	10606	Batman	93	8/8	2	12.5
+Neutrinos	1	450 Children of the Swmap	9207 Skynet	5257 Eagle Robotics Xperience	6364 Pulsatrix	107	124
+Neutrinos	2	10746 Titan	9498 Rover	8754 Elektro	10745 Garage Girls	61	65
+Neutrinos	3	9177 PRX	9497 RoboPotato	10296 OTUS	10606 Batman	39	6
+Neutrinos	4	8551 Relentless	10263 Scuderia Civetta	7509 Blazer Robotics	6568 Jedi Knights	23	52
+Neutrinos	5	10200 Team Titon	10606 Batman	10743 Raptors	9498 Rover	93	103
+Neutrinos	6	10263 Scuderia Civetta	10745 Garage Girls	450 Children of the Swmap	5257 Eagle Robotics Xperience	3	77
+Neutrinos	7	6364 Pulsatrix	10296 OTUS	8551 Relentless	10746 Titan	85	17
+Neutrinos	8	6568 Jedi Knights	10200 Team Titon	8754 Elektro	9497 RoboPotato	118	58
+Neutrinos	9	9207 Skynet	10743 Raptors	7509 Blazer Robotics	9177 PRX	82	55
+Neutrinos	10	6364 Pulsatrix	9498 Rover	6568 Jedi Knights	8754 Elektro	41	39
+Neutrinos	11	10296 OTUS	10200 Team Titon	7509 Blazer Robotics	450 Children of the Swmap	17	29
+Neutrinos	12	10606 Batman	10263 Scuderia Civetta	10745 Garage Girls	8551 Relentless	9	59
+Neutrinos	13	10743 Raptors	9497 RoboPotato	10746 Titan	9207 Skynet	55	34
+Neutrinos	14	5257 Eagle Robotics Xperience	8754 Elektro	9177 PRX	10606 Batman	16	59
+Neutrinos	15	9207 Skynet	10296 OTUS	9498 Rover	10263 Scuderia Civetta	17	49
+Neutrinos	16	8551 Relentless	10743 Raptors	450 Children of the Swmap	9497 RoboPotato	120	52
+Neutrinos	17	6568 Jedi Knights	10746 Titan	5257 Eagle Robotics Xperience	10200 Team Titon	41	142
+Neutrinos	18	7509 Blazer Robotics	6364 Pulsatrix	9177 PRX	10745 Garage Girls	81	59
+Neutrinos	19	10746 Titan	450 Children of the Swmap	9207 Skynet	10606 Batman	49	42
+Neutrinos	20	10745 Garage Girls	7509 Blazer Robotics	9497 RoboPotato	6568 Jedi Knights	44	76
+Neutrinos	21	9177 PRX	8551 Relentless	9498 Rover	10200 Team Titon	64	88
+Neutrinos	22	8754 Elektro	10743 Raptors	10296 OTUS	10263 Scuderia Civetta	71	7
+Neutrinos	23	5257 Eagle Robotics Xperience	9498 Rover	6364 Pulsatrix	9497 RoboPotato	43	86
+Neutrinos	24	10606 Batman	450 Children of the Swmap	9177 PRX	6568 Jedi Knights	54	75
+Neutrinos	25	10200 Team Titon	6364 Pulsatrix	10263 Scuderia Civetta	10743 Raptors	103	43
+Neutrinos	26	8754 Elektro	10296 OTUS	10745 Garage Girls	9207 Skynet	31	29
+Neutrinos	27	5257 Eagle Robotics Xperience	10746 Titan	7509 Blazer Robotics	8551 Relentless	78	77
+Neutrinos	28	10745 Garage Girls	10606 Batman	9207 Skynet	10200 Team Titon	9	107
+Neutrinos	29	9498 Rover	9177 PRX	10263 Scuderia Civetta	10746 Titan	54	13
+Neutrinos	30	7509 Blazer Robotics	8754 Elektro	8551 Relentless	450 Children of the Swmap	69	81
+Neutrinos	31	5257 Eagle Robotics Xperience	6568 Jedi Knights	10743 Raptors	10296 OTUS	141	95
+Neutrinos	32	9497 RoboPotato	10606 Batman	6364 Pulsatrix	10263 Scuderia Civetta	45	57
+Neutrinos	7826	C:HAWKS	288	9/9	16	88.9
+Neutrinos	9930	Robo-Knights	288	9/9	16	88.9
+Neutrinos	9779	PIEaters	380	9/9	12	66.7
+Neutrinos	5937	Renaissance Robotics	380	9/9	12	66.7
+Neutrinos	7142	Decpetidogs	192	7/7	8	57.1
+Neutrinos	6327	Fetch	126	8/8	8	50.0
+Neutrinos	10085	The Little Squad on the Praire	112	7/7	8	57.1
+Neutrinos	6090	Rock Star Robotics	231	7/7	6	42.9
+Neutrinos	5070	N.U.T.S.	127	5/5	6	60.0
+Neutrinos	8601	Godly Gears	81	5/5	6	60.0
+Neutrinos	10027	Alpha Dawgs	198	5/5	4	40.0
+Neutrinos	3939	Bolts of Steel	130	5/5	4	40.0
+Neutrinos	9277	Team HazMat Explosives	238	5/5	4	40.0
+Neutrinos	10650	Team Hazmat	69	5/5	2	20.0
+Neutrinos	7141	Dawgs of Steel	127	5/5	2	20.0
+Neutrinos	8989	Kiwi Krew	187	5/5	2	20.0
+Neutrinos	8614	Olympia Robotic Titan	223	5/5	2	20.0
+Neutrinos	7579	B.E.A.R.S.	72	5/5	2	20.0
+Neutrinos	10050	Raccoon Robtics	84	5/5	0	0.0
+Neutrinos	1	6090 Rock Star Robotics	7141 Dawgs of Steel	6327 Fetch	5937 Renaissance Robotics	21	54
+Neutrinos	2	3939 Bolts of Steel	10050 Raccoon Robtics	10650 Team Hazmat	7826 C:HAWKS	48	69
+Neutrinos	3	10027 Alpha Dawgs	9930 Robo-Knights	9779 PIEaters	9277 Team HazMat Explosives	162	238
+Neutrinos	4	8989 Kiwi Krew	7579 B.E.A.R.S.	10085 The Little Squad on the Praire	7142 Decpetidogs	2	13
+Neutrinos	5	8614 Olympia Robotic Titan	5070 N.U.T.S.	8601 Godly Gears	9930 Robo-Knights	20	81
+Neutrinos	6	6327 Fetch	9779 PIEaters	7579 B.E.A.R.S.	10050 Raccoon Robtics	25	12
+Neutrinos	7	6090 Rock Star Robotics	10085 The Little Squad on the Praire	8614 Olympia Robotic Titan	10027 Alpha Dawgs	86	12
+Neutrinos	8	10650 Team Hazmat	8989 Kiwi Krew	5070 N.U.T.S.	7141 Dawgs of Steel	12	127
+Neutrinos	9	7826 C:HAWKS	7142 Decpetidogs	8601 Godly Gears	5937 Renaissance Robotics	192	75
+Neutrinos	10	3939 Bolts of Steel	10085 The Little Squad on the Praire	9277 Team HazMat Explosives	7141 Dawgs of Steel	112	4
+Neutrinos	11	6327 Fetch	7142 Decpetidogs	10027 Alpha Dawgs	7826 C:HAWKS	30	69
+Neutrinos	12	9277 Team HazMat Explosives	10050 Raccoon Robtics	8989 Kiwi Krew	8601 Godly Gears	28	32
+Neutrinos	13	9779 PIEaters	3939 Bolts of Steel	8614 Olympia Robotic Titan	5937 Renaissance Robotics	130	223
+Neutrinos	14	7579 B.E.A.R.S.	10650 Team Hazmat	9930 Robo-Knights	6090 Rock Star Robotics	58	170
+Neutrinos	15	5937 Renaissance Robotics	10027 Alpha Dawgs	5070 N.U.T.S.	10050 Raccoon Robtics	198	84
+Neutrinos	16	7141 Dawgs of Steel	8614 Olympia Robotic Titan	7826 C:HAWKS	7579 B.E.A.R.S.	20	72
+Neutrinos	17	9930 Robo-Knights	6327 Fetch	8989 Kiwi Krew	3939 Bolts of Steel	126	15
+Neutrinos	18	7142 Decpetidogs	5070 N.U.T.S.	9277 Team HazMat Explosives	6090 Rock Star Robotics	43	24
+Neutrinos	19	8601 Godly Gears	10650 Team Hazmat	9779 PIEaters	10085 The Little Squad on the Praire	23	97
+Neutrinos	20	10050 Raccoon Robtics	7141 Dawgs of Steel	7142 Decpetidogs	9930 Robo-Knights	26	142
+Neutrinos	21	8989 Kiwi Krew	7826 C:HAWKS	6090 Rock Star Robotics	9779 PIEaters	187	231
+Neutrinos	22	5937 Renaissance Robotics	5070 N.U.T.S.	6327 Fetch	10085 The Little Squad on the Praire	80	35
+Neutrinos	23	8601 Godly Gears	3939 Bolts of Steel	10027 Alpha Dawgs	7579 B.E.A.R.S.	65	32
+Neutrinos	24	9277 Team HazMat Explosives	6327 Fetch	10650 Team Hazmat	8614 Olympia Robotic Titan	101	34

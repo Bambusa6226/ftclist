@@ -1,3 +1,26 @@
+<?php
+	if(isset($_POST['longitude']))
+	{
+
+		$long = $_POST['longitude'];
+		$lat = $_POST['latitude'];
+		$time = $_POST['timestamp'];
+
+
+		$newrow = new STDClass();
+		$newrow->longitude = $long;
+		$newrow->latitude = $lat;
+		$newrow->timestamp = $time;
+
+		file_put_contents("loc.json", json_encode($newrow));
+		echo "New Position Saved.";
+		die;
+	}	
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,39 +31,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100' rel='stylesheet' type='text/css'>
 	<script src="./jquery.js"></script>
-	<script src="./jayex/d3.min.js"></script>
-	<script src="./bootstrap"
 
 	<script>
 
 	var mpd = 68.91;
-	var name = undefined;
-	var lat = 0;
-	var lon = 0;
 
 	$("document").ready(function() {
 
-		// check cookies
-		if(readCookie("name") != null)
-		{
-			$("#intro").css("display", "none");
-			$("#tap").css("display", "inline");
-			name = readCookie("name");
+		navigator.geolocation.watchPosition(watch, function() {document.write("need location")});
 
-		}
-		else
-		{
-		}
-
-		$("#send").click(function() {
-			createCookie("name", $("#name").val(), 30);
-			$("#intro").css("display", "none");
-			$("#tap").css("display", "inline");
-			name = $("#name").val();
-		});
-
-
-		$("#tap").click(function() {
+		$("#reset").click(function() {
 			navigator.geolocation.getCurrentPosition(
      			processGeolocation,
      			geolocationError,
@@ -56,9 +56,8 @@
 function processGeolocation(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
-	$.post("./backend.php", 
+	$.post("./ct.php", 
 		{
-			"name":readCookie("name"),
 			"latitude":position.coords.latitude,
 			"longitude": position.coords.longitude,
 			"timestamp": position.timestamp
@@ -66,9 +65,62 @@ function processGeolocation(position) {
 	, draw);
 }
 
+function watch(pos)
+{
+	var crd = pos.coords;
+	rng = Math.random();
+	$.getJSON("./loc.json?rng="+rng, function(resp)
+	{
+		// okay so now we have two coords to compare...
+
+		var magx = resp.longitude-crd.longitude;
+		var magy = resp.latitude-crd.latitude;
+		var mag = Math.sqrt((magx*magx)+(magy*magy))*mpd;
+		var dir = (180*Math.atan2(magy,magx))/Math.PI;
+
+		if(dir < 0) dir += 360;
+		
+		$("#dist").text(mag.toFixed(1));
+		if(dir > 0 && dir < 90)
+		{
+			$("#sig").text("N of E");
+		}
+		else if(dir < 180)
+		{
+			$("#sig").text("N of W");
+			dir -= 90;
+			dir = 90 - dir;
+		}
+		else if(dir < 270)
+		{
+			$("#sig").text("S of W");
+			dir -= 180;
+		}
+		else if(dir < 360)
+		{
+			$("#sig").text("S of E");
+			dir -= 270;
+			dir = 90 - dir;
+		}
+
+		$("#dir").html(dir.toFixed(0)+"&deg;");
+
+		$("#yours").text("("+crd.longitude+", "+crd.latitude+")");
+
+		$("#targ").text("("+resp.longitude+", "+resp.latitude+")");
+
+		$("#info").text("Its working.");
+
+		console.log("updating");
+	})
+
+}
+
 function draw(resp)
 {
-	resp = JSON.parse(resp);
+	$("#info").text(resp);
+
+	/*resp = JSON.parse(resp);
 	console.log(resp);
 	$("#texts").empty();
 	$("#points").empty();
@@ -87,7 +139,7 @@ function draw(resp)
 		console.log((screen.width/2)-xpos);
 		console.log((screen.height/2)-ypos);
 		drawPoint(xpos, ypos, resp[a].name+"<br/>"+toDecimal((mag*mpd), 2)+" mi<br/>"+Math.round((unix()-(resp[a].timestamp/1000))/60)+" min");
-	}
+	}*/
 }
 
 
@@ -187,6 +239,38 @@ svg {
 	margin: 0;
 }
 
+#svg {
+}
+
+#html {
+	height: 100%;
+}
+
+div {
+	text-align: center;
+}
+
+.page-header {
+	text-align: left;
+}
+
+.stats {
+	padding-top: 32px;
+	height: 100%;
+}
+
+.num {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	font-size: 58px;
+	font-weight: 100;
+}
+.des {
+	margin-top: -14px;
+	color: #000;
+	font-size: 22px;
+}
+
 
 	</style>
 
@@ -194,30 +278,58 @@ svg {
 </head>
 <body>
 	<div class="container">
-		<h1 class="page-header">Car Tag</h1>
+		<h1 class="page-header">Car Tag Beta</h1>
 
 		<div class="row">
-			<div class="col-xs-6">
-				<button type="button" class="btn btn-primary btn-large btn-block">Set Car Location</button>
+			<div class="col-xs-12">
+				<button id="reset" type="button" class="btn btn-primary btn-large btn-block">Set Position to Current Location</button>
 			</div>
+		</div>
+		
+		<div class="row stats">
 			<div class="col-xs-6">
-				<button type="button" class="btn btn-primary btn-large btn-block">Find Hidden Car</button>
-		<div id="intro">
-			Name: 	
-			<input type="text" id="name"><button type="button" id="send">Begin</button>
-			</div> 
-			<button type="button" id="tap" style="display: none; position: absolute; top: 10px;right: 10px;">Get Location</button>
-			<div id="texts">
-
-			</div>
-			<svg style="z-index: -1;">
-				<g id="points">
-
-				</g>
-			</svg>
-
-
+				<div class="num" id="dir">
+					? &deg;
 				</div>
+				<div class="des" id="sig">
+					? of ?
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="num" id="dist">
+					?
+				</div>
+				<div class="des">
+					Miles
+				</div>
+			</div>
+		</div>
+
+		<div class="row stats">
+			<div class="col-xs-12">
+				<div class="num" id="yours" style="font-size: 18pt;margin-bottom: 5px;">
+					?
+				</div>
+				<div class="des">
+					You
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="num" id="targ" style="font-size: 18pt;margin-bottom: 5px;">
+					?
+				</div>
+				<div class="des">
+					Target
+				</div>
+			</div>
+		</div>
+
+		<div class="row" style="position:absolute;bottom:18px;width:100%">
+			<div class="col-xs-12">
+				<div id="info" class="help-block">Loading position information ...</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
